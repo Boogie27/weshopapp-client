@@ -77,7 +77,7 @@ function App() {
 
   const fetchDemo = () => {
     Axios.get(url('/api/demo')).then((request, response) => {
-      return console.log('yes')
+      return alertMessage("Backend functioning successfully!", 5000)
     })
   }
 
