@@ -32,8 +32,7 @@ const current_user = {
 
 
 const url = (string) => {
-    // return 'http://localhost:3001' + string
-    return 'https://weshopapp-server.herokuapp.com/' + string
+    return 'http://localhost:3001' + string
 }
 
 

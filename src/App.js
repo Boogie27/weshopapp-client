@@ -71,7 +71,15 @@ function App() {
     userAppState(user)
     fetchCartItems()
     fetchWishlistItems()
+    fetchDemo()
   }, [])
+
+
+  const fetchDemo = () => {
+    Axios.get(url('/api/demo')).then((request, response) => {
+      return console.log(response.data.data)
+    })
+  }
 
   
 
