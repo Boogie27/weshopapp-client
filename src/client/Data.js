@@ -31,7 +31,7 @@ const current_user = {
 
 
 
-const url = (string) => {
+const url = (string = null) => {
     let production = 'https://weshopapp-server.herokuapp.com'
     const development = 'http://localhost:3001' 
     const url = window.location.href.split('/')[2]
@@ -124,7 +124,13 @@ const reload = () => {
 
 
 const page_url = () => {
-    return window.location.href
+    let link = ''
+    const pagelink =  window.location.href
+    const currentUrl = pagelink.split(url(''))
+    if(currentUrl.length > 1){
+        link = currentUrl[1]
+    }
+    return link
 }
 
 

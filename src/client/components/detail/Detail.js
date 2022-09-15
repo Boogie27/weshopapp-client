@@ -343,7 +343,7 @@ const Detail = ({user, addToCart, alertError, alertMessage, addToWishlist}) => {
                              />
                              {
                                  relatedProducts.length > 0 ? (
-                                     <RelatedProducts relatedProducts={relatedProducts} showQuickView={showQuickView}/>
+                                     <RelatedProducts user={user} addToWishlist={addToWishlist} relatedProducts={relatedProducts} showQuickView={showQuickView}/>
                                  ) : null
                              }
                              
