@@ -29,14 +29,12 @@ const FeaturedFloatItems = ({user, addToWishlist, featuredProduct, showQuickView
     }
 
     const addItemToWishList = () => {
+     
       const item = {
         user_id: user._id,
         product_id: featuredProduct._id,
         old_url: page_url()
       }
-
-
-      
       return addToWishlist(item)
     }
   

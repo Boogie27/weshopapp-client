@@ -1,6 +1,12 @@
 import Axios from 'axios'
 import Cookies from 'js-cookie'
 
+let production = 'https://weshopapp-server.herokuapp.com'
+
+const development = 'http://localhost:3000'
+
+const databaseURI = 'http://localhost:3001'
+
 const logo = 'asset/client/logo/logo.png'
 
 const moneySign = '£'
@@ -31,13 +37,11 @@ const current_user = {
 
 
 
-const url = (string = null) => {
-    let production = 'https://weshopapp-server.herokuapp.com'
-    const development = 'http://localhost:3001' 
+const url = (string = null) => { 
     const url = window.location.href.split('/')[2]
     const url_name = url.split(':')[0]
     if(url_name == 'localhost'){
-        return development + string
+        return databaseURI + string
     }
     return production + string
 }
@@ -125,13 +129,18 @@ const reload = () => {
 
 const page_url = () => {
     let link = ''
-    const pagelink =  window.location.href
-    const currentUrl = pagelink.split(url(''))
+    const currentUrl = window.location.href.split(development)
     if(currentUrl.length > 1){
-        link = currentUrl[1]
+      link = currentUrl[1]
     }
     return link
 }
+
+
+
+
+
+
 
 
 export {
