@@ -45,6 +45,7 @@ const Cart = ({user, cart, setCart, addToCart, notify_success, notify_error}) =>
    
     useEffect(() => {
         fetchShoppingCart()
+        preloaderToggle(true, 'Fetching Cart, Please Wait...', 3000)
     }, [])
 
 
@@ -122,6 +123,12 @@ const Cart = ({user, cart, setCart, addToCart, notify_success, notify_error}) =>
 
 
 
+    const preloaderToggle = (state, text, time) => {
+        setIsLoading({loading: state, text: ''})
+        setTimeout(() => {
+            setIsLoading({loading: false, text: ''})
+        }, time)
+    }
 
     
 

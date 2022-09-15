@@ -1,11 +1,20 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import Axios from 'axios'
+import { banner_img } from '../../Data'
 
 
+
+const banner = [
+    {
+        header: 'VIRTUAL REALITY GEAR CONTROLLER UPTO <b>40% OFF</b>',
+        link: '/',
+        image: '1.jpg'
+    }
+]
 
 
 const Banner = ({appState}) => {
+    // make banner slider
     return (
       <div className={`banner-container ${appState && 'active'}`}>
           <div className="inner-banner">
@@ -18,7 +27,9 @@ const Banner = ({appState}) => {
                       <li className="banner-button"><NavLink to="/">SHOP NOW</NavLink></li>
                   </ul>
               </div>
-              <div className="banner-right">hello</div>
+              <div className="banner-right">
+                <img src={banner_img('2.jpg')} alt=""/>
+              </div>
           </div>
       </div>
     )

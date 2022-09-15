@@ -7,7 +7,7 @@ import {
   faHeart,
   faCartShopping
 } from '@fortawesome/free-solid-svg-icons'
-import { url, userImageURL, moneySign, productImageURL} from '../../Data'
+import { url, userImageURL, money, productImageURL} from '../../Data'
 import FeaturedFloatItems from './FeaturedFloatItems'
 
 
@@ -18,7 +18,8 @@ import FeaturedFloatItems from './FeaturedFloatItems'
 
 
 
-const FeaturedProduct = ({addToCart, featuredProduct, showQuickView}) => {
+const FeaturedProduct = ({user, addToWishlist, addToCart, featuredProduct, showQuickView}) => {
+
   return (
       <div className="latest-p-container">
         <div className="latest-p-item">
@@ -39,18 +40,18 @@ const FeaturedProduct = ({addToCart, featuredProduct, showQuickView}) => {
                   {featuredProduct.product_desc.substr(1, 80) + '...'}
                 </NavLink>
               </li>
-              <li className="product-price">{moneySign + featuredProduct.price}</li>
+              <li className="product-price">{money(featuredProduct.price)}</li>
               <li className="latest-pb-button">
-                <ProductLinksOne addToCart={addToCart} featuredProduct={featuredProduct}/>
+                <ProductLinksOne addToWishlist={addToWishlist} addToCart={addToCart} featuredProduct={featuredProduct}/>
               </li>
             </ul>
           </div>
           <div className="float-item-container">
-            <FeaturedFloatItems featuredProduct={featuredProduct} showQuickView={showQuickView}/>
+            <FeaturedFloatItems user={user} addToWishlist={addToWishlist} featuredProduct={featuredProduct} showQuickView={showQuickView}/>
           </div>
         </div>
         <div className="product-link-two">
-          <ProductLinksTwo showQuickView={showQuickView} featuredProduct={featuredProduct}/>
+          <ProductLinksTwo addToWishlist={addToWishlist} showQuickView={showQuickView} featuredProduct={featuredProduct}/>
         </div>
       </div>
   )
@@ -104,10 +105,11 @@ const ProductLinksOne = ({addToCart, featuredProduct}) => {
   
   
   
-const ProductLinksTwo = ({ showQuickView, featuredProduct }) => {
+const ProductLinksTwo = ({addToWishlist, showQuickView, featuredProduct }) => {
+
   return (
     <div className="product-link-body">
-      <div className="cart-icon"><FontAwesomeIcon  icon={faHeart} /></div>
+      <div className="cart-icon"><FontAwesomeIcon icon={faHeart} /></div>
       <div className="cart-icon"><FontAwesomeIcon  onClick={() => showQuickView(featuredProduct)} icon={faEye} /></div>
       <div className="cart-icon"><FontAwesomeIcon  icon={faCartShopping} /></div>
     </div>

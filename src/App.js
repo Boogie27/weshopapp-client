@@ -118,7 +118,7 @@ function App() {
   const logoutUser = (e) => {
     e.preventDefault()
     if(user && token){
-      setIsLoading({state: true, text: 'Logout user, Please wait...'})
+      setIsLoading({state: false, text: 'Processing Logout...'})
       Axios.get(url(`/api/logout?id=${user._id}`)).then((response) => {
         if(response.data){
           alertMessage("Logout successfully!", 5000) //set logout success alertMessage
@@ -129,7 +129,7 @@ function App() {
         setUser(false)
         fetchCartItems()
         fetchWishlistItems()
-        setIsLoading({state: false, text: ''})
+        preloaderToggle(true, 'Logging out user, Please wait...', 3000)
       })
     }
   }
@@ -141,6 +141,16 @@ function App() {
         setMessage('')
       }, time)
   }
+
+
+
+   // set and remove preloader
+   const preloaderToggle = (state, text, time) => {
+      setIsLoading({state: state, text: text})
+      setTimeout(() => {
+          setIsLoading({state: false, text: ''})
+      }, time)
+    }
 
 
   const alertError = (string, time) => {
@@ -213,7 +223,9 @@ function App() {
     }
     if(token != undefined){
       Axios.get(url(`/api/fetch-wishlist-items/${token}`)).then((response) => {
-        return setWishlist(response.data)
+        if(response.data){
+          return setWishlist(response.data)
+        }
       })
     }
     setWishlist([])
@@ -243,6 +255,8 @@ function App() {
     })
   }
 
+
+  
 
 
   const notify_success = (string) => {
@@ -282,10 +296,10 @@ const notify_error = (string) => {
         {errorAlert && <AlertDanger alert={errorAlert}/>}
       </div>
       <Routes>
-          <Route path="/" element={<Home appState={appState} addToCart={addToCart}/>}/>
+          <Route path="/" element={<Home user={user} addToWishlist={addToWishlist} appState={appState} addToCart={addToCart}/>}/>
           <Route path="/detail" element={<Detail addToWishlist={addToWishlist} user={user} addToCart={addToCart} alertError={alertError} alertMessage={alertMessage}/>}/>
           <Route path="/cart" element={<Cart user={user} cart={cart} setCart={setCart} addToCart={addToCart} notify_success={notify_success} notify_error={notify_error}/>}/>
-          <Route path="/wishlist" element={<Wishlist/>}/>
+          <Route path="/wishlist" element={<Wishlist wishlist={wishlist} setWishlist={setWishlist}/>}/>
           <Route path="/login" element={<Login fetchWishlistItems={fetchWishlistItems} alertMessage={alertMessage} fetchCartItems={fetchCartItems} setUser={setUser} isLoading={isLoading} setIsLoading={setIsLoading}/>}/>
           <Route path="/register" element={<Register alertMessage={alertMessage} setUser={setUser} isLoading={isLoading} setIsLoading={setIsLoading}/>}/>
       </Routes>

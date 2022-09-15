@@ -11,7 +11,9 @@ dark-mode: border: 1px solid rgb(99, 99, 99);
 
 
 
-
+.btn-orange{
+    color: rgb(224, 157, 32);
+}
 h1, h2, h3, h4, h5, h6, p, li, a{
     color: #424242;
     font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
@@ -123,14 +125,30 @@ a{
     font-weight: bold;
     margin-top: 20px;
     border-radius: 3px;
-    transition: background-color 0.3s ease;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
     background-color: rgb(151, 40, 40);
 }
 .body-modal button:hover{
-    background-color: rgb(187, 48, 48);
+    border: 1px solid rgb(187, 48, 48);
+    background-color: rgb(192, 92, 92);
+}
+.body-modal button:hover .icon{
+    transform: scale(1.30)
+}
+.body-modal button.add{
+    background-color: rgb(224, 157, 32)
+}
+.body-modal button.add:hover{
+    border: 1px solid rgb(224, 157, 32);
+    background-color: rgb(250, 195, 93);
+}
+.body-modal button.add:hover .icon{
+    transform: scale(1.30)
 }
 .body-modal button .icon{
     margin: 0px 10px;
+    transition: all 0.3s ease;
 }
 .parent-container.active .modal-dropdown-body{
     background-color: rgb(37, 37, 37);
@@ -652,9 +670,9 @@ a{
 .inner-banner{
     width: 90%;
     display: flex;
-    height: 400px;
+    height: 90vh;
     margin: 0 auto;
-    padding: 0px 70px;
+    position: relative;
     border-radius: 10px;
     align-items: center;
     background-color: rgb(233, 233, 233);
@@ -662,6 +680,24 @@ a{
 }
 .banner-container.active .inner-banner{
     background-color: #333;
+}
+.banner-right{
+    z-index: 0;
+    left: 0px;
+    width: 100%;
+    height: 90vh;
+    position: absolute;
+}
+.banner-right img{
+    width: 100%;
+    height: 100%;
+    filter: brightness(70%);
+    background-size: auto;
+}
+.banner-left{
+    z-index: 20;
+    padding: 0px 50px;
+    position: relative;
 }
 .banner-left .banner-button a{
     cursor: pointer;
@@ -684,14 +720,15 @@ a{
 .banner-text h4{
     font-size: 18px;
     font-weight: 500;
-    color: rgb(56, 56, 170);
+    color: rgb(8, 8, 248);
 }
 .banner-header{
     width: 50%;
     height: 150px;
 }
 .banner-header h4{
-    width: 500px;
+    color: #fff;
+    width: 600px;
     font-size: 40px;
     font-weight: 500;
     position: absolute;
@@ -700,9 +737,13 @@ a{
     margin: 20px 0px;
 }
 @media only screen and (max-width: 1125px){
-.inner-banner{
-    width: 95%;
-}
+    .inner-banner, .banner-right{
+        width: 100%;
+        height: 70vh
+    }
+    .banner-container{
+        padding: 40px 0px;
+    }
 }
 
 @media only screen and (max-width: 992px){
@@ -723,6 +764,9 @@ a{
         font-size: 30px;
         position: static;
     }
+    .inner-banner, .banner-right{
+        height: 60vh
+    }
 }
 @media only screen and (max-width: 567px){
     .banner-header h4{
@@ -733,6 +777,9 @@ a{
     }
     .banner-left ul{
         padding: 0px;
+    }
+    .inner-banner, .banner-right{
+        height: 50vh
     }
 }
 /* **************HOME************************* */
@@ -2486,10 +2533,95 @@ tr.cart-items-detail td{
 /* *************** WISHLIST SECTION ************* */
 .wishlist-container{
     width: 100%;
-    height: 70vh;
+    min-height: 70vh;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.wishlist-items{
+    width: 100%;
+    margin: 50px 0px;
+    padding: 0px 20px;
+}
+.wishlist-items .title-header{
+    text-align: center;
+    margin-bottom: 20px;
+}
+.wishlist-items .table{
+    border: 1px solid rgb(235, 235, 235);
+}
+.wishlist-items .table thead{
+    color: #555;
+    background-color: rgb(241, 241, 241);
+    border-bottom: 2px solid #ccc;
+}
+.wishlist-items td{
+    color: #555;
+}
+.wishlist-items td img{
+    width: 100px;
+}
+.wishlist-items .content{
+    top: 40px;
+    position: relative;
+}
+.wishlist-items .content a:hover{
+    color: #555;
+}
+.wishlist-items .content button{
+    color:  #fff;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 50px;
+    padding: 5px 10px;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    background-color: rgb(224, 157, 32);
+}
+.wishlist-items .content button:hover{
+    background-color: rgb(253, 192, 80);
+    border: 1px solid rgb(224, 157, 32);
+}
+.wishlist-items .content .added{
+    color: green;
+    font-size: 12px;
+    margin-top: 6px;
+}
+.wishlist-items .content button .icon{
+    transition: all 0.2s ease;
+    margin-right: 7px;
+}
+.wishlist-items .content button:hover .icon{
+    transform: scale(1.30);
+}
+.wishlist-items .content span{
+    color: red;
+    font-weight: 500;
+}
+.wishlist-items .content span.active{
+    color: rgb(9, 211, 9);
+}
+.wishlist-total{
+    padding: 10px 10px;
+    border: 1px solid rgb(219, 219, 219);
+}
+.wishlist-total .icon{
+    cursor: pointer;
+    margin: 0px 5px;
+    padding: 5px 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    transition: all 0.2s ease;
+}
+
+.wishlist-total .icon:hover{
+    color: #fff;
+    background-color: #555;
+}
+.wishlist-total ul{
+   display: flex;
+   justify-content: space-between;
 }
 .empty-wishlist-container{
     text-align: center;

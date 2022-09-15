@@ -5,17 +5,9 @@ import Axios from 'axios'
 import SideProduct from './SideProduct'
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { 
-  faEye,
-  faStar,
-  faHeart,
-  faCartShopping
-} from '@fortawesome/free-solid-svg-icons'
 import BottomBanner from '../footer/BottomBanner'
 import QuickView from '../quickview/QuickView'
-import { url, userImageURL, moneySign, productImageURL} from '../../Data'
+import { url } from '../../Data'
 import FeaturedProduct from '../featured/FeaturedProduct'
 
 
@@ -48,7 +40,7 @@ const categories = [
 
 
 
-const Home = ({appState, addToCart}) => {
+const Home = ({user, addToWishlist, appState, addToCart}) => {
   const [product, setProduct] = useState(null)
   const [latestProducts, setLatestProducts] = useState([])
   const [featuredProducts, setFeaturedProducts] = useState([])
@@ -79,13 +71,13 @@ const Home = ({appState, addToCart}) => {
       <Banner appState={appState} />
       <div className="home-body">
         <SideProduct/>
-        <HomeBody addToCart={addToCart} showQuickView={showQuickView} categories={categories} latestProducts={latestProducts}/>
+        <HomeBody user={user} addToWishlist={addToWishlist} addToCart={addToCart} showQuickView={showQuickView} categories={categories} latestProducts={latestProducts}/>
       </div>
       <div className="second-banner-container">
         <SecondBanner/>
       </div>
       <div className="featured-p-container">
-        <FeaturedProducts addToCart={addToCart} showQuickView={showQuickView} featuredProducts={featuredProducts}/>
+        <FeaturedProducts user={user} addToWishlist={addToWishlist} addToCart={addToCart} showQuickView={showQuickView} featuredProducts={featuredProducts}/>
       </div>
       <BottomBanner/>
       {
@@ -105,7 +97,7 @@ export default Home
 
 
 
-const HomeBody = ({categories, addToCart, latestProducts, showQuickView}) => {
+const HomeBody = ({user, addToWishlist, categories, addToCart, latestProducts, showQuickView}) => {
   return (
     <div className="homebody-container">
       <div className="inner-homebody">
@@ -124,7 +116,7 @@ const HomeBody = ({categories, addToCart, latestProducts, showQuickView}) => {
                 latestProducts.map((featuredProduct) => (
                   <Col key={featuredProduct._id} xs={12} sm={6} md={4}>
                   {
-                    featuredProduct.image.length > 0 ? ( <FeaturedProduct addToCart={addToCart} showQuickView={showQuickView} featuredProduct={featuredProduct}/> ) : null
+                    featuredProduct.image.length > 0 ? ( <FeaturedProduct user={user} addToWishlist={addToWishlist} addToCart={addToCart} showQuickView={showQuickView} featuredProduct={featuredProduct}/> ) : null
                   }
                   </Col>
                 )) 
@@ -187,7 +179,7 @@ const SecondBanner = () => {
 
 
 
-const FeaturedProducts = ({addToCart, featuredProducts, showQuickView}) => {
+const FeaturedProducts = ({user, addToWishlist, addToCart, featuredProducts, showQuickView}) => {
   return (
     <div className="product-conatiner">
       <div className="title-header"><h4>FEATURED PRODUCTS</h4></div>
@@ -197,7 +189,7 @@ const FeaturedProducts = ({addToCart, featuredProducts, showQuickView}) => {
             featuredProducts.map((featuredProduct) => (
               <Col key={featuredProduct._id} xs={12} sm={6} md={4} lg={3}>
               {
-                featuredProduct.image.length > 0 ? ( <FeaturedProduct addToCart={addToCart} showQuickView={showQuickView} featuredProduct={featuredProduct}/> ) : null
+                featuredProduct.image.length > 0 ? ( <FeaturedProduct user={user} addToWishlist={addToWishlist} addToCart={addToCart} showQuickView={showQuickView} featuredProduct={featuredProduct}/> ) : null
               }
               </Col>
             )) 

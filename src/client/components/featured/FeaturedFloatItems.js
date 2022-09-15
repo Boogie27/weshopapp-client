@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { NavLink, useSearchParams  } from 'react-router-dom'
-import { url, userImageURL, moneySign, productImageURL} from '../../Data'
+import { url, page_url, userImageURL, moneySign, productImageURL} from '../../Data'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
   faEye,
@@ -17,7 +17,7 @@ import {
 
 
   
-const FeaturedFloatItems = ({featuredProduct, showQuickView}) => {
+const FeaturedFloatItems = ({user, addToWishlist, featuredProduct, showQuickView}) => {
     const [floatImage, setFloatImage] = useState(false)
   
     const floatImageScreenIn = () => {
@@ -26,6 +26,15 @@ const FeaturedFloatItems = ({featuredProduct, showQuickView}) => {
   
     const floatImageScreenOut = () => {
       setFloatImage(false)
+    }
+
+    const addItemToWishList = () => {
+      const item = {
+        user_id: user._id,
+        product_id: featuredProduct._id,
+        old_url: page_url()
+      }
+      return addToWishlist(item)
     }
   
     return (
@@ -41,7 +50,7 @@ const FeaturedFloatItems = ({featuredProduct, showQuickView}) => {
         }
         <div className="float-item-btn">
           <ul className={`${floatImage && 'active'}`}>
-            <li className="icon-btn"><FontAwesomeIcon className="icon"  icon={faHeart} /></li>
+            <li className="icon-btn"><FontAwesomeIcon onClick={() => addItemToWishList()} className="icon"  icon={faHeart} /></li>
             <li className="icon-btn"><FontAwesomeIcon onClick={() => showQuickView(featuredProduct)} className="icon"  icon={faEye} /></li>
           </ul>
         </div>

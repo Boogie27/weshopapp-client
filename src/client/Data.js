@@ -32,8 +32,14 @@ const current_user = {
 
 
 const url = (string) => {
-    // return 'http://localhost:3001' + string
-    return 'https://weshopapp-server.herokuapp.com' + string
+    let production = 'https://weshopapp-server.herokuapp.com'
+    const development = 'http://localhost:3001' 
+    const url = window.location.href.split('/')[2]
+    const url_name = url.split(':')[0]
+    if(url_name == 'localhost'){
+        return development + string
+    }
+    return production + string
 }
 
 
@@ -104,6 +110,24 @@ const token = () => {
 }
 
 
+const banner_img = (string) => {
+    return 'asset/client/products/banners/' + string
+}
+
+
+
+const reload = () => {
+   return  window.location.reload();
+}
+
+
+
+
+const page_url = () => {
+    return window.location.href
+}
+
+
 export {
     url,
     logo, 
@@ -111,9 +135,12 @@ export {
     money,
     today,
     token,
+    reload,
     cart_img,
     auth_img,
     moneySign,
+    banner_img,
+    page_url,
     loader_img,
     current_user,
     userImageURL,

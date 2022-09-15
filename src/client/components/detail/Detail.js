@@ -46,6 +46,7 @@ const Detail = ({user, addToCart, alertError, alertMessage, addToWishlist}) => {
     const product_id = searchParams.get('product')
     const category = searchParams.get('category')
     const [isLoggedin, setIsLoggedin ] = useState(true)
+    const [isLoading, setIsLoading ] = useState({state: true, text: 'Fetching Product Detail, Please Wait...'})
 
     const [likes, setLikes] = useState([])
     const [disLikes, setDisLikes] = useState([])
@@ -74,9 +75,6 @@ const Detail = ({user, addToCart, alertError, alertMessage, addToWishlist}) => {
 
 
     useEffect(() => {
-        // remove loader
-        setIsLoggedin(false)
-
         // fetch product detail
         fetchProductDetail(product_id)
 
@@ -92,6 +90,7 @@ const Detail = ({user, addToCart, alertError, alertMessage, addToWishlist}) => {
         // get product likes
         fetchProductLikes(product_id)
         
+        preloaderToggle(true, 'Fetching Product Details, Please Wait...', 2000)
     }, [product_id])
     
     const fetchProductDetail = (product_id) => {
@@ -312,9 +311,18 @@ const Detail = ({user, addToCart, alertError, alertMessage, addToWishlist}) => {
     }
 
 
+    // set and remove preloader
+   const preloaderToggle = (state, text, time) => {
+    setIsLoading({state: state, text: text})
+    setTimeout(() => {
+        setIsLoading({state: false, text: ''})
+    }, time)
+  }
+
+
     return (
         <>
-            {isLoggedin ? (<Preloader text="Loading, please wait..."/>) : (
+            {isLoading.state ? (<Preloader text={isLoading.text}/>) : (
                 <div className="product-detail-container">
                 {
                      productDetail ? (
