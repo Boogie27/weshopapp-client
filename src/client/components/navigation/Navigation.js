@@ -21,6 +21,7 @@ const Navigation = ({
     cart,
     appState,
     sideNavi,
+    setSideNavi,
     toggleSearch, 
     mobileSearch,
     sideNavToggle,
@@ -30,7 +31,7 @@ const Navigation = ({
     
   return (
     <div className={`nav-container ${appState && 'active'}`}>
-        <SideNavigation appState={appState} sideNavi={sideNavi} sideNavToggle={sideNavToggle} toggleAppState={toggleAppState}/>
+        <SideNavigation appState={appState} setSideNavi={setSideNavi} sideNavi={sideNavi} sideNavToggle={sideNavToggle} toggleAppState={toggleAppState}/>
         <div className="inner-nav-container">
             <Logo appState={appState} sideNavToggle={sideNavToggle} />
             <Search />

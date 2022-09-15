@@ -290,7 +290,7 @@ const notify_error = (string) => {
   return (
     <div className={`parent-container ${appState && 'active'}`}>
       <div className="parent-nav-container">
-        <Navigation  user={user} cart={cart} appState={appState} sideNavToggle={sideNavToggle} toggleSearch={toggleSearch} mobileSearch={mobileSearch} sideNavi={sideNavi} toggleAppState={toggleAppState}/>
+        <Navigation  user={user} cart={cart} appState={appState} setSideNavi={setSideNavi} sideNavToggle={sideNavToggle} toggleSearch={toggleSearch} mobileSearch={mobileSearch} sideNavi={sideNavi} toggleAppState={toggleAppState}/>
         <MiniNavigation user={user} wishlist={wishlist} modalToggle={modalToggle}/>
         {message && <AlertSuccess alert={message}/>}
         {errorAlert && <AlertDanger alert={errorAlert}/>}

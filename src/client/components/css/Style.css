@@ -508,6 +508,7 @@ a{
 }
 /* *************** SIDE NAVIGATION ************** */
 .side-nav-container{
+    z-index: 30;
     position: relative;
 }
 .side-nav-container .dark-skin{
@@ -570,6 +571,10 @@ a{
 .side-nav-container .side-nav-icon {
     cursor: pointer;
     font-size: 25px;
+}
+.side-nav-container .side-nav-icon .icon{
+    right: -40px;
+    position: relative;
 }
 .side-nav-items ul{
     padding: 0px 20px;
