@@ -2242,6 +2242,9 @@ span.css-1xdhyk6 span{
     margin: 0px;
     color: rgb(168, 168, 168);
 }
+.auth-form{
+    margin-top: 30px;
+}
 .auth-form .form-group-input{
     /* margin: 20px 0px; */
 }
@@ -2318,6 +2321,47 @@ span.css-1xdhyk6 span{
 .gender-container .form-gender input{
     cursor: pointer;
     margin-right: 5px;
+}
+@media only screen and (max-width: 992px){
+    .auth-container{
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 767px){
+    .auth-right, .auth-left{
+        width: 100%;
+    }
+    .auth-left{
+        display: none;
+    }
+    .auth-form .form-group-input{
+        width: 100%;
+        display: block;
+    }
+    .auth-container{
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 0px 10px;
+    }
+}
+@media only screen and (max-width: 567px){
+    .form-button{
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 392px){
+    .form-button{
+        display: block;
+        text-align: center;
+        margin-top: 30px;
+    }
+    .form-button .register-btn{
+        width: 100%;
+    }
+    .login-link{
+        margin-top: 10px;
+    }
 }
 
 /* *************** PRELOADER ************ */
