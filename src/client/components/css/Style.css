@@ -2734,7 +2734,7 @@ tr.cart-items-detail td{
     background-color: rgb(20, 20, 20);
     border-top: 1px solid #555;
 }
-.mw-body .mw-dark-skin{
+.mobile-wishlist-container .mw-dark-skin{
     top: 0px;
     left: 0px;
     z-index: 10;
@@ -2744,6 +2744,9 @@ tr.cart-items-detail td{
     position: fixed;
     align-items: center;
     background-color: rgba(51, 51, 51, 0.698);
+}
+.mobile-wishlist-container .mw-dark-skin.active{
+    display: block;
 }
 .mw-body .title-header{
     border-bottom: 2px solid rgb(224, 157, 32);

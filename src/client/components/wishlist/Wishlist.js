@@ -302,7 +302,7 @@ const MobileWishList = ({wishlist, isActiveMobileWishlist, wishlistItemsToggle, 
     const is_active = isActiveMobileWishlist ? 'active' : ''
     return (
         <div className="mobile-wishlist-container">
-            <div className="mw-dark-skin"></div>
+            <div className={`mw-dark-skin ${is_active}`}></div>
             <div className={`mw-body ${is_active}`}>
                 <div className="title-header">
                     <h3>Wishlist</h3>
