@@ -125,6 +125,11 @@ const Wishlist = ({wishlist, setWishlist}) => {
     const addItemToCart = () => {
         console.log(productID)
     }
+
+
+    const mobileWhislistToggle = () => {
+        setIsActiveMobileWishlist(false)
+    }
     
 
     return (
@@ -143,6 +148,7 @@ const Wishlist = ({wishlist, setWishlist}) => {
                                 <WishlistItems wishlist={wishlist} wishlistItemsToggle={wishlistItemsToggle} addProductToCart={addProductToCart} modalToggle={modalToggle}/>
                                 <MobileWishList wishlist={wishlist} isActiveMobileWishlist={isActiveMobileWishlist}
                                 wishlistItemsToggle={wishlistItemsToggle} addProductToCart={addProductToCart} modalToggle={modalToggle}
+                                mobileWhislistToggle={mobileWhislistToggle}
                                 />
                             </>
                         )
@@ -298,12 +304,17 @@ const EmptyWishlist = () => {
 
 
 
-const MobileWishList = ({wishlist, isActiveMobileWishlist, wishlistItemsToggle, addProductToCart, modalToggle}) => {
+const MobileWishList = ({wishlist, isActiveMobileWishlist, mobileWhislistToggle, wishlistItemsToggle, addProductToCart, modalToggle}) => {
     const is_active = isActiveMobileWishlist ? 'active' : ''
     return (
         <div className="mobile-wishlist-container">
+            <div className="mw-page-links">
+                {/* link to product page */}
+                {/* button to display wishlist */}
+            </div>
             <div className={`mw-dark-skin ${is_active}`}></div>
             <div className={`mw-body ${is_active}`}>
+                <div className="mw-close-form"><FontAwesomeIcon onClick={() => mobileWhislistToggle(false)} className="icon"  icon={faXmark} /></div>
                 <div className="title-header">
                     <h3>Wishlist</h3>
                     <p>Items ({wishlist.length})</p>

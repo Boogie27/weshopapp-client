@@ -2810,10 +2810,23 @@ tr.cart-items-detail td{
     color: #fff;
     padding: 0px 5px;
     font-size: 13px;
+    border-radius: 0px 5px 5px 0px;
     background-color: rgb(207, 53, 53);
 }
 .mw-item-body ul.ul-mw-content li span.availability.active{
-    background-color: rgb(2, 192, 2);
+    color: rgb(139, 139, 139);
+    background-color: transparent;
+}
+.mw-close-form{
+    height: 0px;
+    text-align: right;
+    padding: 0px 10px;
+}
+.mw-close-form .icon{
+    font-size: 20px;
+}
+.mw-close-form .icon:hover{
+    color: rgb(204, 43, 43);
 }
 .action-button{
     text-align: right;
