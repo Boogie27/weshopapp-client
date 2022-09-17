@@ -311,6 +311,7 @@ const MobileWishList = ({wishlist, isActiveMobileWishlist, mobileWhislistToggle,
             <div className="mw-page-links">
                 {/* link to product page */}
                 {/* button to display wishlist */}
+                I love you kossy
             </div>
             <div className={`mw-dark-skin ${is_active}`}></div>
             <div className={`mw-body ${is_active}`}>

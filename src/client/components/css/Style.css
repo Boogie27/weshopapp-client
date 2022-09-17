@@ -2828,6 +2828,9 @@ tr.cart-items-detail td{
 .mw-close-form .icon:hover{
     color: rgb(204, 43, 43);
 }
+.mw-page-links{
+    text-align: center;
+}
 .action-button{
     text-align: right;
 }
