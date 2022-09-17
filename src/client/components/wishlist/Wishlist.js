@@ -295,6 +295,7 @@ const MobileWishList = () => {
                     <MobileWishlistItem />
                     <MobileWishlistItem />
                     <MobileWishlistItem />
+                    <MobileWishlistItem />
                 </div>
                 <div className="mw-buttom">
                     <div className="mw-buttom-left"><b>Total: <span>{money(1000)}</span></b></div>
