@@ -15,6 +15,7 @@ import {
     token,
     product_img, 
 } from '../../Data'
+import Moment from 'moment';
 import Preloader from '../preloader/Preloader'
 import { AddWishlistModalDropDown, WishlistModalDropDown } from '../dropdown/WishlistModalDropDown'
 
@@ -34,6 +35,7 @@ const Wishlist = ({wishlist, setWishlist}) => {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isAddModalOpen, setIsAddModalOpen] = useState(false)
     const [productID, setProductID] = useState(null)
+    const [isActiveMobileWishlist, setIsActiveMobileWishlist] = useState(false)
     const [isLoading, setIsLoading ] = useState({loading: true, text: 'Fetching Wishlist, Please Wait...'})
     
 
@@ -59,11 +61,22 @@ const Wishlist = ({wishlist, setWishlist}) => {
         if(token()){
             Axios.get(url(`/api/fetch-wishlist-items/${token()}`)).then((response) => {
                 if(response.data){
+                    displayMobileWishlist()
                     return setWishlist(response.data)
                 }
             })
         }
         setWishlist([])
+        setIsActiveMobileWishlist(false)
+    }
+
+
+
+    // display mobile wishlish
+    const displayMobileWishlist = () => {
+        setTimeout(() => {
+            setIsActiveMobileWishlist(true)
+        }, 3000)
     }
 
     // set and remove preloader
@@ -128,7 +141,9 @@ const Wishlist = ({wishlist, setWishlist}) => {
                         wishlist.length == 0 ? (<EmptyWishlist/>) : (
                             <>
                                 <WishlistItems wishlist={wishlist} wishlistItemsToggle={wishlistItemsToggle} addProductToCart={addProductToCart} modalToggle={modalToggle}/>
-                                <MobileWishList/>
+                                <MobileWishList wishlist={wishlist} isActiveMobileWishlist={isActiveMobileWishlist}
+                                wishlistItemsToggle={wishlistItemsToggle} addProductToCart={addProductToCart} modalToggle={modalToggle}
+                                />
                             </>
                         )
                     }
@@ -200,6 +215,7 @@ const WishlistItems = ({wishlist, wishlistItemsToggle, addProductToCart, modalTo
 
 const Items = ({modalToggle, item, addProductToCart}) => {
     const isActive = item.product.quantity > 0 ? 'active' : ''
+    const date = Moment(item.created_at).format('MMM Do YY')
     const isAvailable = item.product.quantity > 0 ? 'Available' : 'Out of stock'
 
     return (
@@ -237,7 +253,7 @@ const Items = ({modalToggle, item, addProductToCart}) => {
                         </button>
                     ) : null
                 }
-                    <div className="added"><b>Added on:</b> 20 march 2022</div>
+                    <div className="added"><b>Added on:</b> {date} </div>
                 </div>
             </td>
         </tr>
@@ -282,23 +298,18 @@ const EmptyWishlist = () => {
 
 
 
-const MobileWishList = () => {
+const MobileWishList = ({wishlist, isActiveMobileWishlist, wishlistItemsToggle, addProductToCart, modalToggle}) => {
+    const is_active = isActiveMobileWishlist ? 'active' : ''
     return (
         <div className="mobile-wishlist-container">
-            <div className="mw-dark-theme"></div>
-            <div className="mw-body">
+            <div className="wishlist-msg"><p>Loading Wishlist</p></div>
+            <div className={`mw-body ${is_active}`}>
                 <div className="title-header">
                     <h3>Wishlist</h3>
-                    <p>Items (2)</p>
+                    <p>Items ({wishlist.length})</p>
                 </div>
                 <div className="mw-body-frame">
-                    <MobileWishlistItem />
-                    <MobileWishlistItem />
-                    <MobileWishlistItem />
-                    <MobileWishlistItem />
-                    <MobileWishlistItem />
-                    <MobileWishlistItem />
-                    <MobileWishlistItem />
+                    {wishlist.map((item, index) => <MobileWishlistItem key={index} item={item}/> )}
                 </div>
                 <div className="mw-buttom">
                     <div className="mw-buttom-left"><b>Total: <span>{money(1000)}</span></b></div>
@@ -317,23 +328,25 @@ const MobileWishList = () => {
 
 
 
-const MobileWishlistItem = () => {
+const MobileWishlistItem = ({item}) => {
+    const is_available = item.product.quantity > 0 ? true : false
+    const date = Moment(item.created_at).format('MMM Do YY')
     return (
         <div className="mw-item-body">
             <div className="mw-image">
-                <NavLink to={`/detail?product=${''}&category=${''}`}>
-                    <img src={product_img('1.jpg')} alt=""/>
+            <NavLink to={`/detail?product=${item.product._id}&category=${item.product.category}`}>
+                    <img src={product_img(item.product.image[0])} alt={item.product.product_name}/>
                 </NavLink>
             </div>
             <ul className="ul-mw-content">
                 <li className="mw-content-name">
-                    <NavLink to={`/detail?product=${''}&category=${''}`}>
+                    <NavLink to={`/detail?product=${item.product._id}&category=${item.product.category}`}>
                         Iphone
                     </NavLink>
                 </li>
-                <li><b>Price:</b> {money(1000)}</li>
-                <li><b>Availability:</b> <span className="availability active">out of stock</span></li>
-                <li><b>Added on: </b><span className="added-on">20 march 2022</span></li>
+                <li><b>Price:</b> {money(item.product.price)}</li>
+                <li><b>Availability:</b> <span className={`availability ${is_available ? 'active' : ''}`}>{is_available ? 'Available' : 'Out of stock'}</span></li>
+                <li><b>Added on: </b><span className="added-on">{date}</span></li>
                 <li>
                     <div className="action-button">
                         <FontAwesomeIcon className="icon"  icon={faCartShopping} />
