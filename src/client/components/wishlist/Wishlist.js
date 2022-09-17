@@ -13,8 +13,7 @@ import {
     url, 
     money,
     token,
-    product_img,
-    productImageURL 
+    product_img, 
 } from '../../Data'
 import Preloader from '../preloader/Preloader'
 import { AddWishlistModalDropDown, WishlistModalDropDown } from '../dropdown/WishlistModalDropDown'
@@ -127,7 +126,10 @@ const Wishlist = ({wishlist, setWishlist}) => {
                     <>
                     {
                         wishlist.length == 0 ? (<EmptyWishlist/>) : (
-                            <WishlistItems wishlist={wishlist} wishlistItemsToggle={wishlistItemsToggle} addProductToCart={addProductToCart} modalToggle={modalToggle}/>
+                            <>
+                                <WishlistItems wishlist={wishlist} wishlistItemsToggle={wishlistItemsToggle} addProductToCart={addProductToCart} modalToggle={modalToggle}/>
+                                <MobileWishList/>
+                            </>
                         )
                     }
                     </>
@@ -165,7 +167,7 @@ export default Wishlist
 
 const WishlistItems = ({wishlist, wishlistItemsToggle, addProductToCart, modalToggle}) => {
     return (
-        <div className="wishlist-items">
+        <div className="desktop wishlist-items">
             <div className="title-header"><h3>Wishlist Items</h3></div>
             <table className="table">
             <thead>
@@ -278,6 +280,66 @@ const EmptyWishlist = () => {
 
 
 
+
+
+const MobileWishList = () => {
+    return (
+        <div className="mobile-wishlist-container">
+            <div className="mw-dark-theme"></div>
+            <div className="mw-body">
+                <div className="title-header">
+                    <h3>Wishlist</h3>
+                    <p>Items (2)</p>
+                </div>
+                <div className="mw-body-frame">
+                    <MobileWishlistItem />
+                    <MobileWishlistItem />
+                    <MobileWishlistItem />
+                </div>
+                <div className="mw-buttom">
+                    <div className="mw-buttom-left"><b>Total: <span>{money(1000)}</span></b></div>
+                    <div className="mw-buttom-right">
+                        <FontAwesomeIcon className="icon"  icon={faCartShopping} />
+                        <FontAwesomeIcon className="icon"  icon={faTrashCan} />
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+
+
+
+
+
+const MobileWishlistItem = () => {
+    return (
+        <div className="mw-item-body">
+            <div className="mw-image">
+                <NavLink to={`/detail?product=${''}&category=${''}`}>
+                    <img src={product_img('1.jpg')} alt=""/>
+                </NavLink>
+            </div>
+            <ul className="ul-mw-content">
+                <li className="mw-content-name">
+                    <NavLink to={`/detail?product=${''}&category=${''}`}>
+                        Iphone
+                    </NavLink>
+                </li>
+                <li><b>Price:</b> {money(1000)}</li>
+                <li><b>Availability:</b> <span className="availability active">out of stock</span></li>
+                <li><b>Added on: </b><span className="added-on">20 march 2022</span></li>
+                <li>
+                    <div className="action-button">
+                        <FontAwesomeIcon className="icon"  icon={faCartShopping} />
+                        <FontAwesomeIcon className="icon"  icon={faTrashCan} />
+                    </div>
+                </li>
+            </ul>
+        </div>
+    )
+}
 
 
 
