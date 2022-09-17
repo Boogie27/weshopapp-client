@@ -2729,7 +2729,7 @@ tr.cart-items-detail td{
     width: 100%;
     padding: 20px;
     min-height: 50vh;
-    max-height: 90vh;
+    max-height: 90%;
     position: fixed;
     background-color: #fff;
     border-radius: 10px 10px 0px 0px;
@@ -2834,6 +2834,7 @@ tr.cart-items-detail td{
 @media only screen and (max-width: 398px){
     .mobile-wishlist-container .mw-body{
         padding: 10px;
+        max-height: 80%;
     }
     .mw-item-body .mw-image img{
         width: 100%;
