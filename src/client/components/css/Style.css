@@ -2734,9 +2734,16 @@ tr.cart-items-detail td{
     background-color: rgb(20, 20, 20);
     border-top: 1px solid #555;
 }
-.wishlist-msg p{
-    font-weight: bold;
-    text-align: center;
+.mw-body .mw-dark-skin{
+    top: 0px;
+    left: 0px;
+    z-index: 10;
+    width: 100%;
+    height: 100vh;
+    display: none;
+    position: fixed;
+    align-items: center;
+    background-color: rgba(51, 51, 51, 0.698);
 }
 .mw-body .title-header{
     border-bottom: 2px solid rgb(224, 157, 32);
