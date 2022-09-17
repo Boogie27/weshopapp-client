@@ -2833,6 +2833,16 @@ tr.cart-items-detail td{
     .mw-body-frame{
         max-height: 60vh;
     }
+    .mw-item-body .mw-image{
+        width: 100px;
+    }
+    .mw-item-body .mw-image img{
+        width: 100%;
+        height: 100%;
+    }
+    .mw-item-body ul.ul-mw-content{
+        width: 80%;
+    }
 }
 @media only screen and (max-width: 398px){
     .mobile-wishlist-container .mw-body{
@@ -2848,9 +2858,6 @@ tr.cart-items-detail td{
     }
     .mw-item-body .mw-image{
         width: 30%;
-    }
-    .mw-item-body ul.ul-mw-content{
-        width: 60%;
     }
 }
 
