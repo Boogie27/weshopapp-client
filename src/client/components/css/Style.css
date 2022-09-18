@@ -2722,13 +2722,13 @@ tr.cart-items-detail td{
     max-height: 90%;
     position: fixed;
     background-color: #fff;
-    transition: bottom 0.50s ease;
+    transition: bottom 0.2s ease;
     border-radius: 10px 10px 0px 0px;
     border-top: 1px solid rgb(226, 226, 226);
 }
 .mobile-wishlist-container .mw-body.active{
     bottom: 0;
-    transition: bottom 0.50s ease;
+    transition: bottom 0.2s ease;
 }
 .parent-container.active .mobile-wishlist-container .mw-body{
     background-color: rgb(20, 20, 20);
@@ -2844,9 +2844,9 @@ tr.cart-items-detail td{
     border: 1px solid rgb(99, 99, 99);
 }
 .action-button .icon:hover{
-    color: #fff;
-    background-color: #555;
-    border: 1px solid #555;
+    color: #333;
+    background-color: #ccc;
+    border: 1px solid #ccc;
 }
 .mw-buttom {
     display: flex;
