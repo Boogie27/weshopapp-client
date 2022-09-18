@@ -313,7 +313,7 @@ const MobileWishList = ({wishlist, isActiveMobileWishlist, mobileWhislistToggle,
                 {/* button to display wishlist */}
                 I love you kossy
             </div>
-            <div className={`mw-dark-skin ${is_active}`}></div>
+            <div onClick={() => mobileWhislistToggle(false)} className={`mw-dark-skin ${is_active}`}></div>
             <div className={`mw-body ${is_active}`}>
                 <div className="mw-close-form"><FontAwesomeIcon onClick={() => mobileWhislistToggle(false)} className="icon"  icon={faXmark} /></div>
                 <div className="title-header">
