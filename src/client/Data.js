@@ -7,7 +7,7 @@ const development = 'http://localhost:3000'
 
 const databaseURI = 'http://localhost:3001'
 
-const logo = 'asset/client/logo/logo.png'
+
 
 const moneySign = '£'
 
@@ -116,6 +116,11 @@ const token = () => {
 
 const banner_img = (string) => {
     return 'asset/client/products/banners/' + string
+}
+
+
+const logo = (string) => {
+    return 'asset/client/logo/' + string
 }
 
 

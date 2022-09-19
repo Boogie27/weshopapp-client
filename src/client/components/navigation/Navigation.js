@@ -60,7 +60,7 @@ const Logo = ({appState, sideNavToggle }) => {
             <div className="mobile-nav-toggle">
                 <FontAwesomeIcon onClick={sideNavToggle} className="icon" icon={faBars} />
             </div>
-            <img src={logo} alt="logo"/>
+            <img src={logo('logo.png')} alt="logo"/>
         </div>
     )
 }

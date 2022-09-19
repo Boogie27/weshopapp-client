@@ -5,10 +5,12 @@ import {
     faMinus,
     faHeart,
     faTrashCan,
+    faPaypal,
 } from '@fortawesome/free-solid-svg-icons'
 
 import { 
     url, 
+    logo,
     money,
     product_img,
 } from '../../Data'
@@ -31,6 +33,8 @@ const MobileShoppingCart = () => {
                 <MobileShoppingCartItem />
                 <MobileShoppingCartItem />
             </div>
+            <Subtotal />
+            <Buttons />
         </div>
     )
 }
@@ -76,3 +80,48 @@ const MobileShoppingCartItem = () => {
         </div>
     )
 }
+
+
+
+
+
+
+
+
+
+const Subtotal = () => {
+    return (
+        <div className="cart-sub-total">
+            <ul>
+                <li className="title">Sub total </li>
+                <li>
+                    <b className="sub-total">{money(1000)}</b>
+                    <p>Total of all your cart items</p>
+                </li>
+            </ul>
+        </div>
+    )
+}
+
+
+
+
+
+
+const Buttons = () => {
+    return (
+        <div className="m-cart-page-button">
+            <ul>
+                <li>
+                    <div className="checkout">
+                        <NavLink to="/">Check out</NavLink>
+                    </div>
+                </li>
+                <li>
+                    <button><img src={logo('paypal.png')} alt=""/></button>
+                </li>
+            </ul>
+        </div>
+    )
+}
+
