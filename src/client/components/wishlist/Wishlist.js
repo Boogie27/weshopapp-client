@@ -192,7 +192,7 @@ const WishlistItems = ({wishlist, wishlistItemsToggle, addProductToCart, modalTo
     return (
         <div className="desktop wishlist-items">
             <div className="title-header"><h3>Wishlist Items</h3></div>
-            <table className="table">
+            <table className="table table-bordered">
             <thead>
                 <tr>
                 <th scope="col">#</th>
