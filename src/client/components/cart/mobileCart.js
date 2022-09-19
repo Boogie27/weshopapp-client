@@ -15,6 +15,7 @@ import {
     money,
     product_img,
 } from '../../Data'
+import Moment from 'moment';
 import Preloader from '../preloader/Preloader'
 
 
@@ -23,7 +24,7 @@ import Preloader from '../preloader/Preloader'
 
 
 
-const MobileShoppingCart = ({cart}) => {
+const MobileShoppingCart = ({cart, modalToggle, quantityToggle, setQuantity}) => {
     return (
         <div className="m-shopping-cart">
             <div className="title-header">
@@ -31,7 +32,11 @@ const MobileShoppingCart = ({cart}) => {
                 <p>({cart.length}) Items</p>
             </div>
             <div className="m-shoppingcart-body">
-                { cart.map((item, index) => <MobileShoppingCartItem key={index} item={item}/> )}
+                { cart.map((item, index) => <MobileShoppingCartItem index={index}
+                        key={index} item={item} setQuantity={setQuantity}
+                        quantityToggle={quantityToggle} modalToggle={modalToggle}
+                    /> )
+                }
             </div>
             <Subtotal cart={cart}/>
             <Buttons />
@@ -51,13 +56,15 @@ export default MobileShoppingCart
 
 
 
-const MobileShoppingCartItem = ({item}) => {
+const MobileShoppingCartItem = ({item, index, setQuantity, quantityToggle, modalToggle}) => {
     const is_available = item.product.quantity > 0 ? true : false
+    const date = Moment(item.created_at).format('MMM Do YY')
+
     return (
         <div className="m-cart-item">
             <div className="delete-icon">
                 <FontAwesomeIcon className="icon text-danger"  icon={faHeart} />
-                <FontAwesomeIcon className="icon"  icon={faTrashCan} />
+                <FontAwesomeIcon onClick={() => modalToggle(true, item._id)} className="icon"  icon={faTrashCan} />
             </div>
             <div className="m-cart-left">
                 <NavLink to={`/detail?product=${ item.product._id }&category=${ item.product.category }`}>
@@ -73,13 +80,17 @@ const MobileShoppingCartItem = ({item}) => {
                             {!is_available ? 'Out of stock' : 'Available'}
                         </span>
                     </li>
-                    <li><b>Added on:</b> <span className="added-on">20 march 2022</span></li>
+                    <li><b>Added on:</b> <span className="added-on">{date}</span></li>
                     <li>
                         <div className="m-cart-quantity">
                             <span><b>Qty:</b> </span>
-                            <button><FontAwesomeIcon className="icon"  icon={faMinus} /></button>
-                            <input type="text" />
-                            <button><FontAwesomeIcon className="icon"  icon={faPlus} /></button>
+                            <button onClick={() => quantityToggle(index, -1)}>
+                                <FontAwesomeIcon className="icon"  icon={faMinus} />
+                            </button>
+                            <input type="text" onChange={(e) => setQuantity(e.target.value)} value={item.quantity}/>
+                            <button onClick={() => quantityToggle(index, 1)}>
+                                <FontAwesomeIcon className="icon"  icon={faPlus} />
+                            </button>
                         </div>
                     </li>
                 </ul>

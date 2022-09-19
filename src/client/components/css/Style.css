@@ -75,6 +75,7 @@ a{
 .modal-dropdown{
     top: 0px;
     left: 0px;
+    z-index: 30;
     width: 100%;
     height: 100vh;
     position: fixed;
@@ -86,6 +87,9 @@ a{
     align-items: center;
     justify-content: center;
     background-color: rgba(51, 51, 51, 0.698);
+}
+.parent-container.active .modal-dropdown .dark-skin{
+    background-color: rgba(51, 51, 51, 0.301);
 }
 .modal-dropdown-body{
     width: 50%;
@@ -450,6 +454,7 @@ a{
     border: 1px solid #ccc;
 }
 .parent-container.active .m-cart-quantity input{
+    text-align: center;
     background-color: transparent;
     border: 1px solid rgb(99, 99, 99)
 }
@@ -457,6 +462,7 @@ a{
     outline: none;
     border: 1px solid rgb(224, 157, 32);
 }
+.parent-container.active input,
 .parent-container.active input:focus{
     color: #ccc;
 }
@@ -3133,8 +3139,8 @@ tr.cart-items-detail td{
     background-color: transparent;
     border: 1px solid rgb(224, 157, 32);
 }
-.mw-page-links ul li button .icon{
-    margin-right: 5px;
+.mw-page-links ul li .icon{
+    margin: 0px 5px;
 }
 .action-button{
     text-align: right;

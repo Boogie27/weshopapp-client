@@ -55,42 +55,41 @@ const Cart = ({user, cart, setCart, addToCart, notify_success, notify_error}) =>
         if(token()){
             Axios.get(url(`/api/get-cart-items/${token()}`)).then((response) => { 
                 if(response.data){
-                    setIsLoading({loading: false, text: ''})
                     let totalPrice = 0
                     response.data.map((item, index) => {
                         totalPrice = totalPrice + ( item.price * item.quantity)
                     })
                     setTotalPrice(totalPrice)
+                    if(response.data.length == 0){
+                        preloaderToggle(true, 'Fetching Cart, Please Wait...', 3000)
+                    }
                   return setCart(response.data)
                 }
                 setCart([])
                 setTotalPrice(0)
+                preloaderToggle(true, 'Fetching Cart, Please Wait...', 3000)
             })
         }
-        setIsLoading({loading: false, text: ''})
     }
 
 
     const quantityToggle = (index, counter,) => {
         const item = cart[index]
         let new_quantity = counter + item.quantity
-        if(new_quantity <= 0){
-            new_quantity = 0
-            setIsLoading({loading: true, text: 'Deleting Product, Please Wait...'})
-        }
+        // if(new_quantity <= 0){
+        //     new_quantity = 0
+        //     preloaderToggle(true, 'Deleting Product, Please Wait...', 3000)
+        // }
          
         Axios.post(url('/api/toggle-cart-quantity'), {id: item._id, new_quantity: new_quantity, product_id: item.product._id}).then((response) => {
             if(response.data == 'greater'){
                 return notify_error('Quantity exceed available quantity!')
             }
             if(response.data){
-                setIsLoading({loading: false, text: ''})
                 return fetchShoppingCart()
             }
-            setIsLoading({loading: false, text: ''})
             return notify_error("Something went wront, try again!")
         })
-       
     }
 
 
@@ -102,9 +101,15 @@ const Cart = ({user, cart, setCart, addToCart, notify_success, notify_error}) =>
         setDeleteItemID(string)
     }
 
+
+
+    
+
     // delete cart item
     const deleteItem = () => {
-        setIsLoading({loading: true, text: 'Deleting Product, Please Wait...'})
+        if(cart.length == 1){
+            preloaderToggle(true, 'Deleting Product, Please Wait...', 3000)
+        }
 
         if(!deleteItemID){
             return notify_error("Something went wront, try again!")
@@ -114,10 +119,8 @@ const Cart = ({user, cart, setCart, addToCart, notify_success, notify_error}) =>
                 fetchShoppingCart()
                 modalToggle(false, null)
                 setDeleteItemID(null)
-                setIsLoading({loading: false, text: ''})
                 return notify_success("Cart item deleted successfuly!")
             }
-            setIsLoading({loading: false, text: ''})
             return notify_error("Something went wront, try again!")
         })
     }
@@ -125,11 +128,15 @@ const Cart = ({user, cart, setCart, addToCart, notify_success, notify_error}) =>
 
 
     const preloaderToggle = (state, text, time) => {
-        setIsLoading({loading: state, text: ''})
+        setIsLoading({loading: state, text: text})
         setTimeout(() => {
             setIsLoading({loading: false, text: ''})
         }, time)
     }
+
+
+
+
 
     
 
@@ -138,7 +145,7 @@ const Cart = ({user, cart, setCart, addToCart, notify_success, notify_error}) =>
         <>
          {isLoading.loading ? (
             <>
-                {  cart.length == 0 ? (<EmptyCart/>) : '' }
+                <EmptyCart/>
                 <Preloader text={isLoading.text}/>
             </>
             ) : (
@@ -172,6 +179,8 @@ const Cart = ({user, cart, setCart, addToCart, notify_success, notify_error}) =>
                              </tbody>
                         </table>
                         <CartTotal totalPrice={totalPrice}/>
+                     </div>
+                     <div className="">
                         {
                             isModalOpen && <CartModalDropDown isDeleting={isDeleting} deleteItem={deleteItem} modalToggle={modalToggle} />
                         }
@@ -180,7 +189,9 @@ const Cart = ({user, cart, setCart, addToCart, notify_success, notify_error}) =>
                         }
                      </div>
                     <div className="mobile-shopping-cart">
-                        <MobileShoppingCart cart={cart}/>
+                        <MobileShoppingCart cart={cart} quantityToggle={quantityToggle} setQuantity={setQuantity}
+                            modalToggle={modalToggle} 
+                        />
                     </div>
                     </>
                  )
