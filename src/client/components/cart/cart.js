@@ -26,6 +26,7 @@ import {
 } from '../../Data'
 import Preloader from '../preloader/Preloader'
 import { CartModalDropDown } from '../dropdown/CartModalDropDown'
+import  MobileShoppingCart  from './mobileCart'
 
 
 
@@ -144,7 +145,8 @@ const Cart = ({user, cart, setCart, addToCart, notify_success, notify_error}) =>
             <div className="cart-container">
             {
                 cart.length == 0 ? (<EmptyCart/>) : (
-                     <div className="cart-items">
+                    <>
+                     <div className="desktop-cart cart-items">
                          <div className="title-header"><h3>Shopping Cart</h3></div>
                          <table className="table table-bordered">
                              <thead>
@@ -177,6 +179,8 @@ const Cart = ({user, cart, setCart, addToCart, notify_success, notify_error}) =>
                             isLoading.loading ? (<Preloader text={isLoading.text}/>) : ''
                         }
                      </div>
+                     <div className="mobile-shopping-cart"><MobileShoppingCart /></div>
+                    </>
                  )
              }
          </div>
