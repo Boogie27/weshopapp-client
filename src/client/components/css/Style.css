@@ -458,8 +458,12 @@ a{
 .cart-sub-total ul li p{
     font-size: 12px;
 }
+.m-cart-page-button{
+    margin-top: 50px;
+}
 .m-cart-page-button ul li{
     margin: 10px 0px;
+    text-align: center;
 }
 .m-cart-page-button .checkout{
     width: 100%;
@@ -482,6 +486,15 @@ a{
 .m-cart-page-button button img{
     width: 50px;
 }
+.m-cart-page-button a.continue-shopping{
+    font-size: 13px;
+}
+.m-cart-page-button a.continue-shopping:hover{
+    color: rgb(224, 157, 32);
+}
+.m-cart-page-button a.continue-shopping .icon{
+    margin: 0px 10px;
+}
 @media only screen and (max-width: 576px){
     .m-cart-item .m-cart-left img{
         width: 100%;
@@ -491,6 +504,9 @@ a{
 @media only screen and (max-width: 389px){
     .m-cart-item .m-cart-right ul li{
         font-size: 14px;
+    }
+    .m-shopping-cart .title-header p{
+        font-size: 12px;
     }
 }
 /* *************** MOBILE SEARCH BAR ************* */

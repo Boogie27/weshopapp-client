@@ -38,7 +38,7 @@ export default SideNavigation
 const SideNavHeader = ({sideNavToggle}) => {
     return (
         <div className="nav-title-header">
-            <div className="img"><img src={logo} alt="logo"/></div>
+            <div className="img"><img src={logo('logo.png')} alt="logo"/></div>
             <div className="side-nav-icon">
                 <FontAwesomeIcon onClick={sideNavToggle} className="icon" icon={faXmark} />
             </div>
@@ -59,6 +59,7 @@ const CategoryLinks = ({appState, setSideNavi, toggleAppState}) => {
             <div className="title-header"><h4>SHOP BY CATEGORIES</h4></div>
             <ul>
                 <li><NavLink onClick={() => setSideNavi(false) } to="/">Home</NavLink></li>
+                <li><NavLink onClick={() => setSideNavi(false) } to="/cart">Cart</NavLink></li>
                 <li><NavLink onClick={() => setSideNavi(false) } to="/wishlist">Wishlist</NavLink></li>
                 <li><NavLink onClick={() => setSideNavi(false) } to="/special">Special</NavLink></li>
                 <li><NavLink onClick={() => setSideNavi(false) } to="/register">Register</NavLink></li>

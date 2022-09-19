@@ -6,6 +6,7 @@ import {
     faHeart,
     faTrashCan,
     faPaypal,
+    faArrowRightLong,
 } from '@fortawesome/free-solid-svg-icons'
 
 import { 
@@ -119,6 +120,12 @@ const Buttons = () => {
                 </li>
                 <li>
                     <button><img src={logo('paypal.png')} alt=""/></button>
+                </li>
+                <li>
+                    <NavLink to="/" className="continue-shopping">
+                        Continue shopping 
+                        <FontAwesomeIcon className="icon"  icon={faArrowRightLong} />
+                    </NavLink>
                 </li>
             </ul>
         </div>
