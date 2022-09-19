@@ -367,7 +367,7 @@ a{
 .m-shopping-cart .title-header h3{
     text-align: left;
 }
-.m-shopping-cart .title-header h3{
+.parent-container.active .m-shopping-cart .title-header h3{
     color: #fff;
 }
 .parent-container.active .title-header p{
