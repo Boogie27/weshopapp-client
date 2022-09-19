@@ -557,6 +557,9 @@ a{
     .m-cart-quantity{
         top: 6px;
     }
+    .m-shopping-cart .title-header h3{
+        font-size: 30px;
+    }
 }
 /* *************** MOBILE SEARCH BAR ************* */
 .mobile-navi-container{
