@@ -2853,6 +2853,9 @@ tr.cart-items-detail td{
     text-align: center;
     margin-bottom: 20px;
 }
+.parent-container.active .wishlist-items .title-header h3{
+    color: #ccc;
+}
 .wishlist-items .table{
     border: 1px solid rgb(235, 235, 235);
 }
@@ -2861,14 +2864,22 @@ tr.cart-items-detail td{
     background-color: rgb(241, 241, 241);
     border-bottom: 2px solid #ccc;
 }
+.parent-container.active .wishlist-items .table thead{
+    color: #ccc;
+    border: 1px solid rgb(99, 99, 99);
+    background-color: rgb(32, 32, 32);
+}
 .wishlist-items td{
     color: #555;
+    text-align: center;
 }
 .wishlist-items td img{
     width: 100px;
+    border-radius: 5px;
 }
 .wishlist-items .content{
     top: 40px;
+    text-align: center;
     position: relative;
 }
 .wishlist-items .content a:hover{
@@ -2920,7 +2931,6 @@ tr.cart-items-detail td{
     border: 1px solid #ccc;
     transition: all 0.2s ease;
 }
-
 .wishlist-total .icon:hover{
     color: #fff;
     background-color: #555;
@@ -2928,6 +2938,21 @@ tr.cart-items-detail td{
 .wishlist-total ul{
    display: flex;
    justify-content: space-between;
+}
+.parent-container.active .wishlist-total {
+    border: 1px solid rgb(99, 99, 99);
+}
+.parent-container.active tr.wishlist-table-row td{
+    color: #ccc;
+    border: 1px solid rgb(99, 99, 99);
+} 
+.parent-container.active tr.wishlist-table-row td a,
+.parent-container.active .wishlist-total .total{
+    color: #ccc;
+}
+.parent-container.active .wishlist-total .wt-icon .icon{
+    color: #ccc;
+    border: 1px solid rgb(99, 99, 99);
 }
 .empty-wishlist-container{
     text-align: center;
@@ -3081,6 +3106,9 @@ tr.cart-items-detail td{
 }
 .mw-close-form .icon{
     font-size: 20px;
+}
+.parent-container.active .mw-close-form .icon{
+    color: #ccc;
 }
 .mw-close-form .icon:hover{
     color: rgb(204, 43, 43);

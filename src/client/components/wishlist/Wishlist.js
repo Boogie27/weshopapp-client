@@ -227,7 +227,7 @@ const Items = ({modalToggle, item, addProductToCart}) => {
     const isAvailable = item.product.quantity > 0 ? 'Available' : 'Out of stock'
 
     return (
-        <tr>
+        <tr className="wishlist-table-row">
             <th scope="row">
                 <div className="content">
                     <FontAwesomeIcon onClick={() => modalToggle(true, item.product._id)} className="cart-transh-can"  icon={faTrashCan} />
@@ -276,7 +276,7 @@ const WishListTotal = ({totalPrice, wishlistItemsToggle}) => {
     return (
         <div className="wishlist-total">
             <ul>
-                <li><b className="">Total: <span className="btn-orange">{money(totalPrice)}</span></b></li>
+                <li><b className="total">Total: <span className="btn-orange">{money(totalPrice)}</span></b></li>
                 <li className="wt-icon">
                     <FontAwesomeIcon onClick={() => wishlistItemsToggle({action: true, string: 'delete-all'})} className="icon trash"  icon={faTrashCan} />
                     <FontAwesomeIcon onClick={() => wishlistItemsToggle({action: true, string: 'add-all'})} className="icon cart"  icon={faCartShopping} />

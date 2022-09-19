@@ -72,7 +72,7 @@ const MobileWishlistItem = ({item}) => {
     return (
         <div className="mw-item-body">
             <div className="mw-image">
-            <NavLink to={`/detail?product=${item.product._id}&category=${item.product.category}`}>
+                <NavLink to={`/detail?product=${item.product._id}&category=${item.product.category}`}>
                     <img src={product_img(item.product.image[0])} alt={item.product.product_name}/>
                 </NavLink>
             </div>
