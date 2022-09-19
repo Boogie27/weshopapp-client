@@ -2831,6 +2831,44 @@ tr.cart-items-detail td{
 .mw-page-links{
     text-align: center;
 }
+.mw-page-links .title-header{
+    text-align: center;
+}
+.mw-page-links .title-header h3{
+    font-size: 30px;
+}
+.mw-page-links ul{
+    width: 100%;
+    margin: 20px 0px;
+    text-align: center;
+}
+.mw-page-links ul li{
+    margin: 0px 5px;
+    display: inline-block;
+}
+.mw-page-links ul li  a{
+    color: #555;
+    padding: 10px 20px;
+    border: 1px solid rgb(144, 144, 144);
+    transition: all 0.3s ease;
+}
+.mw-page-links ul li a:hover{
+    color: rgb(224, 157, 32);
+    border: 1px solid rgb(224, 157, 32);
+}
+.mw-page-links ul li button{
+    border: none;
+    color: #fff;
+    padding: 7px 20px;
+    transition: all 0.3s ease;
+    background-color: rgb(224, 157, 32);
+}
+.mw-page-links ul li button:hover{
+    background-color: rgb(209, 144, 22);
+}
+.mw-page-links ul li button .icon{
+    margin-right: 5px;
+}
 .action-button{
     text-align: right;
 }

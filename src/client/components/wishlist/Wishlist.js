@@ -2,6 +2,7 @@ import React, { useState, useEffect  } from 'react'
 import { NavLink, useSearchParams, useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
+    faHeart,
     faXmark,
     faTrashCan,
     faCartShopping,
@@ -127,8 +128,8 @@ const Wishlist = ({wishlist, setWishlist}) => {
     }
 
 
-    const mobileWhislistToggle = () => {
-        setIsActiveMobileWishlist(false)
+    const mobileWhislistToggle = (state) => {
+        setIsActiveMobileWishlist(state)
     }
     
 
@@ -309,9 +310,16 @@ const MobileWishList = ({wishlist, isActiveMobileWishlist, mobileWhislistToggle,
     return (
         <div className="mobile-wishlist-container">
             <div className="mw-page-links">
-                {/* link to product page */}
-                {/* button to display wishlist */}
-                I love you kossy
+                <div className="title-header"><h3>My Wishlist</h3></div>
+                <ul>
+                    <li><NavLink to="/">Continue to Product</NavLink></li>
+                    <li>
+                        <button onClick={() => mobileWhislistToggle(true)}>
+                            <FontAwesomeIcon className="icon"  icon={faHeart} />
+                            Show Wishlist
+                        </button>
+                    </li>
+                </ul>
             </div>
             <div onClick={() => mobileWhislistToggle(false)} className={`mw-dark-skin ${is_active}`}></div>
             <div className={`mw-body ${is_active}`}>
