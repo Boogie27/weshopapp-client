@@ -451,6 +451,7 @@ a{
 }
 .m-cart-quantity input{
     width: 50px;
+    text-align: center;
     border: 1px solid #ccc;
 }
 .parent-container.active .m-cart-quantity input{
@@ -2942,7 +2943,8 @@ tr.cart-items-detail td{
 .parent-container.active .wishlist-total {
     border: 1px solid rgb(99, 99, 99);
 }
-.parent-container.active tr.wishlist-table-row td{
+.parent-container.active tr.wishlist-table-row td,
+.parent-container.active tr.wishlist-table-row th{
     color: #ccc;
     border: 1px solid rgb(99, 99, 99);
 } 
