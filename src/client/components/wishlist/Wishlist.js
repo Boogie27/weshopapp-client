@@ -312,13 +312,13 @@ const MobileWishList = ({wishlist, isActiveMobileWishlist, mobileWhislistToggle,
             <div className="mw-page-links">
                 <div className="title-header"><h3>My Wishlist</h3></div>
                 <ul>
-                    <li><NavLink to="/">Continue to Product</NavLink></li>
                     <li>
                         <button onClick={() => mobileWhislistToggle(true)}>
                             <FontAwesomeIcon className="icon"  icon={faHeart} />
                             Show Wishlist
                         </button>
                     </li>
+                    <li><NavLink to="/">Continue to Product</NavLink></li>
                 </ul>
             </div>
             <div onClick={() => mobileWhislistToggle(false)} className={`mw-dark-skin ${is_active}`}></div>

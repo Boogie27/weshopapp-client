@@ -2837,6 +2837,9 @@ tr.cart-items-detail td{
 .mw-page-links .title-header h3{
     font-size: 30px;
 }
+.parent-container.active .mw-page-links .title-header h3{
+    color: #ccc;
+}
 .mw-page-links ul{
     width: 100%;
     margin: 20px 0px;
@@ -2856,6 +2859,14 @@ tr.cart-items-detail td{
     color: rgb(224, 157, 32);
     border: 1px solid rgb(224, 157, 32);
 }
+.parent-container.active .mw-page-links ul li  a{
+    color: #ccc;
+}
+.parent-container.active .mw-page-links ul li a:hover{
+    color: #fff;
+    border: 1px solid rgb(224, 157, 32);
+    background-color: rgb(224, 157, 32);
+}
 .mw-page-links ul li button{
     border: none;
     color: #fff;
@@ -2865,6 +2876,11 @@ tr.cart-items-detail td{
 }
 .mw-page-links ul li button:hover{
     background-color: rgb(209, 144, 22);
+}
+.parent-container.active .mw-page-links ul li button:hover{
+    color:  rgb(209, 144, 22);
+    background-color: transparent;
+    border: 1px solid rgb(224, 157, 32);
 }
 .mw-page-links ul li button .icon{
     margin-right: 5px;
@@ -2955,6 +2971,18 @@ tr.cart-items-detail td{
     }
     .mw-item-body .mw-image{
         width: 30%;
+    }
+    .mw-page-links ul li{
+        display: block;
+        margin-bottom: 10px;
+    }
+    .mw-page-links ul li a,
+    .mw-page-links ul li a:hover
+    {
+        border: none;
+    }
+    .mw-page-links ul li button{
+        width: 100%;
     }
 }
 
