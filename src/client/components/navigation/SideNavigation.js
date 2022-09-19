@@ -59,9 +59,9 @@ const CategoryLinks = ({appState, setSideNavi, toggleAppState}) => {
             <div className="title-header"><h4>SHOP BY CATEGORIES</h4></div>
             <ul>
                 <li><NavLink onClick={() => setSideNavi(false) } to="/">Home</NavLink></li>
+                <li><NavLink onClick={() => setSideNavi(false) } to="/product">Product</NavLink></li>
                 <li><NavLink onClick={() => setSideNavi(false) } to="/cart">Cart</NavLink></li>
                 <li><NavLink onClick={() => setSideNavi(false) } to="/wishlist">Wishlist</NavLink></li>
-                <li><NavLink onClick={() => setSideNavi(false) } to="/special">Special</NavLink></li>
                 <li><NavLink onClick={() => setSideNavi(false) } to="/register">Register</NavLink></li>
                 <li><NavLink onClick={() => setSideNavi(false) } to="/login">Login</NavLink></li>
                 <li className="app-theme-btn"><span>App Theme</span><FontAwesomeIcon onClick={toggleAppState}className="icon"  icon={toggleIcon} /></li>

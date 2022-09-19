@@ -64,7 +64,7 @@ const MobileShoppingCartItem = () => {
             </div>
             <div className="m-cart-right">
                 <ul>
-                    <li><b>Name: </b>Iphon</li>
+                    <li><span className="name">Iphon</span></li>
                     <li><b>Price: </b>{money(1000)}</li>
                     <li><b>Availability: </b><span className="is-available">Out of stock</span></li>
                     <li><b>Added on:</b> <span className="added-on">20 march 2022</span></li>
