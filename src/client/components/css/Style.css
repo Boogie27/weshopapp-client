@@ -2675,7 +2675,7 @@ span.css-1xdhyk6 span{
 
 /* **************** SHOPPING CART *************** */
 .cart-container {
-    margin: 50px 0px;
+    margin: 100px 0px;
     padding: 0px 20px;
 }
 .cart-container .cart-items{
@@ -2689,13 +2689,30 @@ span.css-1xdhyk6 span{
     text-align: center;
     margin: 20px 0px;
 }
+.parent-container.active .cart-container .title-header h3{
+    color: #fff;
+    font-size: 30px;
+}
 .cart-container .table-bordered thead{
     color: #555;
     background-color: rgb(241, 241, 241);
     border-bottom: 2px solid #ccc;
 }
+.parent-container.active .cart-container .table-bordered thead{
+    color: #ccc;
+    background-color: rgb(39, 39, 39);
+    border: 1px solid rgb(99, 99, 99);
+}
 tr.cart-items-detail td{
     color: #555;
+}
+.parent-container.active tr.cart-items-detail td,
+.parent-container.active tr.cart-items-detail th{
+    border: 1px solid rgb(99, 99, 99);
+}
+.parent-container.active tr.cart-items-detail td,
+.parent-container.active tr.cart-items-detail td a{
+    color: #ccc;
 }
 .cart-items-detail td{
     height: 120px;
@@ -2703,6 +2720,7 @@ tr.cart-items-detail td{
 }
 .cart-items-detail td img{
     width: 100px;
+    border-radius: 5px;
 }
 .cart-items-detail .content{
     top: 40px;
@@ -2712,12 +2730,18 @@ tr.cart-items-detail td{
     padding: 10px 0px;
     border: 1px solid rgb(219, 219, 219);
 }
+.parent-container.active .cart-total-container{
+    border: 1px solid rgb(99, 99, 99);
+}
 .cart-total-container ul{
     display: flex;
     justify-content: space-between;
 }
 .cart-total-container ul li b.cart-total{
     padding: 14px;
+}
+.parent-container.active .cart-total-container ul li b.cart-total{
+    color: #ccc;
 }
 .cart-total-container ul li b.cart-total span{
     color: rgb(224, 157, 32);
@@ -2737,6 +2761,11 @@ tr.cart-items-detail td{
 .quantity-counter input.quantity-input:focus{
     outline: none;
 }
+.parent-container.active input.quantity-input{
+    color: #ccc;
+    background-color: transparent;
+    border: 1px solid rgb(99, 99, 99);
+}
 .quantity-counter button{
     color: #555;
     transition: all 0.2s ease;
@@ -2747,6 +2776,10 @@ tr.cart-items-detail td{
     color: #fff;
     background-color: #333;
     border: 1px solid #333;
+}
+.parent-container.active .quantity-counter button{
+    color: #ccc;
+    border: 1px solid rgb(99, 99, 99);
 }
 /* ************ EMPTY SHOPPING CART *********** */
 .empty-shopping-cart{
