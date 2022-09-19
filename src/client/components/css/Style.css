@@ -406,13 +406,13 @@ a{
     background-color: #fff;
 }
 .m-cart-right span.is-available{
-    color: #fff;
+    color: #555;
     font-size: 12px;
     padding: 2px 10px;
-    background-color: rgb(223, 32, 32);
 }
 .m-cart-right span.is-available.active{
-    background-color: rgb(5, 182, 5);
+    color: #fff;
+    background-color: rgb(223, 32, 32);
 }
 .delete-icon{
     top: 10px;

@@ -23,18 +23,17 @@ import Preloader from '../preloader/Preloader'
 
 
 
-const MobileShoppingCart = () => {
+const MobileShoppingCart = ({cart}) => {
     return (
         <div className="m-shopping-cart">
             <div className="title-header">
                 <h3>Shopping Cart</h3>
-                <p>(3) Items</p>
+                <p>({cart.length}) Items</p>
             </div>
             <div className="m-shoppingcart-body">
-                <MobileShoppingCartItem />
-                <MobileShoppingCartItem />
+                { cart.map((item, index) => <MobileShoppingCartItem key={index} item={item}/> )}
             </div>
-            <Subtotal />
+            <Subtotal cart={cart}/>
             <Buttons />
         </div>
     )
@@ -52,7 +51,8 @@ export default MobileShoppingCart
 
 
 
-const MobileShoppingCartItem = () => {
+const MobileShoppingCartItem = ({item}) => {
+    const is_available = item.product.quantity > 0 ? true : false
     return (
         <div className="m-cart-item">
             <div className="delete-icon">
@@ -60,13 +60,19 @@ const MobileShoppingCartItem = () => {
                 <FontAwesomeIcon className="icon"  icon={faTrashCan} />
             </div>
             <div className="m-cart-left">
-                <img src={product_img('1.jpg')} alt=""/>
+                <NavLink to={`/detail?product=${ item.product._id }&category=${ item.product.category }`}>
+                    <img src={product_img(item.product.image[0])} alt={item.product.product_name}/>
+                </NavLink>
             </div>
             <div className="m-cart-right">
                 <ul>
-                    <li><span className="name">Iphon</span></li>
-                    <li><b>Price: </b>{money(1000)}</li>
-                    <li><b>Availability: </b><span className="is-available">Out of stock</span></li>
+                    <li><span className="name">{item.product.product_name}</span></li>
+                    <li><b>Price: </b>{money(item.product.price)}</li>
+                    <li><b>Availability: </b>
+                        <span className={`is-available ${!is_available ? 'active' : ''}`}>
+                            {!is_available ? 'Out of stock' : 'Available'}
+                        </span>
+                    </li>
                     <li><b>Added on:</b> <span className="added-on">20 march 2022</span></li>
                     <li>
                         <div className="m-cart-quantity">
@@ -90,13 +96,18 @@ const MobileShoppingCartItem = () => {
 
 
 
-const Subtotal = () => {
+const Subtotal = ({cart}) => {
+    let subTotal = 0
+    const item = cart.map((x) => {
+        subTotal = subTotal + x.price
+    })
+
     return (
         <div className="cart-sub-total">
             <ul>
                 <li className="title">Sub total </li>
                 <li>
-                    <b className="sub-total">{money(1000)}</b>
+                    <b className="sub-total">{money(subTotal)}</b>
                     <p>Total of all your cart items</p>
                 </li>
             </ul>
@@ -115,7 +126,7 @@ const Buttons = () => {
             <ul>
                 <li>
                     <div className="checkout">
-                        <NavLink to="/">Check out</NavLink>
+                        <NavLink to="/checkout">Check out</NavLink>
                     </div>
                 </li>
                 <li>

@@ -179,7 +179,9 @@ const Cart = ({user, cart, setCart, addToCart, notify_success, notify_error}) =>
                             isLoading.loading ? (<Preloader text={isLoading.text}/>) : ''
                         }
                      </div>
-                     <div className="mobile-shopping-cart"><MobileShoppingCart /></div>
+                    <div className="mobile-shopping-cart">
+                        <MobileShoppingCart cart={cart}/>
+                    </div>
                     </>
                  )
              }
