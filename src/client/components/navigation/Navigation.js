@@ -26,6 +26,7 @@ const Navigation = ({
     mobileSearch,
     sideNavToggle,
     toggleAppState,
+    floatCartStateToggle,
 }) => {
     
     
@@ -36,7 +37,8 @@ const Navigation = ({
             <Logo appState={appState} sideNavToggle={sideNavToggle} />
             <Search />
             <Contact appState={appState}/>
-            <Profile cart={cart} appState={appState} toggleSearch={toggleSearch} toggleAppState={toggleAppState}/>
+            <Profile cart={cart} appState={appState} toggleSearch={toggleSearch}
+             toggleAppState={toggleAppState} floatCartStateToggle={floatCartStateToggle}/>
             {
                 mobileSearch ? (<MobileNavigation toggleSearch={toggleSearch} />) : null
             }
@@ -97,7 +99,7 @@ const Contact = ({appState}) => {
 
 
 
-const Profile = ({user, cart, toggleSearch, toggleAppState, appState}) => {
+const Profile = ({user, cart, toggleSearch, toggleAppState, appState, floatCartStateToggle}) => {
     const toggleIcon = appState ? faToggleOn : faToggleOff
 
     return (
@@ -106,11 +108,9 @@ const Profile = ({user, cart, toggleSearch, toggleAppState, appState}) => {
             <div className="profile-icon search-icon"><FontAwesomeIcon className="icon" onClick={() => toggleSearch()} icon={faMagnifyingGlass} /></div>
             <div className="profile-icon"><FontAwesomeIcon className="icon" icon={faUser} /></div>
             <div className="shopping-cart">
-                <div className="shopping-cart-icon">
-                    <NavLink to="/cart">
+                <div onClick={() => floatCartStateToggle(true)} className="shopping-cart-icon">
                     { cart.length > 0 ? (<span className="badge bg-warning cart-count">{ cart.length }</span>) : '' }
-                    <FontAwesomeIcon className="icon" icon={faCartShopping} />
-                    </NavLink>
+                    <FontAwesomeIcon  className="icon" icon={faCartShopping} />
                 </div>
                 <div className="cart-text">
                     <div className="title-header"><h4>My Cart</h4></div>

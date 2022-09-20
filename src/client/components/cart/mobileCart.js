@@ -5,12 +5,10 @@ import {
     faMinus,
     faHeart,
     faTrashCan,
-    faPaypal,
     faArrowRightLong,
 } from '@fortawesome/free-solid-svg-icons'
 
 import { 
-    url, 
     logo,
     money,
     product_img,
@@ -24,7 +22,7 @@ import Preloader from '../preloader/Preloader'
 
 
 
-const MobileShoppingCart = ({cart, modalToggle, quantityToggle, setQuantity}) => {
+const MobileShoppingCart = ({cart, CartModalToggle, quantityToggle, setQuantity}) => {
     return (
         <div className="m-shopping-cart">
             <div className="title-header">
@@ -34,7 +32,7 @@ const MobileShoppingCart = ({cart, modalToggle, quantityToggle, setQuantity}) =>
             <div className="m-shoppingcart-body">
                 { cart.map((item, index) => <MobileShoppingCartItem index={index}
                         key={index} item={item} setQuantity={setQuantity}
-                        quantityToggle={quantityToggle} modalToggle={modalToggle}
+                        quantityToggle={quantityToggle} CartModalToggle={CartModalToggle}
                     /> )
                 }
             </div>
@@ -56,7 +54,7 @@ export default MobileShoppingCart
 
 
 
-const MobileShoppingCartItem = ({item, index, setQuantity, quantityToggle, modalToggle}) => {
+const MobileShoppingCartItem = ({item, index, setQuantity, quantityToggle, CartModalToggle}) => {
     const is_available = item.product.quantity > 0 ? true : false
     const date = Moment(item.created_at).format('MMM Do YY')
 
@@ -64,7 +62,7 @@ const MobileShoppingCartItem = ({item, index, setQuantity, quantityToggle, modal
         <div className="m-cart-item">
             <div className="delete-icon">
                 <FontAwesomeIcon className="icon text-danger"  icon={faHeart} />
-                <FontAwesomeIcon onClick={() => modalToggle(true, item._id)} className="icon"  icon={faTrashCan} />
+                <FontAwesomeIcon onClick={() => CartModalToggle(true, item._id)} className="icon"  icon={faTrashCan} />
             </div>
             <div className="m-cart-left">
                 <NavLink to={`/detail?product=${ item.product._id }&category=${ item.product.category }`}>

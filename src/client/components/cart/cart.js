@@ -95,7 +95,7 @@ const Cart = ({user, cart, setCart, addToCart, notify_success, notify_error}) =>
 
 
     // open and close delete modal 
-    const modalToggle = (action, string) => { 
+    const CartModalToggle = (action, string) => { 
         setIsDeleting(false)
         setIsModalOpen(action) 
         setDeleteItemID(string)
@@ -117,7 +117,7 @@ const Cart = ({user, cart, setCart, addToCart, notify_success, notify_error}) =>
         Axios.post(url('/api/delete-cart-item'), {_id: deleteItemID}).then((response) => {
             if(response.data){
                 fetchShoppingCart()
-                modalToggle(false, null)
+                CartModalToggle(false, null)
                 setDeleteItemID(null)
                 return notify_success("Cart item deleted successfuly!")
             }
@@ -172,7 +172,7 @@ const Cart = ({user, cart, setCart, addToCart, notify_success, notify_error}) =>
                                         <CartItems item_id={item._id} item={item}
                                             index={index} image={item.product.image} key={index} 
                                             name={item.product.product_name} price={item.price} 
-                                            quantity={item.quantity} modalToggle={modalToggle} 
+                                            quantity={item.quantity} CartModalToggle={CartModalToggle} 
                                             quantityToggle={quantityToggle} setQuantity={setQuantity}/>
                                     ))
                                 }
@@ -182,7 +182,7 @@ const Cart = ({user, cart, setCart, addToCart, notify_success, notify_error}) =>
                      </div>
                      <div className="">
                         {
-                            isModalOpen && <CartModalDropDown isDeleting={isDeleting} deleteItem={deleteItem} modalToggle={modalToggle} />
+                            isModalOpen && <CartModalDropDown isDeleting={isDeleting} deleteItem={deleteItem} CartModalToggle={CartModalToggle} />
                         }
                         {
                             isLoading.loading ? (<Preloader text={isLoading.text}/>) : ''
@@ -190,7 +190,7 @@ const Cart = ({user, cart, setCart, addToCart, notify_success, notify_error}) =>
                      </div>
                     <div className="mobile-shopping-cart">
                         <MobileShoppingCart cart={cart} quantityToggle={quantityToggle} setQuantity={setQuantity}
-                            modalToggle={modalToggle} 
+                            CartModalToggle={CartModalToggle} 
                         />
                     </div>
                     </>
@@ -209,7 +209,7 @@ export default Cart
 
 
 
-const CartItems = ({item_id, item, index, image, name, price, quantity, modalToggle, quantityToggle, setQuantity}) => {
+const CartItems = ({item_id, item, index, image, name, price, quantity, CartModalToggle, quantityToggle, setQuantity}) => {
     let product_image = '1.jpg'
     if(image != undefined){
         product_image = image[0]
@@ -218,7 +218,7 @@ const CartItems = ({item_id, item, index, image, name, price, quantity, modalTog
         <tr className="cart-items-detail">
             <th scope="row">
                 <div className="content">
-                    <FontAwesomeIcon onClick={() => modalToggle(true, item_id)} className="cart-transh-can"  icon={faTrashCan} />
+                    <FontAwesomeIcon onClick={() => CartModalToggle(true, item_id)} className="cart-transh-can"  icon={faTrashCan} />
                 </div>
             </th>
             <td>

@@ -22,7 +22,7 @@ import AlertSuccess from './client/components/alerts/AlertSuccess'
 import Preloader from './client/components/preloader/Preloader'
 import LogoutDropDown from './client/components/dropdown/LogoutDropDown'
 import { ToastContainer, toast } from 'react-toastify';
-
+import FloatShoppingCart from './client/components/cart/FloatShoppingCart'
 
 
 
@@ -40,6 +40,7 @@ function App() {
   const [sideNavi, setSideNavi] = useState(false)
   const [isLoggedin, setIsLoggedin ] = useState(false)
   const [mobileSearch, setMobileSearch] = useState(false)
+  const [floatCartState, setFloatCartState] = useState(false)
   const [isLoading, setIsLoading ] = useState({state: false, text: ''})
   
 
@@ -209,8 +210,9 @@ function App() {
         return notify_error('Something went wront,try again!')
       }
 
+      fetchCartItems()
       notify_success('Item added to cart successfully!')
-      setCart(response.data.cart)
+      // setCart(response.data.cart)
     })
   }
 
@@ -256,6 +258,13 @@ function App() {
   }
 
 
+
+  // open and close float cart
+  const floatCartStateToggle = (state) => {
+    setFloatCartState(state)
+  }
+
+
   
 
 
@@ -290,7 +299,9 @@ const notify_error = (string) => {
   return (
     <div className={`parent-container ${appState && 'active'}`}>
       <div className="parent-nav-container">
-        <Navigation  user={user} cart={cart} appState={appState} setSideNavi={setSideNavi} sideNavToggle={sideNavToggle} toggleSearch={toggleSearch} mobileSearch={mobileSearch} sideNavi={sideNavi} toggleAppState={toggleAppState}/>
+        <Navigation  user={user} cart={cart} appState={appState} setSideNavi={setSideNavi} 
+        sideNavToggle={sideNavToggle} toggleSearch={toggleSearch} mobileSearch={mobileSearch} 
+        sideNavi={sideNavi} toggleAppState={toggleAppState} floatCartStateToggle={floatCartStateToggle}/>
         <MiniNavigation user={user} wishlist={wishlist} modalToggle={modalToggle}/>
         {message && <AlertSuccess alert={message}/>}
         {errorAlert && <AlertDanger alert={errorAlert}/>}
@@ -306,10 +317,10 @@ const notify_error = (string) => {
       <Footer/>
       { isLoading.state && <Preloader text={isLoading.text}/> }
       {logoutModal && <LogoutDropDown modalToggle={modalToggle} logoutUserModal={logoutUserModal} username={user.user_name}/>}
-    
+      <FloatShoppingCart cart={cart} floatCartState={floatCartState} floatCartStateToggle={floatCartStateToggle}/>
       <ToastContainer position="bottom-right" autoClose={5000} hideProgressBar={false} 
-                     newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover
-                 />
+        newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover
+      />
     
       
     </div>

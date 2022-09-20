@@ -4,9 +4,9 @@ import { NavLink } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
     faBars,
-    faXmark,
     faToggleOn,
     faToggleOff,
+    faArrowLeftLong,
 } from '@fortawesome/free-solid-svg-icons'
 
 
@@ -40,7 +40,7 @@ const SideNavHeader = ({sideNavToggle}) => {
         <div className="nav-title-header">
             <div className="img"><img src={logo('logo.png')} alt="logo"/></div>
             <div className="side-nav-icon">
-                <FontAwesomeIcon onClick={sideNavToggle} className="icon" icon={faXmark} />
+                <FontAwesomeIcon onClick={sideNavToggle} className="icon" icon={faArrowLeftLong} />
             </div>
         </div>
     )
