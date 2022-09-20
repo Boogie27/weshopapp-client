@@ -3493,6 +3493,9 @@ tr.cart-items-detail td{
         height: 50vh;
         
     }
+    .shopingcart-float-body .close-icon{
+        top: 10px;
+    }
 }
 @media only screen and (max-width: 398px){
     .shopingcart-float-body .title-header p{
