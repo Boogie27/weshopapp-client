@@ -3305,7 +3305,7 @@ tr.cart-items-detail td{
 }
 .parent-container.active .shopingcart-float-body{
     background-color: black;
-    border-top: 1px solid rgb(99, 99, 99);
+    border-left: 1px solid rgb(49, 49, 49);
 }
 .shopingcart-float-body .title-header{
     margin-top: 20px;
@@ -3438,6 +3438,10 @@ tr.cart-items-detail td{
         right: auto;
         bottom: 0px;
         width: 100%;
+    }
+    .parent-container.active .shopingcart-float-body{
+        border: none;
+        border-top: 1px solid rgb(99, 99, 99);
     }
     .shoppingcart-float-frame{
         height: 40vh;
