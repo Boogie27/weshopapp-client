@@ -37,7 +37,7 @@ const FloatShoppingCart = ({cart, floatCartState, floatCartStateToggle}) => {
                                 <div className="shoppingcart-float-frame">
                                 {cart.map((item, index) => <CartFloatItems key={index} item={item}/>)}
                                 </div>
-                                <CartFloatTotal/>
+                                <CartFloatTotal floatCartStateToggle={floatCartStateToggle}/>
                             </>
                         )
                     }
@@ -94,12 +94,12 @@ const CartFloatItems = ({item}) => {
 
 
 
-const CartFloatTotal = () => {
+const CartFloatTotal = ({floatCartStateToggle}) => {
     return (
         <div className="float-cart-total">
-            <div className="checkout"><NavLink to="/checkout">Check out</NavLink></div>
+            <div className="checkout"><NavLink onClick={() => floatCartStateToggle(false)} to="/checkout">Check out</NavLink></div>
             <div className="shopping-cart-link">
-                <NavLink to="/cart">
+                <NavLink onClick={() => floatCartStateToggle(false)} to="/cart">
                     Goto Shopping cart
                     <FontAwesomeIcon className="icon"  icon={faArrowRightLong} />
                 </NavLink>
