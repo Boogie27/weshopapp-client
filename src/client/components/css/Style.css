@@ -3377,6 +3377,7 @@ tr.cart-items-detail td{
 .parent-container.active .shoppingcart-float-items .cart-float-right ul li{
     color: #ccc;
 }
+.shoppingcart-float-items .cart-float-right ul li.name a:hover,
 .parent-container.active .shoppingcart-float-items .cart-float-right ul li.name{
     color: rgb(224, 157, 32);
 }

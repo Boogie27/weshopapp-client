@@ -72,7 +72,6 @@ const Login = ({fetchWishlistItems, alertMessage, fetchCartItems, setUser, isLoa
             }
             setIsLoading({state: false, text: ''})
         })
-
     }
 
 

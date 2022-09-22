@@ -35,7 +35,7 @@ const FloatShoppingCart = ({cart, floatCartState, floatCartStateToggle}) => {
                         cart.length == 0 ? (<EmptyCart/>) : (
                             <>
                                 <div className="shoppingcart-float-frame">
-                                {cart.map((item, index) => <CartFloatItems key={index} item={item}/>)}
+                                {cart.map((item, index) => <CartFloatItems key={index} item={item} floatCartStateToggle={floatCartStateToggle}/>)}
                                 </div>
                                 <CartFloatTotal floatCartStateToggle={floatCartStateToggle}/>
                             </>
@@ -63,20 +63,24 @@ export default FloatShoppingCart
 
 
 
-const CartFloatItems = ({item}) => {
+const CartFloatItems = ({item, floatCartStateToggle}) => {
     const is_available = item.product.quantity > 0 ? true : false
     const date = Moment(item.created_at).format('MMM Do YY')
 
     return (
         <div className="shoppingcart-float-items">
             <div className="cart-float-left">
-                <NavLink to={`/detail?product=${ item.product._id }&category=${ item.product.category }`}>
+                <NavLink onClick={() => floatCartStateToggle(false)} to={`/detail?product=${ item.product._id }&category=${ item.product.category }`}>
                     <img src={product_img(item.product.image[0])} alt={item.product.product_name}/>
                 </NavLink>
             </div>
             <div className="cart-float-right">
                 <ul>
-                    <li className="name">{item.product.product_name}</li>
+                    <li className="name">
+                        <NavLink onClick={() => floatCartStateToggle(false)} to={`/detail?product=${ item.product._id }&category=${ item.product.category }`}>
+                            {item.product.product_name}
+                        </NavLink>
+                    </li>
                     <li><b>Price: </b>{money(item.product.price)}</li>
                     <li className="quantity">
                         <b>Quantity: </b>{item.quantity} 
