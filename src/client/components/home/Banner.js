@@ -28,7 +28,8 @@ const Banner = ({appState}) => {
                   </ul>
               </div>
               <div className="banner-right">
-                <img src={banner_img('2.jpg')} alt=""/>
+                home
+                {/* <img src={banner_img('2.jpg')} alt=""/> */}
               </div>
           </div>
       </div>
