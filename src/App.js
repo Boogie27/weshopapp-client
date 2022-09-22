@@ -62,6 +62,7 @@ function App() {
 
 
   const sideNavToggle = () => {
+    window.scrollTo(0, 0)
       setSideNavi(!sideNavi)
   }
 
@@ -261,6 +262,7 @@ function App() {
 
   // open and close float cart
   const floatCartStateToggle = (state) => {
+    window.scrollTo(0, 0)
     setFloatCartState(state)
   }
 
