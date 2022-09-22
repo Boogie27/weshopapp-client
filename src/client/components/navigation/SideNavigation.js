@@ -18,8 +18,8 @@ const SideNavigation = ({ appState, setSideNavi, sideNavi, sideNavToggle, toggle
            <div className={`side-navi ${appState && 'active'}`}>
                 <SideNavHeader sideNavToggle={sideNavToggle}/>
                 <div className="side-nav-body">
-                    <CategoryLinks setSideNavi={setSideNavi} appState={appState} toggleAppState={toggleAppState} />
-                    <ImportantLinks setSideNavi={setSideNavi}/>
+                    <CategoryLinks sideNavToggle={sideNavToggle} appState={appState} toggleAppState={toggleAppState} />
+                    <ImportantLinks sideNavToggle={sideNavToggle}/>
                 </div>
            </div>
         </div>
@@ -51,19 +51,19 @@ const SideNavHeader = ({sideNavToggle}) => {
 
 
 
-const CategoryLinks = ({appState, setSideNavi, toggleAppState}) => {
+const CategoryLinks = ({appState, sideNavToggle, toggleAppState}) => {
     const toggleIcon = appState ? faToggleOn : faToggleOff
 
     return (
         <div className="side-nav-items">
             <div className="title-header"><h4>SHOP BY CATEGORIES</h4></div>
             <ul>
-                <li><NavLink onClick={() => setSideNavi(false) } to="/">Home</NavLink></li>
-                <li><NavLink onClick={() => setSideNavi(false) } to="/product">Product</NavLink></li>
-                <li><NavLink onClick={() => setSideNavi(false) } to="/cart">Cart</NavLink></li>
-                <li><NavLink onClick={() => setSideNavi(false) } to="/wishlist">Wishlist</NavLink></li>
-                <li><NavLink onClick={() => setSideNavi(false) } to="/register">Register</NavLink></li>
-                <li><NavLink onClick={() => setSideNavi(false) } to="/login">Login</NavLink></li>
+                <li><NavLink onClick={() => sideNavToggle(false) } to="/">Home</NavLink></li>
+                <li><NavLink onClick={() => sideNavToggle(false) } to="/product">Product</NavLink></li>
+                <li><NavLink onClick={() => sideNavToggle(false) } to="/cart">Cart</NavLink></li>
+                <li><NavLink onClick={() => sideNavToggle(false) } to="/wishlist">Wishlist</NavLink></li>
+                <li><NavLink onClick={() => sideNavToggle(false) } to="/register">Register</NavLink></li>
+                <li><NavLink onClick={() => sideNavToggle(false) } to="/login">Login</NavLink></li>
                 <li className="app-theme-btn"><span>App Theme</span><FontAwesomeIcon onClick={toggleAppState}className="icon"  icon={toggleIcon} /></li>
             </ul>
         </div>
@@ -76,16 +76,16 @@ const CategoryLinks = ({appState, setSideNavi, toggleAppState}) => {
 
 
 
-const ImportantLinks = ({setSideNavi}) => {
+const ImportantLinks = ({sideNavToggle}) => {
     return (
         <div className="side-nav-items">
             <div className="title-header"><h4>IMPORTANT LINKS</h4></div>
             <ul>
-                <li><NavLink onClick={() => setSideNavi(false) } to="/">Home</NavLink></li>
-                <li><NavLink onClick={() => setSideNavi(false) } to="/wishlist">Wishlist</NavLink></li>
-                <li><NavLink onClick={() => setSideNavi(false) } to="/special">Special</NavLink></li>
-                <li><NavLink onClick={() => setSideNavi(false) } to="/register">Register</NavLink></li>
-                <li><NavLink onClick={() => setSideNavi(false) } to="/login">Login</NavLink></li>
+                <li><NavLink onClick={() => sideNavToggle(false) } to="/">Home</NavLink></li>
+                <li><NavLink onClick={() => sideNavToggle(false) } to="/wishlist">Wishlist</NavLink></li>
+                <li><NavLink onClick={() => sideNavToggle(false) } to="/special">Special</NavLink></li>
+                <li><NavLink onClick={() => sideNavToggle(false) } to="/register">Register</NavLink></li>
+                <li><NavLink onClick={() => sideNavToggle(false) } to="/login">Login</NavLink></li>
             </ul>
         </div>
     )
