@@ -46,7 +46,7 @@ const Cart = ({user, cart, setCart, addToCart, notify_success, notify_error}) =>
    
     useEffect(() => {
         fetchShoppingCart()
-        preloaderToggle(true, 'Fetching Cart, Please Wait...', 3000)
+        preloaderToggle(true, 'Fetching Cart, Please Wait...', 1000)
     }, [])
 
 
@@ -61,13 +61,13 @@ const Cart = ({user, cart, setCart, addToCart, notify_success, notify_error}) =>
                     })
                     setTotalPrice(totalPrice)
                     if(response.data.length == 0){
-                        preloaderToggle(true, 'Fetching Cart, Please Wait...', 3000)
+                        preloaderToggle(true, 'Fetching Cart, Please Wait...', 1000)
                     }
                   return setCart(response.data)
                 }
                 setCart([])
                 setTotalPrice(0)
-                preloaderToggle(true, 'Fetching Cart, Please Wait...', 3000)
+                preloaderToggle(true, 'Fetching Cart, Please Wait...', 1000)
             })
         }
     }
@@ -108,7 +108,7 @@ const Cart = ({user, cart, setCart, addToCart, notify_success, notify_error}) =>
     // delete cart item
     const deleteItem = () => {
         if(cart.length == 1){
-            preloaderToggle(true, 'Deleting Product, Please Wait...', 3000)
+            preloaderToggle(true, 'Deleting Product, Please Wait...', 1000)
         }
 
         if(!deleteItemID){

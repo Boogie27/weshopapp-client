@@ -18,25 +18,25 @@ import FeaturedFloatItems from './FeaturedFloatItems'
 
 
 
-const FeaturedProduct = ({user, addToWishlist, addToCart, featuredProduct, showQuickView}) => {
+const FeaturedProduct = ({user,scrollToTop,  addToWishlist, addToCart, featuredProduct, showQuickView}) => {
 
   return (
       <div className="latest-p-container">
         <div className="latest-p-item">
           <div className="latest-p-img">
-            <NavLink to={`/detail?product=${featuredProduct._id}&category=${featuredProduct.category}`}>
+            <NavLink onClick={() => scrollToTop()} to={`/detail?product=${featuredProduct._id}&category=${featuredProduct.category}`}>
               <img src={productImageURL + featuredProduct.image[0]} alt={featuredProduct.product_name} />
             </NavLink>
           </div>
           <div className="latest-p-text">
             <ul>
               <li className="product-name">
-                <NavLink to={`/detail?product=${featuredProduct._id}&category=${featuredProduct.category}`}>
+                <NavLink onClick={() => scrollToTop()} to={`/detail?product=${featuredProduct._id}&category=${featuredProduct.category}`}>
                 {featuredProduct.product_name}
                 </NavLink>
               </li>
               <li className="product-desc">
-                <NavLink to={`/detail?product=${featuredProduct._id}&category=${featuredProduct.category}`}>
+                <NavLink onClick={() => scrollToTop()} to={`/detail?product=${featuredProduct._id}&category=${featuredProduct.category}`}>
                   {featuredProduct.product_desc.substr(1, 80) + '...'}
                 </NavLink>
               </li>
@@ -47,7 +47,7 @@ const FeaturedProduct = ({user, addToWishlist, addToCart, featuredProduct, showQ
             </ul>
           </div>
           <div className="float-item-container">
-            <FeaturedFloatItems user={user} addToWishlist={addToWishlist} featuredProduct={featuredProduct} showQuickView={showQuickView}/>
+            <FeaturedFloatItems user={user} scrollToTop={scrollToTop} addToWishlist={addToWishlist} featuredProduct={featuredProduct} showQuickView={showQuickView}/>
           </div>
         </div>
         <div className="product-link-two">

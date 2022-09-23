@@ -19,8 +19,10 @@ import {
 
 const Navigation = ({
     cart,
+    user,
     appState,
     sideNavi,
+    modalToggle,
     setSideNavi,
     toggleSearch, 
     mobileSearch,
@@ -32,7 +34,7 @@ const Navigation = ({
     
   return (
     <div className={`nav-container ${appState && 'active'}`}>
-        <SideNavigation appState={appState} setSideNavi={setSideNavi} sideNavi={sideNavi} sideNavToggle={sideNavToggle} toggleAppState={toggleAppState}/>
+        <SideNavigation user={user} appState={appState} modalToggle={modalToggle} setSideNavi={setSideNavi} sideNavi={sideNavi} sideNavToggle={sideNavToggle} toggleAppState={toggleAppState}/>
         <div className="inner-nav-container">
             <Logo appState={appState} sideNavToggle={sideNavToggle} />
             <Search />

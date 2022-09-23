@@ -806,7 +806,12 @@ a{
 
 }
 .side-nav-items ul li{
+    cursor:pointer;
     padding: 10px 0px;
+}
+.side-nav-items ul li:hover{
+    font-weight: bold;
+    color: rgb(224, 157, 32);
 }
 .side-nav-items ul li a{
     color: #333;

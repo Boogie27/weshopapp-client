@@ -40,7 +40,7 @@ const categories = [
 
 
 
-const Home = ({user, addToWishlist, appState, addToCart}) => {
+const Home = ({user, scrollToTop, addToWishlist, appState, addToCart}) => {
   const [product, setProduct] = useState(null)
   const [latestProducts, setLatestProducts] = useState([])
   const [featuredProducts, setFeaturedProducts] = useState([])
@@ -71,7 +71,7 @@ const Home = ({user, addToWishlist, appState, addToCart}) => {
       <Banner appState={appState} />
       <div className="home-body">
         <SideProduct/>
-        <HomeBody user={user} addToWishlist={addToWishlist} addToCart={addToCart} showQuickView={showQuickView} categories={categories} latestProducts={latestProducts}/>
+        <HomeBody user={user} scrollToTop={scrollToTop} addToWishlist={addToWishlist} addToCart={addToCart} showQuickView={showQuickView} categories={categories} latestProducts={latestProducts}/>
       </div>
       <div className="second-banner-container">
         <SecondBanner/>
@@ -97,7 +97,7 @@ export default Home
 
 
 
-const HomeBody = ({user, addToWishlist, categories, addToCart, latestProducts, showQuickView}) => {
+const HomeBody = ({user, scrollToTop, addToWishlist, categories, addToCart, latestProducts, showQuickView}) => {
   return (
     <div className="homebody-container">
       <div className="inner-homebody">
@@ -116,7 +116,7 @@ const HomeBody = ({user, addToWishlist, categories, addToCart, latestProducts, s
                 latestProducts.map((featuredProduct) => (
                   <Col key={featuredProduct._id} xs={12} sm={6} md={4}>
                   {
-                    featuredProduct.image.length > 0 ? ( <FeaturedProduct user={user} addToWishlist={addToWishlist} addToCart={addToCart} showQuickView={showQuickView} featuredProduct={featuredProduct}/> ) : null
+                    featuredProduct.image.length > 0 ? ( <FeaturedProduct user={user} scrollToTop={scrollToTop} addToWishlist={addToWishlist} addToCart={addToCart} showQuickView={showQuickView} featuredProduct={featuredProduct}/> ) : null
                   }
                   </Col>
                 )) 
@@ -179,7 +179,7 @@ const SecondBanner = () => {
 
 
 
-const FeaturedProducts = ({user, addToWishlist, addToCart, featuredProducts, showQuickView}) => {
+const FeaturedProducts = ({user, scrollToTop, addToWishlist, addToCart, featuredProducts, showQuickView}) => {
   return (
     <div className="product-conatiner">
       <div className="title-header"><h4>FEATURED PRODUCTS</h4></div>
@@ -189,7 +189,7 @@ const FeaturedProducts = ({user, addToWishlist, addToCart, featuredProducts, sho
             featuredProducts.map((featuredProduct) => (
               <Col key={featuredProduct._id} xs={12} sm={6} md={4} lg={3}>
               {
-                featuredProduct.image.length > 0 ? ( <FeaturedProduct user={user} addToWishlist={addToWishlist} addToCart={addToCart} showQuickView={showQuickView} featuredProduct={featuredProduct}/> ) : null
+                featuredProduct.image.length > 0 ? ( <FeaturedProduct user={user} scrollToTop={scrollToTop} addToWishlist={addToWishlist} addToCart={addToCart} showQuickView={showQuickView} featuredProduct={featuredProduct}/> ) : null
               }
               </Col>
             )) 

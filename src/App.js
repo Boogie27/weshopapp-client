@@ -31,6 +31,7 @@ import FloatShoppingCart from './client/components/cart/FloatShoppingCart'
 function App() {
   const [user, setUser] = useState(false)
   let token = Cookies.get('weshopappuser')
+  let state = Cookies.get('weshopappstate')
   const [cart, setCart] = useState([])
   const [wishlist, setWishlist] = useState([])
   const [message, setMessage] = useState(false)
@@ -50,19 +51,23 @@ function App() {
 
 
   const toggleAppState = () => {
-    const token = Cookies.get('weshopappuser')
+    const theme = appState ? false : true
     if(user && token){
       // change user theme here
-      Axios.post(url('/api/user-theme-change'), user).then((response) => {
-        console.log(response.data)
+      Axios.post(url('/api/user-theme-change'), {_id: user._id, theme: theme}).then((response) => {
+        Cookies.set('weshopappstate', response.data, { expires: 7 })
+        return setAppState(response.data)
       })
     }
-    return setAppState(!appState)
+    
+    const myTheme = theme ? 'dark' : 'light'
+    Cookies.set('weshopappstate', myTheme, { expires: 7 })
+    return setAppState(theme)
   }
 
 
   const sideNavToggle = () => {
-    window.scrollTo(0, 0)
+      window.scrollTo(0, 0)
       setSideNavi(!sideNavi)
   }
 
@@ -79,7 +84,7 @@ function App() {
 
   const fetchDemo = () => {
     Axios.get(url('/api/demo')).then((request, response) => {
-      return alertMessage("Backend functioning successfully!", 5000)
+      // return alertMessage("Backend functioning successfully!", 5000)
     })
   }
 
@@ -88,12 +93,22 @@ function App() {
 
   // change user app theme on page load
   const userAppState = (user) => {
-    if(user && user.theme == 'light'){
-      setAppState(false)
+    if(!token && state){
+      if(state == 'light'){
+        return setAppState(false)
+      }else if(state == 'dark'){
+        return setAppState(true)
+      }
     }
-    if(user && user.theme == 'dark'){
-      setAppState(true)
+    if(token && user){
+      if(user && user.theme == 'light'){
+        return setAppState(false)
+      }else  if(user && user.theme == 'dark')
+      if(user && user.theme == 'dark'){
+        return setAppState(true)
+      }
     }
+    setAppState(false)
   }
   
 
@@ -131,7 +146,7 @@ function App() {
         setUser(false)
         fetchCartItems()
         fetchWishlistItems()
-        preloaderToggle(true, 'Logging out user, Please wait...', 3000)
+        preloaderToggle(true, 'Logging out user, Please wait...', 2000)
       })
     }
   }
@@ -167,6 +182,7 @@ function App() {
   // open or close modal
   const modalToggle = (action = false, string = null) => {
     setLogoutModal(action)
+    setSideNavi(false)
   }
 
 
@@ -180,7 +196,6 @@ function App() {
 
   // fetch cart items
   const fetchCartItems  = (string = null) => {
-    
     if(string && token == undefined){
       token = string
     }
@@ -267,6 +282,11 @@ function App() {
   }
 
 
+  // scroll page to top
+  const scrollToTop = () => {
+    window.scrollTo(0, 0)
+  }
+
   
 
 
@@ -301,7 +321,7 @@ const notify_error = (string) => {
   return (
     <div className={`parent-container ${appState && 'active'}`}>
       <div className="parent-nav-container">
-        <Navigation  user={user} cart={cart} appState={appState} setSideNavi={setSideNavi} 
+        <Navigation  user={user} modalToggle={modalToggle} cart={cart} appState={appState} setSideNavi={setSideNavi} 
         sideNavToggle={sideNavToggle} toggleSearch={toggleSearch} mobileSearch={mobileSearch} 
         sideNavi={sideNavi} toggleAppState={toggleAppState} floatCartStateToggle={floatCartStateToggle}/>
         <MiniNavigation user={user} wishlist={wishlist} modalToggle={modalToggle}/>
@@ -309,8 +329,8 @@ const notify_error = (string) => {
         {errorAlert && <AlertDanger alert={errorAlert}/>}
       </div>
       <Routes>
-          <Route path="/" element={<Home user={user} addToWishlist={addToWishlist} appState={appState} addToCart={addToCart}/>}/>
-          <Route path="/detail" element={<Detail addToWishlist={addToWishlist} user={user} addToCart={addToCart} alertError={alertError} alertMessage={alertMessage}/>}/>
+          <Route path="/" element={<Home user={user} scrollToTop={scrollToTop} addToWishlist={addToWishlist} appState={appState} addToCart={addToCart}/>}/>
+          <Route path="/detail" element={<Detail scrollToTop={scrollToTop} addToWishlist={addToWishlist} user={user} addToCart={addToCart} alertError={alertError} alertMessage={alertMessage}/>}/>
           <Route path="/cart" element={<Cart user={user} cart={cart} setCart={setCart} addToCart={addToCart} notify_success={notify_success} notify_error={notify_error}/>}/>
           <Route path="/wishlist" element={<Wishlist wishlist={wishlist} setWishlist={setWishlist}/>}/>
           <Route path="/login" element={<Login fetchWishlistItems={fetchWishlistItems} alertMessage={alertMessage} fetchCartItems={fetchCartItems} setUser={setUser} isLoading={isLoading} setIsLoading={setIsLoading}/>}/>

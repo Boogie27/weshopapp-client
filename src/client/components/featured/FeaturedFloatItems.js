@@ -17,7 +17,7 @@ import {
 
 
   
-const FeaturedFloatItems = ({user, addToWishlist, featuredProduct, showQuickView}) => {
+const FeaturedFloatItems = ({user, scrollToTop, addToWishlist, featuredProduct, showQuickView}) => {
     const [floatImage, setFloatImage] = useState(false)
   
     const floatImageScreenIn = () => {
@@ -43,7 +43,7 @@ const FeaturedFloatItems = ({user, addToWishlist, featuredProduct, showQuickView
         {
           featuredProduct.image.length > 1 ? (
           <div className={`float-item-img ${floatImage && 'active'}`}>
-            <NavLink to={`/detail?product=${featuredProduct._id}&category=${featuredProduct.category}`}>
+            <NavLink onClick={() => scrollToTop()} to={`/detail?product=${featuredProduct._id}&category=${featuredProduct.category}`}>
               <img src={productImageURL + featuredProduct.image[1]} alt={featuredProduct.product_name}/>
             </NavLink>
           </div>

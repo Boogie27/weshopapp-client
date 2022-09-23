@@ -40,7 +40,7 @@ import Preloader from '../preloader/Preloader'
 
 
 
-const Detail = ({user, addToCart, alertError, alertMessage, addToWishlist}) => {
+const Detail = ({user, scrollToTop, addToCart, alertError, alertMessage, addToWishlist}) => {
     const navigate = useNavigate()
     const [searchParams] = useSearchParams();
     const product_id = searchParams.get('product')
@@ -90,12 +90,13 @@ const Detail = ({user, addToCart, alertError, alertMessage, addToWishlist}) => {
         // get product likes
         fetchProductLikes(product_id)
         
-        preloaderToggle(true, 'Fetching Product Details, Please Wait...', 2000)
+        preloaderToggle(true, 'Fetching Product Details, Please Wait...', 1000)
     }, [product_id])
     
     const fetchProductDetail = (product_id) => {
         Axios.get(url(`/detail?product=${product_id}`)).then((response) => {
             setProductDetail(response.data)
+            preloaderToggle(true, 'Fetching Product Details, Please Wait...', 1000)
         })
     }
 
@@ -343,7 +344,7 @@ const Detail = ({user, addToCart, alertError, alertMessage, addToWishlist}) => {
                              />
                              {
                                  relatedProducts.length > 0 ? (
-                                     <RelatedProducts user={user} addToWishlist={addToWishlist} relatedProducts={relatedProducts} showQuickView={showQuickView}/>
+                                     <RelatedProducts user={user} scrollToTop={scrollToTop} addToWishlist={addToWishlist} relatedProducts={relatedProducts} showQuickView={showQuickView}/>
                                  ) : null
                              }
                              

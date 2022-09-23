@@ -11,14 +11,14 @@ import {
 
 
 
-const SideNavigation = ({ appState, setSideNavi, sideNavi, sideNavToggle, toggleAppState }) => {
+const SideNavigation = ({ user,  appState, modalToggle, setSideNavi, sideNavi, sideNavToggle, toggleAppState }) => {
     return (
         <div className={`side-nav-container ${sideNavi && 'active'}`}>
            <div onClick={sideNavToggle} className="dark-skin"></div>
            <div className={`side-navi ${appState && 'active'}`}>
                 <SideNavHeader sideNavToggle={sideNavToggle}/>
                 <div className="side-nav-body">
-                    <CategoryLinks sideNavToggle={sideNavToggle} appState={appState} toggleAppState={toggleAppState} />
+                    <CategoryLinks user={user} modalToggle={modalToggle} sideNavToggle={sideNavToggle} appState={appState} toggleAppState={toggleAppState} />
                     <ImportantLinks sideNavToggle={sideNavToggle}/>
                 </div>
            </div>
@@ -51,7 +51,7 @@ const SideNavHeader = ({sideNavToggle}) => {
 
 
 
-const CategoryLinks = ({appState, sideNavToggle, toggleAppState}) => {
+const CategoryLinks = ({user, appState, modalToggle, sideNavToggle, toggleAppState}) => {
     const toggleIcon = appState ? faToggleOn : faToggleOff
 
     return (
@@ -62,8 +62,14 @@ const CategoryLinks = ({appState, sideNavToggle, toggleAppState}) => {
                 <li><NavLink onClick={() => sideNavToggle(false) } to="/product">Product</NavLink></li>
                 <li><NavLink onClick={() => sideNavToggle(false) } to="/cart">Cart</NavLink></li>
                 <li><NavLink onClick={() => sideNavToggle(false) } to="/wishlist">Wishlist</NavLink></li>
-                <li><NavLink onClick={() => sideNavToggle(false) } to="/register">Register</NavLink></li>
-                <li><NavLink onClick={() => sideNavToggle(false) } to="/login">Login</NavLink></li>
+                {
+                    user ? (<li onClick={(e) => modalToggle(true, e)} >Logout</li>) : (
+                        <>
+                            <li><NavLink onClick={() => sideNavToggle(false) } to="/register">Register</NavLink></li>
+                            <li><NavLink onClick={() => sideNavToggle(false) } to="/login">Login</NavLink></li>
+                        </>
+                    )
+                }
                 <li className="app-theme-btn"><span>App Theme</span><FontAwesomeIcon onClick={toggleAppState}className="icon"  icon={toggleIcon} /></li>
             </ul>
         </div>
