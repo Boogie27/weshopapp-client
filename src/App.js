@@ -52,13 +52,13 @@ function App() {
 
   const toggleAppState = () => {
     const theme = appState ? false : true
-    if(user && token){
-      // change user theme here
-      Axios.post(url('/api/user-theme-change'), {_id: user._id, theme: theme}).then((response) => {
-        Cookies.set('weshopappstate', response.data, { expires: 7 })
-        return setAppState(response.data)
-      })
-    }
+    // if(user && token){
+    //   // change user theme here
+    //   Axios.post(url('/api/user-theme-change'), {_id: user._id, theme: theme}).then((response) => {
+    //     Cookies.set('weshopappstate', response.data, { expires: 7 })
+    //     return setAppState(response.data)
+    //   })
+    // }
     
     const myTheme = theme ? 'dark' : 'light'
     Cookies.set('weshopappstate', myTheme, { expires: 7 })
