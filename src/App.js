@@ -93,7 +93,7 @@ function App() {
 
   // change user app theme on page load
   const userAppState = (user) => {
-    if(!token && state){
+    if(state){
       if(state == 'light'){
         return setAppState(false)
       }else if(state == 'dark'){
