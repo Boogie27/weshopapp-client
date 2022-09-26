@@ -8,7 +8,7 @@ import Row from 'react-bootstrap/Row';
 
 
 
-const RelatedProducts = ({user, scrollToTop, addToWishlist, relatedProducts, showQuickView}) => {
+const RelatedProducts = ({user, scrollToTop, addToCart, addToWishlist, relatedProducts, showQuickView}) => {
 
     return (
         <div className="product-conatiner">
@@ -17,9 +17,9 @@ const RelatedProducts = ({user, scrollToTop, addToWishlist, relatedProducts, sho
                 <Row className="show-grid">
                 {
                     relatedProducts.map((featuredProduct) => (
-                    <Col key={featuredProduct._id} xs={12} sm={6} md={4} lg={3}>
+                    <Col key={featuredProduct._id} xs={12} sm={12} md={6} lg={4}>
                     {
-                        featuredProduct.image.length > 0 ? ( <FeaturedProduct user={user} scrollToTop={scrollToTop} addToWishlist={addToWishlist} showQuickView={showQuickView} featuredProduct={featuredProduct}/> ) : null
+                        featuredProduct.image.length > 0 ? ( <FeaturedProduct user={user} addToCart={addToCart} scrollToTop={scrollToTop} addToWishlist={addToWishlist} showQuickView={showQuickView} featuredProduct={featuredProduct}/> ) : null
                     }
                     </Col>
                     )) 

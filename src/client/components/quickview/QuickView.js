@@ -96,6 +96,7 @@ const QuickViewImage = ({product}) => {
 const StarRatings = () => {
     return (
         <div className="quick-view-stars">
+            <span><b>Ratings:</b> </span>
             <FontAwesomeIcon className="star active"  icon={faStar} />
             <FontAwesomeIcon className="star active"  icon={faStar} />
             <FontAwesomeIcon className="star active"  icon={faStar} />
@@ -116,7 +117,6 @@ const Details = ({product}) => {
                 <li><b>Product Name: </b>{product.product_name}</li>
                 <li><b>Product Price: </b>{moneySign + product.price}</li>
                 <li><b>Old Price: </b> <s>{moneySign + product.old_price}</s></li>
-                <li><b>Product Code: </b>{`${'Product '+ product.id}`}</li>
                 <li><b>Availability: </b><span className={`${!product.quantity && 'active'}`}>{product.quantity ? 'Product Instock' : 'Out Of Stock'}</span></li>
             </ul>
         </div>

@@ -29,7 +29,6 @@ const FeaturedFloatItems = ({user, scrollToTop, addToWishlist, featuredProduct, 
     }
 
     const addItemToWishList = () => {
-     
       const item = {
         user_id: user._id,
         product_id: featuredProduct._id,
@@ -51,7 +50,7 @@ const FeaturedFloatItems = ({user, scrollToTop, addToWishlist, featuredProduct, 
         }
         <div className="float-item-btn">
           <ul className={`${floatImage && 'active'}`}>
-            <li className="icon-btn"><FontAwesomeIcon onClick={() => addItemToWishList()} className="icon"  icon={faHeart} /></li>
+            <li className="icon-btn wishlist"><FontAwesomeIcon onClick={() => addItemToWishList()} className="icon"  icon={faHeart} /></li>
             <li className="icon-btn"><FontAwesomeIcon onClick={() => showQuickView(featuredProduct)} className="icon"  icon={faEye} /></li>
           </ul>
         </div>
