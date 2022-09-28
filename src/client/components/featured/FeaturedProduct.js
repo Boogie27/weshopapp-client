@@ -97,7 +97,7 @@ const ProductLinksOne = ({addItemToWishList, addProductToCart, showQuickView, ad
   return (
     <>
       <div className="stars">
-        <span><b>Ratings:</b> </span>
+        <span><b>Rating:</b> </span>
         <FontAwesomeIcon className="star active"  icon={faStar} />
         <FontAwesomeIcon className="star active"  icon={faStar} />
         <FontAwesomeIcon className="star active"  icon={faStar} />
