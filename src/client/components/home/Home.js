@@ -114,7 +114,7 @@ const HomeBody = ({user, scrollToTop, addToWishlist, categories, addToCart, late
             <Row className="show-grid">
               {
                 latestProducts.map((featuredProduct) => (
-                  <Col key={featuredProduct._id} xs={12} sm={12} md={6}>
+                  <Col key={featuredProduct._id} xs={12} sm={12} md={4}>
                   {
                     featuredProduct.image.length > 0 ? ( <FeaturedProduct user={user} scrollToTop={scrollToTop} addToWishlist={addToWishlist} addToCart={addToCart} showQuickView={showQuickView} featuredProduct={featuredProduct}/> ) : null
                   }
