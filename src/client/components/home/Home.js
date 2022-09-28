@@ -79,6 +79,9 @@ const Home = ({user, scrollToTop, addToWishlist, appState, addToCart}) => {
       <div className="featured-p-container">
         <FeaturedProducts user={user} addToWishlist={addToWishlist} addToCart={addToCart} showQuickView={showQuickView} featuredProducts={featuredProducts}/>
       </div>
+      <div className="featured-p-container">
+        <BestSellers user={user} addToWishlist={addToWishlist} addToCart={addToCart} showQuickView={showQuickView} featuredProducts={featuredProducts}/>
+      </div>
       <BottomBanner/>
       {
         product ? (<QuickView product={product} closeQuickView={closeQuickView} />) : null
@@ -114,7 +117,7 @@ const HomeBody = ({user, scrollToTop, addToWishlist, categories, addToCart, late
             <Row className="show-grid">
               {
                 latestProducts.map((featuredProduct) => (
-                  <Col key={featuredProduct._id} xs={12} sm={12} md={4}>
+                  <Col key={featuredProduct._id} xs={12} sm={12} md={6}>
                   {
                     featuredProduct.image.length > 0 ? ( <FeaturedProduct user={user} scrollToTop={scrollToTop} addToWishlist={addToWishlist} addToCart={addToCart} showQuickView={showQuickView} featuredProduct={featuredProduct}/> ) : null
                   }
@@ -187,7 +190,7 @@ const FeaturedProducts = ({user, scrollToTop, addToWishlist, addToCart, featured
         <Row className="show-grid">
           {
             featuredProducts.map((featuredProduct) => (
-              <Col key={featuredProduct._id} xs={12} sm={12} md={4} lg={3}>
+              <Col key={featuredProduct._id} xs={12} sm={12} md={6} lg={4} xl={3}>
               {
                 featuredProduct.image.length > 0 ? ( <FeaturedProduct user={user} scrollToTop={scrollToTop} addToWishlist={addToWishlist} addToCart={addToCart} showQuickView={showQuickView} featuredProduct={featuredProduct}/> ) : null
               }
@@ -202,6 +205,29 @@ const FeaturedProducts = ({user, scrollToTop, addToWishlist, addToCart, featured
 
 
 
+
+
+
+const BestSellers = ({user, scrollToTop, addToWishlist, addToCart, featuredProducts, showQuickView}) => {
+  return (
+    <div className="product-conatiner best-sellers">
+      <div className="title-header"><h4>BEST SELLERS</h4></div>
+      <div className="product-body">
+        <Row className="show-grid">
+          {
+            featuredProducts.map((featuredProduct) => (
+              <Col key={featuredProduct._id} xs={12} sm={12} md={6} lg={4} xl={3}>
+              {
+                featuredProduct.image.length > 0 ? ( <FeaturedProduct user={user} scrollToTop={scrollToTop} addToWishlist={addToWishlist} addToCart={addToCart} showQuickView={showQuickView} featuredProduct={featuredProduct}/> ) : null
+              }
+              </Col>
+            )) 
+          }
+        </Row>
+      </div>
+    </div>
+  )
+}
 
 
 

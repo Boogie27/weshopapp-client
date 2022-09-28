@@ -1427,9 +1427,6 @@ a{
     text-decoration: none;
     transition: all 0.2s ease;
 }
-.latest-p-text ul li.product-price{
-    font-weight: 600;
-}
 .parent-container.active .latest-p-text ul li.product-name a,
 .parent-container.active .latest-p-text ul li.product-price
 {
@@ -1591,20 +1588,14 @@ a{
     .latest-p-container .latest-p-img{
         height: auto;
     }
-    .latest-p-text ul li.latest-pb-button{
-        display: block;
-    }
-    .latest-p-text ul li.latest-pb-button{
-        position: static;
-    }
     .latest-p-text ul li.latest-pb-button .cart-icon{
         top: 10px;
         right: 0px;
         position: absolute;
     }
     .latest-p-img img{
-        width: 100%;
-        height: 210px;
+        width: 220px;
+        height: 220px;
     }
 }
 @media only screen and (max-width: 767px){
