@@ -335,7 +335,7 @@ const notify_error = (string) => {
           <Route path="/wishlist" element={<Wishlist wishlist={wishlist} setWishlist={setWishlist}/>}/>
           <Route path="/login" element={<Login fetchWishlistItems={fetchWishlistItems} alertMessage={alertMessage} fetchCartItems={fetchCartItems} setUser={setUser} isLoading={isLoading} setIsLoading={setIsLoading}/>}/>
           <Route path="/register" element={<Register alertMessage={alertMessage} setUser={setUser} isLoading={isLoading} setIsLoading={setIsLoading}/>}/>
-          <Route path="/products" element={<Product/>}/>
+          <Route path="/products" element={<Product scrollToTop={scrollToTop}/>}/>
       </Routes>
       <Footer/>
       { isLoading.state && <Preloader text={isLoading.text}/> }
