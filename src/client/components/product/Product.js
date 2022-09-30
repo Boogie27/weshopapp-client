@@ -110,7 +110,7 @@ const ProductImage = ({product, scrollToTop, is_floatImage}) => {
                 </NavLink>
             </div>
             {
-                image.length >= 1 ? (
+                image.length > 1 ? (
                     <div className="float-product-comp-img">
                         <NavLink onClick={() => scrollToTop()} to={`/detail?product=${product._id}&category=${product.category}`}>
                             <img src={product_img(image[1])} alt=""/>
