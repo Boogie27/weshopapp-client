@@ -3598,6 +3598,12 @@ tr.cart-items-detail td{
     font-size: 20px;
     transition: color 0.2s ease;
 }
+.product-top-bar .topbar-left span .icon{
+    top: 1px;
+    font-size: 15px;
+    margin-left: 5px;
+    position: relative;
+}
 .product-top-bar .topbar-left .icon:hover,
 .product-top-bar .topbar-left span:hover{
     color: rgb(224, 157, 32);
@@ -3625,6 +3631,94 @@ tr.cart-items-detail td{
 }
 .product-top-bar .topbar-right ul li select.name{
     width: 200px;
+}
+.product-body-container{
+    padding: 0px 20px;
+}
+.product-body-container .product-component{
+    padding: 0px 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(236, 236, 236);
+}
+.product-image-comp{
+    z-index: 10;
+    overflow: hidden;
+    position: relative;
+}
+.float-product-comp-img{
+    top: -100px;
+    left: 0px;
+    position: absolute;
+}
+.product-image-comp .float-product-icon{
+    top: 0px;
+    right: 0px;
+    z-index: 10;
+    position: absolute;
+}
+.product-image-comp .float-product-icon .icon{
+    display: block;
+    color: #555;
+    font-size: 20px;
+    padding: 5px 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    box-shadow: 0px 0px 5px 0px rgba(134, 134, 134, 0.575); 
+}
+.product-image-comp .float-product-icon .icon:hover{
+    color: rgb(224, 157, 32);
+}
+.product-comp-img,
+.float-product-comp-img
+{
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+}
+.product-comp-img img,
+.float-product-comp-img img{
+    width: 180px;
+    height: 180px;
+    border-radius: 5px;
+}
+.product-comp-detail ul li{
+    color: #555;
+    font-size: 15px;
+}
+.product-comp-detail ul li a:hover{
+    color: rgb(224, 157, 32);
+}
+.product-comp-detail ul li p{
+    margin: 0px;
+    color: #555;
+    font-size: 15px;
+}
+.product-component .bottom-icons-large{
+    margin: 10px 0px;
+    display: flex;
+    justify-content: space-between;
+}
+.product-component .bottom-icons-large .stars .star{
+    color: rgb(185, 185, 185);
+    font-size: 15px;
+}
+.product-component .bottom-icons-large .stars .star.active{
+    color: rgb(224, 157, 32);
+}
+.product-shop-icons .icon{
+    color: #555;
+    font-size: 20px;
+    padding: 5px 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    box-shadow: 0px 0px 5px 0px rgba(134, 134, 134, 0.575); 
+}
+.product-shop-icons .icon:hover{
+    color: rgb(224, 157, 32);
 }
 @media only screen and (max-width: 767px){
     .product-top-bar{

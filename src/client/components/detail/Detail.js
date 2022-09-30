@@ -20,12 +20,10 @@ import Cookies from 'js-cookie'
 import { 
     url, 
     today,
-    moneySign, 
-    userImageURL, 
+    money, 
     category_img,
     product_img,
     profile_img,
-    productImageURL 
 } from '../../Data'
 import AlertDanger from '../alerts/AlertDanger'
 import { ToastContainer, toast } from 'react-toastify';
@@ -411,7 +409,7 @@ const ProductImage = ({ images }) => {
     return (
         <div className="product-img">
             <div className="main-product-img">
-                <img src={productImageURL + images[imageIndex]} alt=""/>
+                <img src={product_img(images[imageIndex])} alt=""/>
             </div>
             <div className="product-img-view">
                 <div className="preview-frame">
@@ -431,7 +429,7 @@ const ImagePreview = ({image, index, imageIndex, showImage}) => {
 
     return (
         <div onClick={() => showImage(index)} className={`img-preview ${state}`}>
-            <img  src={productImageURL + image} alt={`product-image-${index}`}/>
+            <img  src={product_img(image)} alt={`product-image-${index}`}/>
         </div>
       );
 }
@@ -506,8 +504,8 @@ const ItemDetail = ({productDetail}) => {
     const quantity = productDetail.quantity > 0 ? true : false
     return (
         <ul className="ul-detail-middle">
-            <li><b>Price:</b> {moneySign + productDetail.price}</li>
-            <li><b>Old Price:</b> {moneySign + productDetail.old_price}</li>
+            <li><b>Price:</b> {money(productDetail.price)}</li>
+            <li><b>Old Price:</b> {money(productDetail.old_price)}</li>
             <li><b>Brand: </b>{productDetail.brand}</li>
             <li><b>Product Code: </b>Product {productDetail.product_code}</li>
             <li><b>Availability: </b><span className={` ${!quantity && 'active'}`}>{quantity ? 'Available' : 'Out of stock'}</span></li>

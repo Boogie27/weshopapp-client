@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { NavLink, useSearchParams  } from 'react-router-dom'
 import FeaturedProduct from '../featured/FeaturedProduct'
 import Col from 'react-bootstrap/Col';
