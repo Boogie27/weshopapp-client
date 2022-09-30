@@ -59,7 +59,7 @@ const CategoryLinks = ({user, appState, modalToggle, sideNavToggle, toggleAppSta
             <div className="title-header"><h4>SHOP BY CATEGORIES</h4></div>
             <ul>
                 <li><NavLink onClick={() => sideNavToggle(false) } to="/">Home</NavLink></li>
-                <li><NavLink onClick={() => sideNavToggle(false) } to="/product">Product</NavLink></li>
+                <li><NavLink onClick={() => sideNavToggle(false) } to="/products">Product</NavLink></li>
                 <li><NavLink onClick={() => sideNavToggle(false) } to="/cart">Cart</NavLink></li>
                 <li><NavLink onClick={() => sideNavToggle(false) } to="/wishlist">Wishlist</NavLink></li>
                 {
