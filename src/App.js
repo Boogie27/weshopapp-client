@@ -9,6 +9,7 @@ import Detail from './client/components/detail/Detail'
 import Login from './client/components/auth/Login'
 import Cart from './client/components/cart/cart'
 import Wishlist from './client/components/wishlist/Wishlist'
+import Product from './client/components/product/Product'
 
 
 import Register from './client/components/auth/Register'
@@ -335,6 +336,7 @@ const notify_error = (string) => {
           <Route path="/wishlist" element={<Wishlist wishlist={wishlist} setWishlist={setWishlist}/>}/>
           <Route path="/login" element={<Login fetchWishlistItems={fetchWishlistItems} alertMessage={alertMessage} fetchCartItems={fetchCartItems} setUser={setUser} isLoading={isLoading} setIsLoading={setIsLoading}/>}/>
           <Route path="/register" element={<Register alertMessage={alertMessage} setUser={setUser} isLoading={isLoading} setIsLoading={setIsLoading}/>}/>
+          <Route path="/products" element={<Product/>}/>
       </Routes>
       <Footer/>
       { isLoading.state && <Preloader text={isLoading.text}/> }

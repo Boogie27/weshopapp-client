@@ -3570,10 +3570,92 @@ tr.cart-items-detail td{
         width: 130px;
     }
 }
-
-
-
-
-
-
-
+/* ************* PRODUCT PAGE *************** */
+.product-page-container{
+    margin-top: 50px;
+}
+.product-page-container .title-header.top{
+    padding: 0px 20px;
+}
+.product-page-container .title-header.top h3{
+    padding: 20px 0px;
+    border-bottom: 1px solid #ccc;
+}
+.product-top-bar{
+    display: flex;
+    padding: 0px 20px;
+    margin: 20px 0px;
+    justify-content: space-between;
+}
+.product-top-bar .topbar-left .icon{
+    cursor: pointer;
+    font-size: 22px;
+    margin-right: 10px;
+    transition: color 0.2s ease;
+}
+.product-top-bar .topbar-left span{
+    cursor: pointer;
+    font-size: 20px;
+    transition: color 0.2s ease;
+}
+.product-top-bar .topbar-left .icon:hover,
+.product-top-bar .topbar-left span:hover{
+    color: rgb(224, 157, 32);
+}
+.product-top-bar .topbar-right ul li{
+    display: inline-block;
+}
+.product-top-bar .topbar-right ul li span{
+    color: #555;
+    font-size: 15px;
+    font-weight: 600;
+    margin-right: 5px;
+}
+.product-top-bar .topbar-right ul li select{
+    width: 100px;
+    color: #555;
+    cursor: pointer;
+    font-size: 13px;
+    padding: 10px 10px;
+    border: 1px solid #ccc;
+}
+.product-top-bar .topbar-right ul li select:focus{
+    outline: none;
+    border: 1px solid #ccc;
+}
+.product-top-bar .topbar-right ul li select.name{
+    width: 200px;
+}
+@media only screen and (max-width: 767px){
+    .product-top-bar{
+        display: block;
+    }
+    .product-top-bar .topbar-left{
+        margin-bottom: 20px;
+    }
+    .product-top-bar .topbar-right ul li{
+        margin-right: 10px;
+    }
+    .product-top-bar .topbar-right ul li select{
+        padding: 15px;
+    }
+}
+@media only screen and (max-width: 567px){
+    .product-top-bar .topbar-right ul li{
+        display: block;
+        margin-bottom: 20px;
+    }
+    .product-top-bar .topbar-right ul li{
+        margin-right: 0px;
+    }
+}
+@media only screen and (max-width: 398px){
+    .product-top-bar .topbar-right ul li select.name{
+        width: 180px;
+    }
+}
+@media only screen and (max-width: 320px){
+    .product-top-bar .topbar-right ul li select.name{
+        width: 160px;
+    }
+}
