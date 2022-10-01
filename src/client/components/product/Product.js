@@ -140,7 +140,7 @@ const ProductDetail = ({product, scrollToTop}) => {
             <ul>
                 <li>
                     <NavLink onClick={() => scrollToTop()} to={`/detail?product=${product._id}&category=${product.category}`}>
-                        {product.name}
+                        {product.product_name}
                     </NavLink>
                 </li>
                 <li><b>Price: </b>{product.price} </li>
