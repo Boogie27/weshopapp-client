@@ -85,7 +85,6 @@ const ProductContainer = ({product, index, scrollToTop}) => {
     }
 
     const borderless = index % 2 == 0 ? false : true
-    console.log(borderless)
     
     return (
         <div className={`product-component ${!borderless ? 'borderless' : ''}`}
