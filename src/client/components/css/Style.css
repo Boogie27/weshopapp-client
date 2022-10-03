@@ -3852,6 +3852,15 @@ tr.cart-items-detail td{
     }
 }
 @media only screen and (max-width: 320px){
+    .product-body-container .row{
+        display: block;
+    }
+    .product-body-container .row .column{
+        width: 100%;
+    }
+    .product-body-container .col-6 .product-image-comp{
+        height: auto;
+    }
     .product-top-bar .topbar-right ul li select.name{
         width: 160px;
     }
