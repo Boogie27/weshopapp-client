@@ -3709,6 +3709,9 @@ tr.cart-items-detail td{
     height: 180px;
     border-radius: 5px;
 }
+.product-comp-detail ul{
+    margin-top: 10px;
+}
 .product-comp-detail ul li{
     color: #555;
     font-size: 15px;
