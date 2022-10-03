@@ -37,7 +37,7 @@ const Product = ({scrollToTop}) => {
         })
     }
     const productViewToggle = (type) => {
-        console.log(type)
+        setView(type)
     }
 
 
@@ -45,7 +45,7 @@ const Product = ({scrollToTop}) => {
         <div className="product-page-container">
             <div className="title-header top"><h3>Products</h3></div>
             <HeaderTop productViewToggle={productViewToggle}/>
-            <ProductBody products={products} scrollToTop={scrollToTop}/>
+            <ProductBody products={products} view={view} scrollToTop={scrollToTop}/>
         </div>
     )
 }
@@ -62,11 +62,11 @@ export default Product
 
 
 
-const ProductBody = ({products, scrollToTop}) => {
+const ProductBody = ({products, view, scrollToTop}) => {
     return (
-        <div className="product-body-container">
+        <div className={`product-body-container ${view == 'list' ? 'list' : ''}`}>
             <Row className="show-grid">
-                {products.map((product, index) => <Col key={index} xs={12} sm={6} md={4} lg={3} xl={3}><ProductContainer product={product} scrollToTop={scrollToTop}/></Col>)}
+                {products.map((product, index) => <Col className="column" key={index} xs={6} sm={6} md={4} lg={3} xl={3}><ProductContainer index={index} product={product} scrollToTop={scrollToTop}/></Col>)}
             </Row>
         </div>
     )
@@ -77,16 +77,18 @@ const ProductBody = ({products, scrollToTop}) => {
 
 
 
-const ProductContainer = ({product, scrollToTop}) => {
+const ProductContainer = ({product, index, scrollToTop}) => {
     const [is_floatImage, setIs_floatImage] = useState(false)
   
     const floatImageScreen = (string) => {
         setIs_floatImage(string)
     }
 
+    const borderless = index % 2 == 0 ? false : true
+    console.log(borderless)
     
     return (
-        <div className="product-component"
+        <div className={`product-component ${!borderless ? 'borderless' : ''}`}
             onMouseEnter={() => floatImageScreen(true)} onMouseLeave={() => floatImageScreen(false)}>
             <ProductImage product={product} scrollToTop={scrollToTop} is_floatImage={is_floatImage}/>
             <ProductDetail product={product} scrollToTop={scrollToTop}/>
