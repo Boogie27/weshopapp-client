@@ -3850,10 +3850,16 @@ tr.cart-items-detail td{
     .product-component.borderless{
         border-right: 1px solid transparent;
     }
+    .product-body-container.list .product-component.borderless{
+        border: 1px solid rgb(236, 236, 236);
+    }
 }
 @media only screen and (max-width: 320px){
     .product-body-container .row{
         display: block;
+    }
+    .product-component.borderless{
+        border: 1px solid rgb(236, 236, 236);
     }
     .product-body-container .row .column{
         width: 100%;
