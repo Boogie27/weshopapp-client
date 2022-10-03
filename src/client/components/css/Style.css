@@ -3853,6 +3853,10 @@ tr.cart-items-detail td{
     .product-body-container.list .product-component.borderless{
         border: 1px solid rgb(236, 236, 236);
     }
+    .product-body-container .col-6 .bottom-icons-large .product-shop-icons .icon{
+        border: 0px;
+        box-shadow: none;
+    }
 }
 @media only screen and (max-width: 320px){
     .product-body-container .row{
