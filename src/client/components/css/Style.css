@@ -3828,7 +3828,7 @@ tr.cart-items-detail td{
 }
 @media only screen and (max-width: 398px){
     .product-body-container .col-6 .product-image-comp{
-        height: 150px;
+        height: 160px;
     }
     .product-body-container.list .col-6 .product-image-comp{
         height: auto;
