@@ -3830,6 +3830,9 @@ tr.cart-items-detail td{
     .product-body-container .col-6 .product-image-comp{
         height: 150px;
     }
+    .product-body-container.list .col-6 .product-image-comp{
+        height: auto;
+    }
     .product-top-bar .topbar-right ul li select.name{
         width: 180px;
     }
