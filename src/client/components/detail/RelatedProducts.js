@@ -13,11 +13,11 @@ const RelatedProducts = ({user, scrollToTop, addToCart, addToWishlist, relatedPr
     return (
         <div className="product-conatiner">
             <div className="title-header"><h4>RELATED PRODUCTS</h4></div>
-            <div className="product-body">
+            <div className="related-product-body">
                 <Row className="show-grid">
                 {
                     relatedProducts.map((featuredProduct) => (
-                    <Col key={featuredProduct._id} xs={12} sm={12} md={6} lg={4}>
+                    <Col className="column" key={featuredProduct._id} xs={12} sm={12} md={6} lg={4}>
                     {
                         featuredProduct.image.length > 0 ? ( <FeaturedProduct user={user} addToCart={addToCart} scrollToTop={scrollToTop} addToWishlist={addToWishlist} showQuickView={showQuickView} featuredProduct={featuredProduct}/> ) : null
                     }
