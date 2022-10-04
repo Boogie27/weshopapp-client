@@ -3644,6 +3644,14 @@ tr.cart-items-detail td{
 .product-top-bar .topbar-left span:hover{
     color: rgb(224, 157, 32);
 }
+
+.parent-container.active .product-top-bar .topbar-left .icon:hover{
+    color: rgb(224, 157, 32);
+}
+.product-top-bar .topbar-left .icon.active,
+.parent-container.active .product-top-bar .topbar-left .icon.active{
+    color: rgb(224, 157, 32);
+}
 .product-top-bar .topbar-right ul li{
     margin-left: 10px;
     display: inline-block;

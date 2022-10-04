@@ -44,7 +44,7 @@ const Product = ({scrollToTop}) => {
     return (
         <div className="product-page-container">
             <div className="title-header top"><h3>Products</h3></div>
-            <HeaderTop productViewToggle={productViewToggle}/>
+            <HeaderTop view={view} productViewToggle={productViewToggle}/>
             <ProductBody products={products} view={view} scrollToTop={scrollToTop}/>
         </div>
     )
