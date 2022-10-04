@@ -186,7 +186,7 @@ const FeaturedProducts = ({user, scrollToTop, addToWishlist, addToCart, featured
   return (
     <div className="product-conatiner">
       <div className="title-header"><h4>FEATURED PRODUCTS</h4></div>
-      <div className="product-body">
+      <div className="featured-product-body">
         <Row className="show-grid">
           {
             featuredProducts.map((featuredProduct) => (

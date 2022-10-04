@@ -11,7 +11,7 @@ import Row from 'react-bootstrap/Row';
 const RelatedProducts = ({user, scrollToTop, addToCart, addToWishlist, relatedProducts, showQuickView}) => {
 
     return (
-        <div className="product-conatiner">
+        <div className="product-conatiner related-product">
             <div className="title-header"><h4>RELATED PRODUCTS</h4></div>
             <div className="related-product-body">
                 <Row className="show-grid">
