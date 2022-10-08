@@ -39,7 +39,8 @@ export default SideNavigation
 const SideNavHeader = ({sideNavToggle}) => {
     return (
         <div className="nav-title-header">
-            <div className="img"><img src={logo('logo.png')} alt="logo"/></div>
+            {/* <div className="img"><img src={logo('logo.png')} alt="logo"/></div> */}
+            <div className="title-header"><h3>WESHOP<span className="text-warning">APP</span></h3></div>
             <div className="side-nav-icon">
                 <FontAwesomeIcon onClick={sideNavToggle} className="icon" icon={faArrowLeftLong} />
             </div>
@@ -57,7 +58,7 @@ const CategoryLinks = ({user, categoryToggleBtn, appState, modalToggle, sideNavT
 
     return (
         <div className="side-nav-items">
-            <div className="title-header"><h4>SHOP BY CATEGORIES</h4></div>
+            <div className="title-header"><h4>SHOP LINKS</h4></div>
             <ul>
                 <li><NavLink onClick={() => sideNavToggle(false) } to="/">Home</NavLink></li>
                 <li><NavLink onClick={() => sideNavToggle(false) } to="/products">Product</NavLink></li>

@@ -792,7 +792,14 @@ a{
     display: flex;
     padding: 0px 20px;
     align-items: center;
+    justify-content: space-between;
     border-bottom: 1px solid rgb(236, 236, 236);
+}
+.side-nav-container .side-navi .nav-title-header .title-header h3{
+    color: #555;
+}
+.parent-container.active .nav-title-header .title-header h3{
+    color: #fff;
 }
 .side-nav-container .side-navi .img{
     width: 80%;
@@ -807,7 +814,6 @@ a{
     font-size: 25px;
 }
 .side-nav-container .side-nav-icon .icon{
-    right: -40px;
     position: relative;
 }
 .side-nav-items ul{
@@ -1310,6 +1316,10 @@ a{
     .featured-product-body .latest-p-container{
         margin: 0px;
     }
+    .featured-product-body .latest-p-container{
+        margin: 0px;
+        padding: 0px;
+    }
 }
 @media only screen and (max-width: 567px){
     .second-banner-item .banner-text ul li h4{
@@ -1647,6 +1657,10 @@ a{
         justify-content: center;
         border-bottom: 1px solid #ccc;
     }
+    .parent-container.active .latest-p-container .latest-p-item{
+        border: none;
+        border-bottom: 1px solid rgb(99, 99, 99);
+    }
     .latest-p-container .latest-p-item .latest-p-img{
         width: 40%;
         height: 180px;
@@ -1706,6 +1720,7 @@ a{
     .latest-p-body .column .latest-p-container{
         height: 180px;
     }
+    
 }
 /* *********** QUICK VIEW ************ */
 .quickview-container{
@@ -2636,6 +2651,9 @@ span.css-1xdhyk6 span{
     color: rgb(224, 157, 32);
     border-bottom: 2px solid rgb(224, 157, 32);
 }
+.parent-container.active .auth-form .form-group-input input{
+    background-color: black;
+}
 .form-button .register-btn{
     border: none;
     color: #fff;
@@ -2643,6 +2661,9 @@ span.css-1xdhyk6 span{
     padding: 10px 40px;
     border-radius: 50px;
     background-color: rgb(224, 157, 32);
+}
+.parent-container.active .form-button .register-btn{
+    border-radius: 0px;
 }
 .form-button{
     width: 80%;
@@ -4015,6 +4036,10 @@ tr.cart-items-detail td{
     border-radius: 10px;
     background-color: #fff;
 }
+.parent-container.active .category-container .category-body{
+    background-color: black;
+    border: 1px solid rgb(66, 66, 66)
+}
 .category-container .category-body .title-header{
     display: flex;
     padding: 20px 10px;
@@ -4022,13 +4047,23 @@ tr.cart-items-detail td{
     justify-content: space-between;
     border-bottom: 1px solid #ccc;
 }
+.parent-container.active .category-container .category-body .title-header{
+    border-bottom: 1px solid rgb(99, 99, 99)
+}
 .category-container .category-body .title-header h3{
     font-size: 22px;
+}
+.parent-container.active .category-body .title-header h3{
+    color: #ccc;
 }
 .category-container .category-body .title-header .icon{
     cursor: pointer;
 }
-.category-container .category-body .title-header .icon:hover{
+.parent-container.active .category-body .title-header .icon{
+    color: #ccc;
+}
+.category-container .category-body .title-header .icon:hover,
+.parent-container.active .category-body .title-header .icon:hover{
     color: rgb(224, 157, 32);
 }
 .product-categories{
@@ -4038,11 +4073,18 @@ tr.cart-items-detail td{
 }
 .product-categories::-webkit-scrollbar{
     width: 5px;
+    border-radius: 20px;
     background-color: rgb(231, 231, 231);
 }
 .product-categories::-webkit-scrollbar-thumb{
     border-radius: 20px;
     background-color: rgb(251, 192, 82);
+}
+.parent-container.active .product-categories::-webkit-scrollbar{
+    background-color: rgb(73, 73, 73);
+}
+.parent-container.active .product-categories::-webkit-scrollbar-thumb{
+    background-color: rgb(58, 58, 58);
 }
 .product-categories ul{
     padding: 0px 10px;
@@ -4064,6 +4106,12 @@ tr.cart-items-detail td{
     font-weight: 600;
     color: rgb(224, 157, 32);
 }
+.parent-container.active .product-categories ul li.cat-main .font{
+    color: #ccc;
+}
+.parent-container.active .product-categories ul li.cat-main .font:hover{
+    color: rgb(224, 157, 32);
+}
 .product-categories ul li.cat-main .font.active{
     font-weight: 600;
     color: rgb(224, 157, 32);
@@ -4083,10 +4131,13 @@ tr.cart-items-detail td{
 .product-categories ul li.cat-main .child-category ul li{
     color: #555;
     font-size: 15px;
-    margin: 5px 0px;
+    margin: 10px 0px;
 }
 .product-categories ul li.cat-main .child-category ul li a{
     color: #555;
+}
+.parent-container.active ul li.cat-main .child-category ul li a{
+    color: rgb(177, 177, 177);
 }
 .product-categories ul li.cat-main .child-category ul li a:hover{
     color: rgb(224, 157, 32);

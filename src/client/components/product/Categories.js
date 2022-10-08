@@ -33,9 +33,9 @@ const Categories = ({categories, categoryToggleBtn, scrollToTop}) => {
                     <div className="product-categories">
                         <ul>
                             {
-                                categories.map((category, index) => (<>
-                                    <li className="cat-main"><CategoriesChild key={index} index={index} category={category} scrollToTop={scrollToTop} isActive={isActive} toggleCategories={toggleCategories}/></li>
-                                </>))
+                                categories.map((category, index) => (
+                                    <li key={index} className="cat-main"><CategoriesChild index={index} category={category} scrollToTop={scrollToTop} isActive={isActive} toggleCategories={toggleCategories}/></li>
+                                ))
                             }
                         </ul>
                     </div>
@@ -76,9 +76,9 @@ const CategoriesChild = ({index, category, toggleCategories, scrollToTop, isActi
             <div className={`child-category ${fontActive && 'active'}`}>
                 <ul>
                     {
-                        subCategories.map((subCategory, index) => (<>
-                            <li key={index} ><NavLink onClick={() => scrollToTop()} to="/">{subCategory.sub_category}</NavLink></li>
-                        </>))
+                        subCategories.map((subCategory, index) => (
+                            <li key={index}><NavLink onClick={() => scrollToTop()} to="/">{subCategory.sub_category}</NavLink></li>
+                        ))
                     }
                 </ul>
             </div>
