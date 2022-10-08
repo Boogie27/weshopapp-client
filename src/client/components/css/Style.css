@@ -3161,7 +3161,7 @@ tr.cart-items-detail td{
 .mobile-wishlist-container .mw-body{
     left: 0px;
     bottom: -90%;
-    z-index: 20;
+    z-index: 30;
     width: 100%;
     padding: 20px;
     min-height: 50vh;
@@ -3183,7 +3183,7 @@ tr.cart-items-detail td{
 .mobile-wishlist-container .mw-dark-skin{
     top: 0px;
     left: 0px;
-    z-index: 10;
+    z-index: 30;
     width: 100%;
     height: 100vh;
     display: none;
