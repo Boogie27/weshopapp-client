@@ -4055,7 +4055,9 @@ tr.cart-items-detail td{
 .product-categories ul li.cat-main .font{
     color: #555;
     display: flex;
+    font-size: 18px;
     position: relative;
+    text-transform: capitalize;
     justify-content: space-between;
 }
 .product-categories ul li.cat-main .font:hover{
