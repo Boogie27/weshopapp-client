@@ -34,7 +34,7 @@ const Navigation = ({
     
     
   return (
-    <div className={`nav-container ${appState && 'active'}`}>
+    <div className={`nav-container`}>
         <SideNavigation user={user} appState={appState} modalToggle={modalToggle} 
         setSideNavi={setSideNavi} sideNavi={sideNavi} sideNavToggle={sideNavToggle} 
         toggleAppState={toggleAppState} categoryToggleBtn={categoryToggleBtn}/>

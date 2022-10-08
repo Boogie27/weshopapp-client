@@ -194,9 +194,17 @@ a{
     }
 }
 /* ************** NAVIGATION ****************** */
+.parent-nav-container{
+    padding-top: 100px;
+    background-color: transparent;
+}
 .nav-container{
+    top: 0px;
     width: 100%;
-    /* border: 1px solid #555; */
+    z-index: 30;
+    position: fixed;
+    background-color: #fff;
+    border-bottom: 1px solid rgb(236, 236, 236);
 }
 .inner-nav-container{
     width: 90%;
@@ -323,6 +331,9 @@ a{
 @media only screen and (max-width: 992px){
     .nav-container{
         border-bottom: 1px solid rgb(212, 212, 212);
+    }
+    .parent-nav-container{
+        padding-top: 100px;
     }
     .inner-nav-container{
         width: 80%;
@@ -667,6 +678,7 @@ a{
 }
 /*  ***************** DARK NAVIGATION ************** */
 .parent-container.active .nav-container{
+    background-color: black;
     border-bottom: 1px solid rgb(105, 105, 105);
 }
 .parent-container.active .search-container button{
@@ -1946,7 +1958,7 @@ a{
         border: none;
         overflow: hidden;
         text-align: center;
-        border-bottom: 1px solid rgb(233, 233, 233);
+        border-bottom: none;
     }
     .quick-view-detail{
         height: 250px;
@@ -1962,6 +1974,7 @@ a{
         background-color: rgb(175, 175, 175);
     }
 }
+
 @media only screen and (max-width: 398px){
     .quick-view-img img{
         width: 100%;
