@@ -6,6 +6,7 @@ import {
     faBars,
     faToggleOn,
     faToggleOff,
+    faAngleDown,
     faArrowLeftLong,
 } from '@fortawesome/free-solid-svg-icons'
 
@@ -60,6 +61,10 @@ const CategoryLinks = ({user, appState, modalToggle, sideNavToggle, toggleAppSta
             <ul>
                 <li><NavLink onClick={() => sideNavToggle(false) } to="/">Home</NavLink></li>
                 <li><NavLink onClick={() => sideNavToggle(false) } to="/products">Product</NavLink></li>
+                <li onClick={() => sideNavToggle(false) } className="category-btn">
+                    Categories
+                    <FontAwesomeIcon  className="icon"  icon={faAngleDown} />
+                </li>
                 <li><NavLink onClick={() => sideNavToggle(false) } to="/cart">Cart</NavLink></li>
                 <li><NavLink onClick={() => sideNavToggle(false) } to="/wishlist">Wishlist</NavLink></li>
                 {

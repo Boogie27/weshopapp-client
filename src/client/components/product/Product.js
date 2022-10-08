@@ -20,7 +20,7 @@ import HeaderTop from './HeaderTop'
 
 
 
-const Product = ({scrollToTop}) => {
+const Product = ({scrollToTop, categoryToggleBtn}) => {
     const [view, setView] = useState('grid')
     const [products, setProducts] = useState([])
 
@@ -44,7 +44,7 @@ const Product = ({scrollToTop}) => {
     return (
         <div className="product-page-container">
             <div className="title-header top"><h3>Products</h3></div>
-            <HeaderTop view={view} productViewToggle={productViewToggle}/>
+            <HeaderTop view={view} productViewToggle={productViewToggle} categoryToggleBtn={categoryToggleBtn}/>
             <ProductBody products={products} view={view} scrollToTop={scrollToTop}/>
         </div>
     )

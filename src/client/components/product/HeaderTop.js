@@ -6,13 +6,13 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 
-const HeaderTop = ({view, productViewToggle}) => {
+const HeaderTop = ({view, productViewToggle, categoryToggleBtn}) => {
     return (
         <div className="product-top-bar">
             <div className="topbar-left">
                 <FontAwesomeIcon onClick={() => productViewToggle('grid')} className={`icon ${view == 'grid' ? 'active' : ''}`}  icon={faGripVertical} />
                 <FontAwesomeIcon onClick={() => productViewToggle('list')} className={`icon ${view == 'list' ? 'active' : ''}`}  icon={faList} />
-                <span className="">
+                <span onClick={() => categoryToggleBtn()}>
                     Categories
                     <FontAwesomeIcon  className="icon"  icon={faAngleDown} />
                 </span>

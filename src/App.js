@@ -9,6 +9,7 @@ import Login from './client/components/auth/Login'
 import Cart from './client/components/cart/cart'
 import Wishlist from './client/components/wishlist/Wishlist'
 import Product from './client/components/product/Product'
+import Categories from './client/components/product/Categories'
 
 
 import Register from './client/components/auth/Register'
@@ -33,12 +34,14 @@ function App() {
   let token = Cookies.get('weshopappuser')
   let state = Cookies.get('weshopappstate')
   const [cart, setCart] = useState([])
+  const [categories, setCategories] = useState([])
   const [wishlist, setWishlist] = useState([])
   const [message, setMessage] = useState(false)
   const [errorAlert, setErrorAlert] = useState(false)
   const [logoutModal, setLogoutModal] = useState(false)
   const [appState, setAppState] = useState(false)
   const [sideNavi, setSideNavi] = useState(false)
+  const [categoryToggle, setCategoryToggle] = useState(false)
   const [isLoggedin, setIsLoggedin ] = useState(false)
   const [mobileSearch, setMobileSearch] = useState(false)
   const [floatCartState, setFloatCartState] = useState(false)
@@ -78,13 +81,13 @@ function App() {
     userAppState(user)
     fetchCartItems()
     fetchWishlistItems()
-    fetchDemo()
+    fetchCategories()
   }, [])
 
 
-  const fetchDemo = () => {
-    Axios.get(url('/api/demo')).then((request, response) => {
-      // return alertMessage("Backend functioning successfully!", 5000)
+  const fetchCategories = () => {
+    Axios.get(url('/api/categories')).then((request, response) => {
+      return setCategories(response.data)
     })
   }
 
@@ -287,6 +290,13 @@ function App() {
     window.scrollTo(0, 0)
   }
 
+
+
+  // open and close product categroy
+  const categoryToggleBtn = () => {
+      setCategoryToggle(!categoryToggle)
+  }
+
   
 
 
@@ -335,17 +345,16 @@ const notify_error = (string) => {
           <Route path="/wishlist" element={<Wishlist wishlist={wishlist} setWishlist={setWishlist}/>}/>
           <Route path="/login" element={<Login fetchWishlistItems={fetchWishlistItems} alertMessage={alertMessage} fetchCartItems={fetchCartItems} setUser={setUser} isLoading={isLoading} setIsLoading={setIsLoading}/>}/>
           <Route path="/register" element={<Register alertMessage={alertMessage} setUser={setUser} isLoading={isLoading} setIsLoading={setIsLoading}/>}/>
-          <Route path="/products" element={<Product scrollToTop={scrollToTop}/>}/>
+          <Route path="/products" element={<Product scrollToTop={scrollToTop} categoryToggleBtn={categoryToggleBtn}/>}/>
       </Routes>
       <Footer/>
       { isLoading.state && <Preloader text={isLoading.text}/> }
       {logoutModal && <LogoutDropDown modalToggle={modalToggle} logoutUserModal={logoutUserModal} username={user.user_name}/>}
+      { categoryToggle && <Categories scrollToTop={scrollToTop} categoryToggleBtn={categoryToggleBtn}/> }
       <FloatShoppingCart cart={cart} floatCartState={floatCartState} floatCartStateToggle={floatCartStateToggle}/>
       <ToastContainer position="bottom-right" autoClose={5000} hideProgressBar={false} 
         newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover
       />
-    
-      
     </div>
   );
 }
