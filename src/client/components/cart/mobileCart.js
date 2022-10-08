@@ -7,7 +7,7 @@ import {
     faTrashCan,
     faArrowRightLong,
 } from '@fortawesome/free-solid-svg-icons'
-
+import Cookies from 'js-cookie'
 import { 
     logo,
     money,
@@ -22,7 +22,8 @@ import Preloader from '../preloader/Preloader'
 
 
 
-const MobileShoppingCart = ({cart, CartModalToggle, quantityToggle, setQuantity}) => {
+const MobileShoppingCart = ({user, cart, addToWishlist, CartModalToggle, deleteCartItem, quantityToggle, setQuantity}) => {
+
     return (
         <div className="m-shopping-cart">
             <div className="title-header">
@@ -30,9 +31,9 @@ const MobileShoppingCart = ({cart, CartModalToggle, quantityToggle, setQuantity}
                 <p>({cart.length}) Items</p>
             </div>
             <div className="m-shoppingcart-body">
-                { cart.map((item, index) => <MobileShoppingCartItem index={index}
-                        key={index} item={item} setQuantity={setQuantity}
-                        quantityToggle={quantityToggle} CartModalToggle={CartModalToggle}
+                { cart.map((item, index) => <MobileShoppingCartItem user={user} index={index}
+                        key={index} item={item} setQuantity={setQuantity} addToWishlist={addToWishlist}
+                        quantityToggle={quantityToggle} CartModalToggle={CartModalToggle} deleteCartItem={deleteCartItem}
                     /> )
                 }
             </div>
@@ -54,14 +55,31 @@ export default MobileShoppingCart
 
 
 
-const MobileShoppingCartItem = ({item, index, setQuantity, quantityToggle, CartModalToggle}) => {
+const MobileShoppingCartItem = ({user, item, index, deleteCartItem, addToWishlist, setQuantity, quantityToggle, CartModalToggle}) => {
+    const current_url = '/cart'
+    Cookies.set('current_url', current_url, { expires: 1 })
     const is_available = item.product.quantity > 0 ? true : false
     const date = Moment(item.created_at).format('MMM Do YY')
+   
+
+     // add product to wishslist
+     const addItemToWishlist = () => {
+        const cartItem = {
+            user_id: user._id,
+            product_id: item.product._id,
+            old_url: current_url,
+        }
+        const addtowish = addToWishlist(cartItem)
+        if(addtowish){
+            // remove product from cart
+            deleteCartItem(item._id)
+        }
+    }
 
     return (
         <div className="m-cart-item">
             <div className="delete-icon">
-                <FontAwesomeIcon className="icon text-danger"  icon={faHeart} />
+                <FontAwesomeIcon onClick={() => addItemToWishlist()} className="icon text-danger"  icon={faHeart} />
                 <FontAwesomeIcon onClick={() => CartModalToggle(true, item._id)} className="icon"  icon={faTrashCan} />
             </div>
             <div className="m-cart-left">

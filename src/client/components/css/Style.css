@@ -1919,6 +1919,9 @@ a{
 .quick-view .cancle-btn:hover{
     color: rgb(148, 24, 24);
 }
+.parent-container.active .quick-view .cancle-btn{
+    color: #ccc;
+}
 @media only screen and (max-width: 1125px){
     .quick-view{
         width: 80%;

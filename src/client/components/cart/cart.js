@@ -34,7 +34,7 @@ import  MobileShoppingCart  from './mobileCart'
 
 
 
-const Cart = ({user, cart, setCart, addToCart, notify_success, notify_error}) => {
+const Cart = ({user, cart, setCart, deleteCartItem, addToWishlist, addToCart, notify_success, notify_error}) => {
     const [totalPrice, setTotalPrice] = useState(0)
     const [quantity, setQuantity] = useState(1)
     const [isLoading, setIsLoading ] = useState({loading: true, text: 'Fetching Cart, Please Wait...'})
@@ -189,8 +189,8 @@ const Cart = ({user, cart, setCart, addToCart, notify_success, notify_error}) =>
                         }
                      </div>
                     <div className="mobile-shopping-cart">
-                        <MobileShoppingCart cart={cart} quantityToggle={quantityToggle} setQuantity={setQuantity}
-                            CartModalToggle={CartModalToggle} 
+                        <MobileShoppingCart user={user} cart={cart} addToWishlist={addToWishlist} quantityToggle={quantityToggle} setQuantity={setQuantity}
+                            CartModalToggle={CartModalToggle}  deleteCartItem={deleteCartItem}
                         />
                     </div>
                     </>
