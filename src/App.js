@@ -85,8 +85,10 @@ function App() {
   }, [])
 
 
+
+  // fetch product categories
   const fetchCategories = () => {
-    Axios.get(url('/api/categories')).then((request, response) => {
+    Axios.get(url('/api/categories')).then((response) => {
       return setCategories(response.data)
     })
   }
@@ -287,13 +289,16 @@ function App() {
 
   // scroll page to top
   const scrollToTop = () => {
+    setSideNavi(false)
     window.scrollTo(0, 0)
+    setCategoryToggle(false)
   }
 
 
 
   // open and close product categroy
   const categoryToggleBtn = () => {
+      setSideNavi(false)
       setCategoryToggle(!categoryToggle)
   }
 
@@ -333,7 +338,9 @@ const notify_error = (string) => {
       <div className="parent-nav-container">
         <Navigation  user={user} modalToggle={modalToggle} cart={cart} appState={appState} setSideNavi={setSideNavi} 
         sideNavToggle={sideNavToggle} toggleSearch={toggleSearch} mobileSearch={mobileSearch} 
-        sideNavi={sideNavi} toggleAppState={toggleAppState} floatCartStateToggle={floatCartStateToggle}/>
+        sideNavi={sideNavi} toggleAppState={toggleAppState} floatCartStateToggle={floatCartStateToggle}
+        categoryToggleBtn={categoryToggleBtn}
+        />
         <MiniNavigation user={user} wishlist={wishlist} modalToggle={modalToggle}/>
         {message && <AlertSuccess alert={message}/>}
         {errorAlert && <AlertDanger alert={errorAlert}/>}
@@ -350,7 +357,7 @@ const notify_error = (string) => {
       <Footer/>
       { isLoading.state && <Preloader text={isLoading.text}/> }
       {logoutModal && <LogoutDropDown modalToggle={modalToggle} logoutUserModal={logoutUserModal} username={user.user_name}/>}
-      { categoryToggle && <Categories scrollToTop={scrollToTop} categoryToggleBtn={categoryToggleBtn}/> }
+      { categoryToggle && <Categories categories={categories} scrollToTop={scrollToTop} categoryToggleBtn={categoryToggleBtn}/> }
       <FloatShoppingCart cart={cart} floatCartState={floatCartState} floatCartStateToggle={floatCartStateToggle}/>
       <ToastContainer position="bottom-right" autoClose={5000} hideProgressBar={false} 
         newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover

@@ -12,14 +12,14 @@ import {
 
 
 
-const SideNavigation = ({ user,  appState, modalToggle, setSideNavi, sideNavi, sideNavToggle, toggleAppState }) => {
+const SideNavigation = ({ user,  appState, categoryToggleBtn, modalToggle, setSideNavi, sideNavi, sideNavToggle, toggleAppState }) => {
     return (
         <div className={`side-nav-container ${sideNavi && 'active'}`}>
            <div onClick={sideNavToggle} className="dark-skin"></div>
            <div className={`side-navi ${appState && 'active'}`}>
                 <SideNavHeader sideNavToggle={sideNavToggle}/>
                 <div className="side-nav-body">
-                    <CategoryLinks user={user} modalToggle={modalToggle} sideNavToggle={sideNavToggle} appState={appState} toggleAppState={toggleAppState} />
+                    <CategoryLinks user={user} categoryToggleBtn={categoryToggleBtn} modalToggle={modalToggle} sideNavToggle={sideNavToggle} appState={appState} toggleAppState={toggleAppState} />
                     <ImportantLinks sideNavToggle={sideNavToggle}/>
                 </div>
            </div>
@@ -52,7 +52,7 @@ const SideNavHeader = ({sideNavToggle}) => {
 
 
 
-const CategoryLinks = ({user, appState, modalToggle, sideNavToggle, toggleAppState}) => {
+const CategoryLinks = ({user, categoryToggleBtn, appState, modalToggle, sideNavToggle, toggleAppState}) => {
     const toggleIcon = appState ? faToggleOn : faToggleOff
 
     return (
@@ -61,7 +61,7 @@ const CategoryLinks = ({user, appState, modalToggle, sideNavToggle, toggleAppSta
             <ul>
                 <li><NavLink onClick={() => sideNavToggle(false) } to="/">Home</NavLink></li>
                 <li><NavLink onClick={() => sideNavToggle(false) } to="/products">Product</NavLink></li>
-                <li onClick={() => sideNavToggle(false) } className="category-btn">
+                <li onClick={() => categoryToggleBtn() } className="category-btn">
                     Categories
                     <FontAwesomeIcon  className="icon"  icon={faAngleDown} />
                 </li>

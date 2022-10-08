@@ -79,9 +79,6 @@ const Home = ({user, scrollToTop, addToWishlist, appState, addToCart}) => {
       <div className="featured-p-container">
         <FeaturedProducts user={user} addToWishlist={addToWishlist} addToCart={addToCart} showQuickView={showQuickView} featuredProducts={featuredProducts}/>
       </div>
-      <div className="featured-p-container">
-        <BestSellers user={user} addToWishlist={addToWishlist} addToCart={addToCart} showQuickView={showQuickView} featuredProducts={featuredProducts}/>
-      </div>
       <BottomBanner/>
       {
         product ? (<QuickView product={product} closeQuickView={closeQuickView} />) : null

@@ -10,7 +10,7 @@ import {
 
 
 
-const Categories = ({categoryToggleBtn, scrollToTop}) => {
+const Categories = ({categories, categoryToggleBtn, scrollToTop}) => {
     const [isActive, setIsActive ] = useState({index: null, clicked: false})
 
     const toggleCategories = (index) => {
@@ -32,15 +32,11 @@ const Categories = ({categoryToggleBtn, scrollToTop}) => {
                     </div>
                     <div className="product-categories">
                         <ul>
-                            <li className="cat-main"><CategoriesChild index={0} scrollToTop={scrollToTop} isActive={isActive} toggleCategories={toggleCategories}/></li>
-                            <li className="cat-main"><CategoriesChild index={1} scrollToTop={scrollToTop} isActive={isActive} toggleCategories={toggleCategories}/></li>
-                            <li className="cat-main"><CategoriesChild index={2} scrollToTop={scrollToTop} isActive={isActive} toggleCategories={toggleCategories}/></li>
-                            <li className="cat-main"><CategoriesChild index={3} scrollToTop={scrollToTop} isActive={isActive} toggleCategories={toggleCategories}/></li>
-                            <li className="cat-main"><CategoriesChild index={4} scrollToTop={scrollToTop} isActive={isActive} toggleCategories={toggleCategories}/></li>
-                            <li className="cat-main"><CategoriesChild index={5} scrollToTop={scrollToTop} isActive={isActive} toggleCategories={toggleCategories}/></li>
-                            <li className="cat-main"><CategoriesChild index={6} scrollToTop={scrollToTop} isActive={isActive} toggleCategories={toggleCategories}/></li>
-                            <li className="cat-main"><CategoriesChild index={7} scrollToTop={scrollToTop} isActive={isActive} toggleCategories={toggleCategories}/></li>
-                            <li className="cat-main"><CategoriesChild index={8} scrollToTop={scrollToTop} isActive={isActive} toggleCategories={toggleCategories}/></li>
+                            {
+                                categories.map((category, index) => (<>
+                                    <li className="cat-main"><CategoriesChild key={index} index={index} category={category} scrollToTop={scrollToTop} isActive={isActive} toggleCategories={toggleCategories}/></li>
+                                </>))
+                            }
                         </ul>
                     </div>
                 </div>
@@ -68,20 +64,22 @@ export default Categories
 
 
 
-const CategoriesChild = ({index, toggleCategories, scrollToTop, isActive}) => {
+const CategoriesChild = ({index, category, toggleCategories, scrollToTop, isActive}) => {
+    const subCategories = category.sub_categories
     const fontActive = isActive.index == index ? true : false
 
     return (
         <>
             <div onClick={() => toggleCategories(index)} className={`font ${fontActive && 'active'}`}>
-                Games <FontAwesomeIcon  className="icon"  icon={fontActive ? faAngleUp : faAngleDown} />
+                {category.category} { subCategories.length ? (<FontAwesomeIcon  className="icon"  icon={fontActive ? faAngleUp : faAngleDown} />) : null }
             </div>
             <div className={`child-category ${fontActive && 'active'}`}>
                 <ul>
-                    <li><NavLink onClick={() => scrollToTop()} to="/">XBox</NavLink></li>
-                    <li><NavLink onClick={() => scrollToTop()} to="/">Playstation</NavLink></li>
-                    <li><NavLink onClick={() => scrollToTop()} to="/">XBox Controllers</NavLink></li>
-                    <li><NavLink onClick={() => scrollToTop()} to="/">Playstation Controllers</NavLink></li>
+                    {
+                        subCategories.map((subCategory, index) => (<>
+                            <li key={index} ><NavLink onClick={() => scrollToTop()} to="/">{subCategory.sub_category}</NavLink></li>
+                        </>))
+                    }
                 </ul>
             </div>
         </>

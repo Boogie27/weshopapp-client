@@ -17,7 +17,7 @@ const Banner = ({appState}) => {
     // make banner slider
     return (
       <div className={`banner-container ${appState && 'active'}`}>
-          <div className="inner-banner">
+          {/* <div className="inner-banner">
               <div className="banner-left">
                   <ul>
                       <li className="banner-text"><h4>Best Deals Online</h4></li>
@@ -28,10 +28,9 @@ const Banner = ({appState}) => {
                   </ul>
               </div>
               <div className="banner-right">
-                {/* home */}
                 <img src={banner_img('2.jpg')} alt=""/>
               </div>
-          </div>
+          </div> */}
       </div>
     )
 }

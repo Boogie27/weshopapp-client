@@ -28,13 +28,16 @@ const Navigation = ({
     mobileSearch,
     sideNavToggle,
     toggleAppState,
+    categoryToggleBtn,
     floatCartStateToggle,
 }) => {
     
     
   return (
     <div className={`nav-container ${appState && 'active'}`}>
-        <SideNavigation user={user} appState={appState} modalToggle={modalToggle} setSideNavi={setSideNavi} sideNavi={sideNavi} sideNavToggle={sideNavToggle} toggleAppState={toggleAppState}/>
+        <SideNavigation user={user} appState={appState} modalToggle={modalToggle} 
+        setSideNavi={setSideNavi} sideNavi={sideNavi} sideNavToggle={sideNavToggle} 
+        toggleAppState={toggleAppState} categoryToggleBtn={categoryToggleBtn}/>
         <div className="inner-nav-container">
             <Logo appState={appState} sideNavToggle={sideNavToggle} />
             <Search />
