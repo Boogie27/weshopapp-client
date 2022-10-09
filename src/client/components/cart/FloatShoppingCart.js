@@ -32,7 +32,7 @@ const FloatShoppingCart = ({cart, floatCartState, floatCartStateToggle}) => {
                     <p>({cart.length}) Items</p>
                 </div>
                     {
-                        cart.length == 0 ? (<EmptyCart/>) : (
+                        cart.length == 0 ? (<EmptyCart floatCartStateToggle={floatCartStateToggle}/>) : (
                             <>
                                 <div className="shoppingcart-float-frame">
                                 {cart.map((item, index) => <CartFloatItems key={index} item={item} floatCartStateToggle={floatCartStateToggle}/>)}
@@ -118,13 +118,13 @@ const CartFloatTotal = ({floatCartStateToggle}) => {
 
 
 
-const EmptyCart = () => {
+const EmptyCart = ({floatCartStateToggle}) => {
     return (
         <div className="empty-cart-float">
            <div className="empty-float-cart-body">
                 <img src={cart_img('1.png')} alt="empty-cart"/>
                 <p>You Cart is empty</p>
-                <NavLink to="/">
+                <NavLink onClick={() => floatCartStateToggle(false)} to="/">
                     Continue Shopping
                     <FontAwesomeIcon className="icon"  icon={faArrowRightLong} />
                 </NavLink>
