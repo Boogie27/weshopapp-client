@@ -2237,16 +2237,13 @@ a{
 .detail-reviews .icons ul li:hover{
     color: rgb(224, 157, 32);
 }
-
-.detail-reviews .icons ul li.thumbs-like{
-    margin-left: 20px;
-}
 .detail-reviews .icons ul li.thumbs-like,
 .detail-reviews .icons ul li.thumbs-dislike{
     color: #fff;
     font-size: 13px;
     padding: 5px 10px;
     border-radius: 2px;
+    margin-left: 10px;
     background-color: #4267b2;
 }
 .detail-reviews .icons ul li.thumbs-dislike{
@@ -2277,7 +2274,11 @@ p.like-dislike-font{
 .parent-container.active .detail-reviews .icons ul li.thumbs-dislike:hover{
     color: #fff;
 }
-
+.parent-container.active .productQty input{
+    color: #fff;
+    background-color: black;
+    border: 1px solid rgb(99, 99, 99)
+}
 @media only screen and (max-width: 992px){
     .detail-img-container{
         width: 90%;
@@ -2341,12 +2342,16 @@ p.like-dislike-font{
         font-size: 12px;
     }
     .productQty input{
-        width: 50px;
+        width: 70px;
         margin: 0px 10px;
         padding: 10px 5px;
     }
     .related-product-body .latest-p-container .latest-p-item{
         height: 180px;
+    }
+    p.like-dislike-font{
+        font-size: 13px;
+        text-align: center;
     }
 }
 /* *********** DETAIL MIDDLE **************** */
