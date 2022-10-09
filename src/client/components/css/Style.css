@@ -42,19 +42,17 @@ a{
 }
 .alert-bg-danger{
     font-size: 13px;
-    padding: 5px 5px;
-    border-radius: 3px;
+    padding: 15px 0px;
     color: rgb(190, 8, 8);
-    background-color: rgb(255, 174, 174);
-    border: 1px solid rgb(250, 151, 151);
+    background-color: rgb(255, 206, 206);
+    border: 1px solid rgb(250, 180, 180);
 }
 .alert-bg-success{
     color: green;    
     font-size: 13px;
-    padding: 5px 0px;
-    border-radius: 3px;
-    background-color: rgb(189, 255, 189);
-    border: 1px solid rgb(130, 245, 130);
+    padding: 15px 0px;
+    background-color: rgb(215, 250, 215);
+    border: 1px solid rgb(164, 253, 164);
 }
 .form-group{
     margin-bottom: 10px;
