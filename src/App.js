@@ -10,7 +10,7 @@ import Cart from './client/components/cart/cart'
 import Wishlist from './client/components/wishlist/Wishlist'
 import Product from './client/components/product/Product'
 import Categories from './client/components/product/Categories'
-
+import FloatNavigation from './client/components/navigation/FloatNavigation'
 
 import Register from './client/components/auth/Register'
 import Navigation from './client/components/navigation/Navigation'
@@ -41,6 +41,7 @@ function App() {
   const [logoutModal, setLogoutModal] = useState(false)
   const [appState, setAppState] = useState(false)
   const [sideNavi, setSideNavi] = useState(false)
+  const [floatNav, setFloatNav] = useState(false)
   const [categoryToggle, setCategoryToggle] = useState(false)
   const [isLoggedin, setIsLoggedin ] = useState(false)
   const [mobileSearch, setMobileSearch] = useState(false)
@@ -82,7 +83,30 @@ function App() {
     fetchCartItems()
     fetchWishlistItems()
     fetchCategories()
+    windowsScrollEvent()
+
   }, [])
+
+
+
+
+  // scroll window even
+  const windowsScrollEvent = () => {
+    const handleScroll = event => {
+      let pageScroll = window.scrollY
+      if(pageScroll >= 100){
+        setFloatNav(true)
+      }else{
+        setFloatNav(false)
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }
 
 
 
@@ -344,17 +368,35 @@ const notify_error = (string) => {
 
 
 
+// styling
+// const styles = {
+//   floatNav: {
+//     opacity: 1,
+//     visibility: 'visible',
+//   }
+// }
+
+
+
+
+
   return (
     <div className={`parent-container ${appState && 'active'}`}>
       <div className="parent-nav-container">
         <Navigation  user={user} modalToggle={modalToggle} cart={cart} appState={appState} setSideNavi={setSideNavi} 
-        sideNavToggle={sideNavToggle} toggleSearch={toggleSearch} mobileSearch={mobileSearch} 
-        sideNavi={sideNavi} toggleAppState={toggleAppState} floatCartStateToggle={floatCartStateToggle}
-        categoryToggleBtn={categoryToggleBtn}
+          sideNavToggle={sideNavToggle} toggleSearch={toggleSearch} mobileSearch={mobileSearch} 
+          sideNavi={sideNavi} toggleAppState={toggleAppState} floatCartStateToggle={floatCartStateToggle}
+          categoryToggleBtn={categoryToggleBtn}
         />
         <MiniNavigation user={user} wishlist={wishlist} modalToggle={modalToggle}/>
         {message && <AlertSuccess alert={message}/>}
         {errorAlert && <AlertDanger alert={errorAlert}/>}
+        <FloatNavigation
+          user={user} modalToggle={modalToggle} cart={cart} appState={appState} setSideNavi={setSideNavi} 
+          sideNavToggle={sideNavToggle} toggleSearch={toggleSearch} mobileSearch={mobileSearch} 
+          sideNavi={sideNavi} toggleAppState={toggleAppState} floatCartStateToggle={floatCartStateToggle}
+          categoryToggleBtn={categoryToggleBtn} message={message} errorAlert={errorAlert} floatNav={floatNav}
+        />
       </div>
       <Routes>
           <Route path="/" element={<Home user={user} scrollToTop={scrollToTop} addToWishlist={addToWishlist} appState={appState} addToCart={addToCart}/>}/>
