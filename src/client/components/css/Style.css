@@ -2237,6 +2237,10 @@ a{
 .detail-reviews .icons ul li:hover{
     color: rgb(224, 157, 32);
 }
+
+.detail-reviews .icons ul li.thumbs-like{
+    margin-left: 20px;
+}
 .detail-reviews .icons ul li.thumbs-like,
 .detail-reviews .icons ul li.thumbs-dislike{
     color: #fff;
@@ -2311,7 +2315,10 @@ p.like-dislike-font{
     .main-product-img{
         height: 100%;
     }
-    
+    .detail-reviews .icons ul li.thumbs-like,
+    .detail-reviews .icons ul li.thumbs-dislike{
+        padding: 10px 10px;
+    }
 }
 @media only screen and (max-width: 398px){
     .inner-detail-img img{
@@ -2323,12 +2330,12 @@ p.like-dislike-font{
     }
     .detail-reviews .icons ul li.thumbs-like,
     .detail-reviews .icons ul li.thumbs-dislike{
-        font-size: 11px;
-        padding: 3px 10px;
+        font-size: 14px;
+        padding: 10px 10px;
     }
     .productQty button{
         font-size: 12px;
-        padding: 5px 10px;
+        padding: 13px 10px;
     }
     .productQty label{
         font-size: 12px;
@@ -2336,7 +2343,7 @@ p.like-dislike-font{
     .productQty input{
         width: 50px;
         margin: 0px 10px;
-        padding: 1px 5px;
+        padding: 10px 5px;
     }
     .related-product-body .latest-p-container .latest-p-item{
         height: 180px;

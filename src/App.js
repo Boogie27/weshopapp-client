@@ -307,7 +307,7 @@ function App() {
 
   // open and close float cart
   const floatCartStateToggle = (state) => {
-    window.scrollTo(0, 0)
+    // window.scrollTo(0, 0)
     setFloatCartState(state)
   }
 
