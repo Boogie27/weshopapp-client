@@ -97,7 +97,7 @@ const Subscription = () => {
 const BottomFooter = () => {
     return (
         <div className="bottom-footer">
-            Made With REACT By Eloquent - E-commerce Store © 2022
+            Made With REACT By Eloquent - E-commerce Store <span>©</span> 2022
         </div>
     )
 }

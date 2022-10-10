@@ -2069,8 +2069,12 @@ a{
     border-top: 1px solid rgb(236, 236, 236);
 }
 .parent-container.active .bottom-footer{
+    color: #ccc;
     background-color: rgb(14, 14, 14);
     border-top: 1px solid rgb(65, 65, 65);
+}
+.parent-container.active .bottom-footer span{
+    color: rgb(224, 157, 32);
 }
 .parent-container.active .subscription-bar input{
     color: #555;
