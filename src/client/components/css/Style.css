@@ -1745,7 +1745,7 @@ a{
     top: 0px;
     left: 0px;
     width: 100%;
-    z-index: 15;
+    z-index: 25;
     height: 100vh;
     display: flex;
     position: fixed;
