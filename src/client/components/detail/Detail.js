@@ -43,7 +43,6 @@ const Detail = ({user, scrollToTop, addToCart, alertError, alertMessage, addToWi
     const [searchParams] = useSearchParams();
     const product_id = searchParams.get('product')
     const category = searchParams.get('category')
-    const [isLoggedin, setIsLoggedin ] = useState(true)
     const [isLoading, setIsLoading ] = useState({state: true, text: 'Fetching Product Detail, Please Wait...'})
 
     const [likes, setLikes] = useState([])

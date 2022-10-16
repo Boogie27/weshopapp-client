@@ -13,7 +13,7 @@ import Axios from 'axios'
 import { money, url, product_img } from '../../Data'
 import Categories from './Categories'
 import HeaderTop from './HeaderTop'
-
+import Preloader from '../preloader/Preloader' 
 
 
 
@@ -23,29 +23,52 @@ import HeaderTop from './HeaderTop'
 const Product = ({scrollToTop, categoryToggleBtn}) => {
     const [view, setView] = useState('grid')
     const [products, setProducts] = useState([])
+    const [isLoading, setIsLoading] = useState({state: true, text: 'Fetching Products, Please Wait...'})
 
 
     useEffect(() => {
         fetchProducts()
+        preloaderToggle(true, 'Fetching Products, Please Wait...')
     }, [])
 
 
 
     const fetchProducts = (item = null) => {
         Axios.get(url(`/api/fetch-products/`)).then((response) => {
-            setProducts(response.data)
+            if(response.data.length){
+                setProducts(response.data)
+                return preloaderToggle(true, 'Fetching Products, Please Wait...', 1000)
+            }
+            setProducts([])
+            return preloaderToggle(true, 'Fetching Products, Please Wait...', 1000)
         })
     }
+
+
     const productViewToggle = (type) => {
         setView(type)
     }
+
+
+    
+    // set and remove preloader
+   const preloaderToggle = (state, text, time = null) => {
+    setIsLoading({state: state, text: text})
+    if(time){
+        setTimeout(() => {
+            setIsLoading({state: false, text: ''})
+        }, time)
+    }
+  }
 
 
     return (
         <div className="product-page-container">
             <div className="title-header top"><h3>Products</h3></div>
             <HeaderTop view={view} productViewToggle={productViewToggle} categoryToggleBtn={categoryToggleBtn}/>
-            <ProductBody products={products} view={view} scrollToTop={scrollToTop}/>
+            {isLoading.state ? (<Preloader text={isLoading.text}/>) : (
+                <ProductBody products={products} view={view} scrollToTop={scrollToTop}/>
+            )}
         </div>
     )
 }
@@ -65,9 +88,13 @@ export default Product
 const ProductBody = ({products, view, scrollToTop}) => {
     return (
         <div className={`product-body-container ${view == 'list' ? 'list' : ''}`}>
-            <Row className="show-grid">
-                {products.map((product, index) => <Col className="column" key={index} xs={6} sm={6} md={4} lg={3} xl={3}><ProductContainer index={index} product={product} scrollToTop={scrollToTop}/></Col>)}
-            </Row>
+        {
+            products.length == 0 ? (<EmptyProduct text={'Product is Empty'}/>) : (
+                <Row className="show-grid">
+                    {products.map((product, index) => <Col className="column" key={index} xs={6} sm={6} md={4} lg={3} xl={3}><ProductContainer index={index} product={product} scrollToTop={scrollToTop}/></Col>)}
+                </Row>
+            )
+        }
         </div>
     )
 }
@@ -171,6 +198,18 @@ const BottomIconLarge = () => {
                 <FontAwesomeIcon className="icon wislist"  icon={faHeart} />
                 <FontAwesomeIcon className="icon shopping-cart"  icon={faCartShopping} />
             </div>
+        </div>
+    )
+}
+
+
+
+
+
+const EmptyProduct = ({text}) => {
+    return (
+        <div className="empty-product">
+            <h3>{text}</h3>
         </div>
     )
 }

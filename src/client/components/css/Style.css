@@ -3699,6 +3699,7 @@ tr.cart-items-detail td{
 }
 /* ************* PRODUCT PAGE *************** */
 .product-page-container{
+    min-height: 80vh; 
     margin-top: 50px;
 }
 .product-body-container{
@@ -3921,6 +3922,10 @@ tr.cart-items-detail td{
 .bottom-icons-large .icon.wislist,
 .bottom-icons-large .icon.quick-v{
     display: none;
+}
+.empty-product{
+    color: #555;
+    text-align: center;
 }
 @media only screen and (max-width: 1125px){
     .product-body-container.list{
