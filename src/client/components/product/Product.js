@@ -23,6 +23,8 @@ import Preloader from '../preloader/Preloader'
 const Product = ({scrollToTop, categoryToggleBtn}) => {
     const [view, setView] = useState('grid')
     const [products, setProducts] = useState([])
+    const [productLimit, setProductLimit] = useState('-')
+    const [productAlphabet, setProductAlphabet] = useState('-')
     const [isLoading, setIsLoading] = useState({state: true, text: 'Fetching Products, Please Wait...'})
 
 
@@ -61,11 +63,42 @@ const Product = ({scrollToTop, categoryToggleBtn}) => {
     }
   }
 
+  const getLimit = (e) => {
+        let value = '-'
+        const limit = parseInt(e.target.value)
+        if(Number.isInteger(limit))
+        {
+            value = parseInt(e.target.value)
+        }
+      
+        setProductLimit(value)
+        fetchSortedProduct({limit: value, alphabet: productAlphabet})
+  }
+
+
+    const getAlphabet = (e) => {
+        const value = e.target.value
+        setProductAlphabet(value)
+        fetchSortedProduct({limit: productLimit, alphabet: value})
+    }
+
+
+
+    const fetchSortedProduct = (value) => {
+        Axios.get(url(`/api/fetch-products-by-sorting/${value.alphabet}/${value.limit}`)).then((response) => {
+            setProducts(response.data)
+        })
+    }
+
+
+
 
     return (
         <div className="product-page-container">
             <div className="title-header top"><h3>Products</h3></div>
-            <HeaderTop view={view} productViewToggle={productViewToggle} categoryToggleBtn={categoryToggleBtn}/>
+            <HeaderTop view={view}  getLimit={getLimit} getAlphabet={getAlphabet} productViewToggle={productViewToggle} categoryToggleBtn={categoryToggleBtn}
+                 setProductLimit={setProductLimit} productLimit={productLimit}  setProductAlphabet={setProductAlphabet} productAlphabet={productAlphabet}
+            />
             {isLoading.state ? (<Preloader text={isLoading.text}/>) : (
                 <ProductBody products={products} view={view} scrollToTop={scrollToTop}/>
             )}
@@ -91,7 +124,11 @@ const ProductBody = ({products, view, scrollToTop}) => {
         {
             products.length == 0 ? (<EmptyProduct text={'Product is Empty'}/>) : (
                 <Row className="show-grid">
-                    {products.map((product, index) => <Col className="column" key={index} xs={6} sm={6} md={4} lg={3} xl={3}><ProductContainer index={index} product={product} scrollToTop={scrollToTop}/></Col>)}
+                    {products.map((product, index) => (
+                        <>{
+                            product.image.length ? <Col className="column" key={index} xs={6} sm={6} md={4} lg={3} xl={3}><ProductContainer index={index} product={product} scrollToTop={scrollToTop}/></Col> : null
+                        }</>
+                    ))}
                 </Row>
             )
         }
@@ -161,7 +198,8 @@ const ProductImage = ({product, scrollToTop, is_floatImage}) => {
 
 const ProductDetail = ({product, scrollToTop}) => {
     const text = product.product_desc
-    const description = text.substr(0, 80);
+    // const description = text.substr(0, 80);
+    const description = 'hello hwo are you'
 
     return (
         <div className="product-comp-detail">

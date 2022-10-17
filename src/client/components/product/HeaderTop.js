@@ -6,7 +6,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 
-const HeaderTop = ({view, productViewToggle, categoryToggleBtn}) => {
+const HeaderTop = ({view, getLimit, getAlphabet, sortProduct, productViewToggle, categoryToggleBtn}) => {
     return (
         <div className="product-top-bar">
             <div className="topbar-left">
@@ -21,21 +21,22 @@ const HeaderTop = ({view, productViewToggle, categoryToggleBtn}) => {
                 <ul>
                     <li>
                         <span>Sort By:</span> 
-                        <select className="name">
-                            <option>Default</option>
-                            <option>Name (A - Z)</option>
-                            <option>Name (Z - A)</option>
+                        <select onChange={getAlphabet} className="name">
+                            <option value="-">Default</option>
+                            <option value={'ascending'}>Name (A - Z)</option>
+                            <option value={'desc'}>Name (Z - A)</option>
                         </select>
                     </li>
                     <li>
                         <span>Show:</span> 
-                        <select className="number">
-                            <option>Select</option>
-                            <option>20</option>
-                            <option>40</option>
-                            <option>60</option>
-                            <option>80</option>
-                            <option>100</option>
+                        <select  onChange={getLimit} className="number">
+                            <option value="-">Select</option>
+                            <option value="5">5</option>
+                            <option value="20">20</option>
+                            <option value="40">40</option>
+                            <option value="60">60</option>
+                            <option value="80">80</option>
+                            <option value="100">100</option>
                         </select>
                     </li>
                 </ul>
