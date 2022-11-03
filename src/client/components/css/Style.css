@@ -3861,14 +3861,17 @@ tr.cart-items-detail td{
 .float-product-comp-img
 {
     width: 100%;
+    height: 180px;
     cursor: pointer;
     text-align: center;
+    overflow: hidden;
 }
 .product-comp-img img,
 .float-product-comp-img img{
     width: 180px;
     height: 180px;
     border-radius: 5px;
+    object-fit: contain;
 }
 .product-comp-detail ul{
     margin-top: 10px;
@@ -4026,6 +4029,11 @@ tr.cart-items-detail td{
     .product-top-bar .topbar-left .icon{
         font-size: 25px;
         margin-right: 20px;
+    }
+    .product-comp-img,
+    .float-product-comp-img
+    {
+        height: inherit;
     }
     .product-comp-img img{
         width: 100%;

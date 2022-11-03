@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faEye,
@@ -125,9 +125,9 @@ const ProductBody = ({products, view, scrollToTop}) => {
             products.length == 0 ? (<EmptyProduct text={'Product is Empty'}/>) : (
                 <Row className="show-grid">
                     {products.map((product, index) => (
-                        <>{
+                        <Fragment key={index}>{
                             product.image.length ? <Col className="column" key={index} xs={6} sm={6} md={4} lg={3} xl={3}><ProductContainer index={index} product={product} scrollToTop={scrollToTop}/></Col> : null
-                        }</>
+                        }</Fragment>
                     ))}
                 </Row>
             )

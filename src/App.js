@@ -337,6 +337,22 @@ function App() {
         return notify_error("Something went wront, try again!")
     })
   }
+
+
+  // delete item from wishlist
+  const deleteWishlistItem = (id) => {
+    if(id == 'delete-all'){
+      setWishlist([])
+    }
+    if(id !== 'delete-all'){
+      setWishlist(wishlist.filter((item) => item._id !== id)) // filter product from wishlist
+    }
+    Axios.post(url(`/api/delete-wishlist-item`), {_id: id, user: user}).then((response) => {
+      if(response.data){
+        return true;
+      }
+    })
+  }
   
 
 
@@ -402,7 +418,7 @@ const notify_error = (string) => {
           <Route path="/" element={<Home user={user} scrollToTop={scrollToTop} addToWishlist={addToWishlist} appState={appState} addToCart={addToCart}/>}/>
           <Route path="/detail" element={<Detail scrollToTop={scrollToTop} addToWishlist={addToWishlist} user={user} addToCart={addToCart} alertError={alertError} alertMessage={alertMessage}/>}/>
           <Route path="/cart" element={<Cart user={user} cart={cart} deleteCartItem={deleteCartItem} addToWishlist={addToWishlist} setCart={setCart} addToCart={addToCart} notify_success={notify_success} notify_error={notify_error}/>}/>
-          <Route path="/wishlist" element={<Wishlist wishlist={wishlist} setWishlist={setWishlist}/>}/>
+          <Route path="/wishlist" element={<Wishlist wishlist={wishlist} deleteWishlistItem={deleteWishlistItem} setWishlist={setWishlist}/>}/>
           <Route path="/login" element={<Login fetchWishlistItems={fetchWishlistItems} alertMessage={alertMessage} fetchCartItems={fetchCartItems} setUser={setUser} isLoading={isLoading} setIsLoading={setIsLoading}/>}/>
           <Route path="/register" element={<Register alertMessage={alertMessage} setUser={setUser} isLoading={isLoading} setIsLoading={setIsLoading}/>}/>
           <Route path="/products" element={<Product scrollToTop={scrollToTop} categoryToggleBtn={categoryToggleBtn}/>}/>

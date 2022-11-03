@@ -29,7 +29,7 @@ import { AddWishlistModalDropDown, WishlistModalDropDown } from '../dropdown/Wis
 
 
 
-const Wishlist = ({wishlist, setWishlist}) => {
+const Wishlist = ({wishlist, setWishlist, deleteWishlistItem}) => {
     const [title, setTitle] = useState('')
     const [button, setButton] = useState({style: '', title: ''})
     const [isAdding, setIsAdding] = useState(false)
@@ -117,13 +117,14 @@ const Wishlist = ({wishlist, setWishlist}) => {
     }
 
 
-    // delete item fromwishlist
+    // delete item from wishlist
     const deleteItem = () => {
-        console.log(productID)
+        setIsModalOpen(false)
+        deleteWishlistItem(productID)
     }
 
 
-    // add item fromwishlist
+    // add item from wishlist
     const addItemToCart = () => {
         console.log(productID)
     }
@@ -230,7 +231,7 @@ const Items = ({modalToggle, item, addProductToCart}) => {
         <tr className="wishlist-table-row">
             <th scope="row">
                 <div className="content">
-                    <FontAwesomeIcon onClick={() => modalToggle(true, item.product._id)} className="cart-transh-can"  icon={faTrashCan} />
+                    <FontAwesomeIcon onClick={() => modalToggle(true, item._id)} className="cart-transh-can"  icon={faTrashCan} />
                 </div>
             </th>
             <td>
