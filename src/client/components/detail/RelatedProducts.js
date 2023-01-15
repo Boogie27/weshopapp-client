@@ -3,6 +3,7 @@ import { NavLink, useSearchParams  } from 'react-router-dom'
 import FeaturedProduct from '../featured/FeaturedProduct'
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import ProductItem from '../product/ProductItem';
 
 
 
@@ -13,13 +14,13 @@ const RelatedProducts = ({user, scrollToTop, addToCart, addToWishlist, relatedPr
     return (
         <div className="product-conatiner related-product">
             <div className="title-header"><h4>RELATED PRODUCTS</h4></div>
-            <div className="related-product-body">
+            <div className={`product-body-container`}>
                 <Row className="show-grid">
                 {
-                    relatedProducts.map((featuredProduct) => (
-                    <Col className="column" key={featuredProduct._id} xs={12} sm={12} md={6} lg={4}>
+                    relatedProducts.map((product, index) => (
+                    <Col className="column" key={product._id} xs={12} sm={12} md={4} lg={3}>
                     {
-                        featuredProduct.image.length > 0 ? ( <FeaturedProduct user={user} addToCart={addToCart} scrollToTop={scrollToTop} addToWishlist={addToWishlist} showQuickView={showQuickView} featuredProduct={featuredProduct}/> ) : null
+                        product.image.length > 0 ? ( <ProductItem index={index} user={user} addToCart={addToCart} scrollToTop={scrollToTop} addToWishlist={addToWishlist} showQuickView={showQuickView} product={product}/> ) : null
                     }
                     </Col>
                     )) 

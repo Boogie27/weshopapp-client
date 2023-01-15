@@ -1223,6 +1223,11 @@ a{
 .sideproduct-text ul li.sideproduct-price.active s{
     color: rgb(204, 13, 13);
 }
+.empty-product{
+    top: 100px;
+    font-size: 18px;
+    position: relative;
+}
 @media only screen and (max-width: 1125px){
     .home-body{
         width: 95%;
@@ -2309,15 +2314,6 @@ p.like-dislike-font{
     .detail-img-container .product-detail{
         padding-left: 0px;
         margin-top: 50px;
-    }
-    .related-product-body .latest-p-container{
-        margin: 0px;
-        padding: 0px;
-    }
-    .related-product-body .latest-p-container .latest-p-item{
-        height: 200px;
-        margin: 0px;
-        padding: 0px;
     }
 }
 @media only screen and (max-width: 567px){
