@@ -7,11 +7,35 @@ import {
   faCartShopping
 } from '@fortawesome/free-solid-svg-icons'
 import { NavLink } from 'react-router-dom'
-import { money, url, product_img } from '../../Data'
+import { money, url, page_url, product_img } from '../../Data'
 
-const ProductItem = ({index, product, scrollToTop}) => {
+
+
+
+
+
+const ProductItem = ({user, index, addToCart, product, addToWishlist, showQuickView, scrollToTop}) => {
+
+  const addItemToWishList = () => {
+    const item = {
+      user_id: user._id,
+      product_id: product._id,
+      old_url: page_url()
+    }
+    return addToWishlist(item)
+  }
+
+  const addProductToCart = () => {
+    const item = {
+      product_id: product._id,
+      quantity: 1,
+      price: product.price
+    }
+    return addToCart(item)
+  }
+
   return (
-    <ProductContainer index={index} product={product} scrollToTop={scrollToTop}/>
+    <ProductContainer index={index} addProductToCart={addProductToCart} addItemToWishList={addItemToWishList} showQuickView={showQuickView} product={product} scrollToTop={scrollToTop}/>
   )
 }
 
@@ -28,7 +52,7 @@ export default ProductItem
 
 
 
-const ProductContainer = ({product, index, scrollToTop}) => {
+const ProductContainer = ({product, index, addProductToCart, addItemToWishList, showQuickView, scrollToTop}) => {
   const [is_floatImage, setIs_floatImage] = useState(false)
 
   const floatImageScreen = (string) => {
@@ -40,9 +64,9 @@ const ProductContainer = ({product, index, scrollToTop}) => {
   return (
       <div className={`product-component ${!borderless ? 'borderless' : ''}`}
           onMouseEnter={() => floatImageScreen(true)} onMouseLeave={() => floatImageScreen(false)}>
-          <ProductImage product={product} scrollToTop={scrollToTop} is_floatImage={is_floatImage}/>
+          <ProductImage product={product} addProductToCart={addProductToCart} addItemToWishList={addItemToWishList} showQuickView={showQuickView} scrollToTop={scrollToTop} is_floatImage={is_floatImage}/>
           <ProductDetail product={product} scrollToTop={scrollToTop}/>
-          <BottomIconLarge/>
+          <BottomIconLarge addProductToCart={addProductToCart} addItemToWishList={addItemToWishList} showQuickView={showQuickView} product={product}/>
       </div>
   )
 }
@@ -51,7 +75,7 @@ const ProductContainer = ({product, index, scrollToTop}) => {
 
 
 
-const ProductImage = ({product, scrollToTop, is_floatImage}) => {
+const ProductImage = ({product, addItemToWishList, addProductToCart, showQuickView, scrollToTop, is_floatImage}) => {
   const image = product.image
 
   return (
@@ -71,9 +95,9 @@ const ProductImage = ({product, scrollToTop, is_floatImage}) => {
               ) : null
           }
           <div className="float-product-icon">
-              <FontAwesomeIcon className="icon"  icon={faEye} />
-              <FontAwesomeIcon className="icon text-danger"  icon={faHeart} />
-              <FontAwesomeIcon className="icon"  icon={faCartShopping} />
+              <FontAwesomeIcon onClick={() => showQuickView(product)} className="icon"  icon={faEye} />
+              <FontAwesomeIcon onClick={() => addItemToWishList()} className="icon text-danger"  icon={faHeart} />
+              <FontAwesomeIcon onClick={() => addProductToCart()} className="icon"  icon={faCartShopping} />
           </div>
       </div>
   )
@@ -85,8 +109,8 @@ const ProductImage = ({product, scrollToTop, is_floatImage}) => {
 
 const ProductDetail = ({product, scrollToTop}) => {
   const text = product.product_desc
-  // const description = text.substr(0, 80);
-  const description = 'hello hwo are you'
+  const description = text.substr(0, 80);
+  // const description = 'hello hwo are you'
 
   return (
       <div className="product-comp-detail">
@@ -108,7 +132,7 @@ const ProductDetail = ({product, scrollToTop}) => {
 
 
 
-const BottomIconLarge = () => {
+const BottomIconLarge = ({product, addProductToCart, showQuickView, addItemToWishList}) => {
   return (
       <div className="bottom-icons-large">
           <div className="stars">
@@ -119,9 +143,9 @@ const BottomIconLarge = () => {
               <FontAwesomeIcon className="star"  icon={faStar} />
           </div>
           <div className="product-shop-icons">
-              <FontAwesomeIcon className="icon quick-v"  icon={faEye} />
-              <FontAwesomeIcon className="icon wislist"  icon={faHeart} />
-              <FontAwesomeIcon className="icon shopping-cart"  icon={faCartShopping} />
+              <FontAwesomeIcon onClick={() => showQuickView(product)}className="icon quick-v"  icon={faEye} />
+              <FontAwesomeIcon onClick={() => addItemToWishList()} className="icon wislist"  icon={faHeart} />
+              <FontAwesomeIcon onClick={() => addProductToCart()} className="icon shopping-cart"  icon={faCartShopping} />
           </div>
       </div>
   )

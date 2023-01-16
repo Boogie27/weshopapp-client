@@ -14,7 +14,7 @@ import { moneySign, productImageURL } from '../../Data'
 
 
 
-const QuickView = ({product, closeQuickView}) => {
+const QuickView = ({product, addItemToWishList, closeQuickView}) => {
 
     return (
         <div className="quickview-container">
@@ -30,7 +30,7 @@ const QuickView = ({product, closeQuickView}) => {
                         <StarRatings/>
                         <Details product={product}/>
                         <AddToCart/>
-                        <WishListAdd/>
+                        <WishListAdd addItemToWishList={addItemToWishList}/>
                     </div>
                 </div>
             </div>
@@ -133,7 +133,7 @@ const AddToCart = () => {
     return (
         <div className="qv-addtocart">
             <label>QTY</label>
-            <input type="number"/>
+            <input type="number" min={1}/>
             <button type="button">ADD TO CART</button>
         </div>
     )
@@ -143,12 +143,14 @@ const AddToCart = () => {
 
 
 
-const WishListAdd = () => {
+const WishListAdd = ({addItemToWishList}) => {
     return (
         <div className="icons">
             <ul>
-                <li><FontAwesomeIcon className=""  icon={faHeart} /></li>
-                <li><h4>Add To Wishlist</h4></li>
+                <li onClick={() => addItemToWishList()}>
+                    <FontAwesomeIcon className=""  icon={faHeart} />
+                    <span> Add To Wishlist</span>
+                </li>
             </ul>
         </div>
     )

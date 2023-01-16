@@ -21,7 +21,7 @@ import FeaturedFloatItems from './FeaturedFloatItems'
 const FeaturedProduct = ({user, scrollToTop,  addToWishlist, addToCart, featuredProduct, showQuickView}) => {
  const is_available = featuredProduct.quantity > 0 ? true : false
 
-
+//  add item to whishlist
  const addProductToCart = () => {
   const item = {
     product_id: featuredProduct._id,
@@ -31,6 +31,7 @@ const FeaturedProduct = ({user, scrollToTop,  addToWishlist, addToCart, featured
   return addToCart(item)
 }
 
+// add item to cart
 const addItemToWishList = () => {
   const item = {
     user_id: user._id,

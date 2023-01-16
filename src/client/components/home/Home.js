@@ -8,6 +8,7 @@ import Row from 'react-bootstrap/Row';
 import BottomBanner from '../footer/BottomBanner'
 import QuickView from '../quickview/QuickView'
 import { url } from '../../Data'
+import ProductItem from '../product/ProductItem'
 import FeaturedProduct from '../featured/FeaturedProduct'
 
 
@@ -40,18 +41,11 @@ const categories = [
 
 
 
-const Home = ({user, scrollToTop, addToWishlist, appState, addToCart}) => {
+const Home = ({user, scrollToTop, showQuickView, closeQuickView, addToWishlist, appState, addToCart}) => {
   const [product, setProduct] = useState(null)
   const [latestProducts, setLatestProducts] = useState([])
   const [featuredProducts, setFeaturedProducts] = useState([])
   
-  const showQuickView = (product) => {
-    setProduct(product)
-  }
-
-  const closeQuickView = () => {
-    setProduct(null)
-  }
 
   useEffect(() => {
     // fetch latest products
@@ -80,9 +74,6 @@ const Home = ({user, scrollToTop, addToWishlist, appState, addToCart}) => {
         <FeaturedProducts user={user} addToWishlist={addToWishlist} addToCart={addToCart} showQuickView={showQuickView} featuredProducts={featuredProducts}/>
       </div>
       <BottomBanner/>
-      {
-        product ? (<QuickView product={product} closeQuickView={closeQuickView} />) : null
-      }
     </div>
   )
 }
@@ -110,13 +101,13 @@ const HomeBody = ({user, scrollToTop, addToWishlist, categories, addToCart, late
         </div>
         <div className="latest-p-container">
           <div className="title-header"><h4>LATEST PRODUCTS</h4></div>
-          <div className="latest-p-body">
+          <div className={`product-body-container`}>
             <Row className="show-grid">
               {
-                latestProducts.map((featuredProduct) => (
-                  <Col className="column" key={featuredProduct._id} xs={12} sm={12} md={6}>
+                latestProducts.map((product) => (
+                  <Col className="column" key={product._id} xs={12} sm={12} md={4}>
                   {
-                    featuredProduct.image.length > 0 ? ( <FeaturedProduct user={user} scrollToTop={scrollToTop} addToWishlist={addToWishlist} addToCart={addToCart} showQuickView={showQuickView} featuredProduct={featuredProduct}/> ) : null
+                    product.image.length > 0 ? ( <ProductItem user={user} showQuickView={showQuickView} scrollToTop={scrollToTop} addToWishlist={addToWishlist} addToCart={addToCart} showQuickView={showQuickView} product={product}/> ) : null
                   }
                   </Col>
                 )) 
@@ -183,13 +174,13 @@ const FeaturedProducts = ({user, scrollToTop, addToWishlist, addToCart, featured
   return (
     <div className="product-conatiner">
       <div className="title-header"><h4>FEATURED PRODUCTS</h4></div>
-      <div className="featured-product-body">
+     <div className={`product-body-container`}>
         <Row className="show-grid">
           {
-            featuredProducts.map((featuredProduct) => (
-              <Col key={featuredProduct._id} xs={12} sm={12} md={6} lg={4} xl={3}>
+            featuredProducts.map((product) => (
+              <Col key={product._id} xs={12} sm={12} md={6} lg={4} xl={3}>
               {
-                featuredProduct.image.length > 0 ? ( <FeaturedProduct user={user} scrollToTop={scrollToTop} addToWishlist={addToWishlist} addToCart={addToCart} showQuickView={showQuickView} featuredProduct={featuredProduct}/> ) : null
+                product.image.length > 0 ? ( <ProductItem user={user} showQuickView={showQuickView} scrollToTop={scrollToTop} addToWishlist={addToWishlist} addToCart={addToCart} showQuickView={showQuickView} product={product}/> ) : null
               }
               </Col>
             )) 

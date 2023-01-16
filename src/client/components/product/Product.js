@@ -14,6 +14,7 @@ import { money, url, product_img } from '../../Data'
 import Categories from './Categories'
 import HeaderTop from './HeaderTop'
 import ProductItem from './ProductItem'
+import QuickView from '../quickview/QuickView'
 import Preloader from '../preloader/Preloader' 
 
 
@@ -21,14 +22,14 @@ import Preloader from '../preloader/Preloader'
 
 
 
-const Product = ({scrollToTop, categoryToggleBtn}) => {
+const Product = ({user, scrollToTop, showQuickView, addToCart, addToWishlist, categoryToggleBtn}) => {
     const [view, setView] = useState('grid')
     const [products, setProducts] = useState([])
     const [productLimit, setProductLimit] = useState('-')
     const [productAlphabet, setProductAlphabet] = useState('-')
     const [isLoading, setIsLoading] = useState({state: true, text: 'Fetching Products, Please Wait...'})
 
-
+    
     useEffect(() => {
         fetchProducts()
         preloaderToggle(true, 'Fetching Products, Please Wait...')
@@ -104,7 +105,7 @@ const Product = ({scrollToTop, categoryToggleBtn}) => {
                 <Fragment>
                     {
                         products == 'empty' ? (<div className="empty-product">There are no products available</div>) : (
-                            <ProductBody products={products} view={view} scrollToTop={scrollToTop}/>
+                            <ProductBody user={user} showQuickView={showQuickView} products={products} addToWishlist={addToWishlist} addToCart={addToCart} view={view} scrollToTop={scrollToTop}/>
                         )
                     }
                 </Fragment>
@@ -125,7 +126,7 @@ export default Product
 
 
 
-const ProductBody = ({products, view, scrollToTop}) => {
+const ProductBody = ({user, products, addToCart, showQuickView, addToWishlist, view, scrollToTop}) => {
     return (
         <div className={`product-body-container ${view == 'list' ? 'list' : ''}`}>
         {
@@ -133,7 +134,7 @@ const ProductBody = ({products, view, scrollToTop}) => {
                 <Row className="show-grid">
                     {products.map((product, index) => (
                         <Fragment key={index}>{
-                            product.image.length ? <Col className="column" key={index} xs={6} sm={6} md={4} lg={3} xl={3}><ProductItem index={index} product={product} scrollToTop={scrollToTop}/></Col> : null
+                            product.image.length ? <Col className="column" key={index} xs={6} sm={6} md={4} lg={3} xl={3}><ProductItem index={index} showQuickView={showQuickView} user={user} addToCart={addToCart} addToWishlist={addToWishlist} product={product} scrollToTop={scrollToTop}/></Col> : null
                         }</Fragment>
                     ))}
                 </Row>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './client/components/css/Style.css'
 import { Route, Routes } from 'react-router-dom'
@@ -18,6 +18,7 @@ import MiniNavigation from './client/components/navigation/MiniNavigation'
 import Axios from 'axios'
 import Cookies from 'js-cookie'
 import {  url, name } from './client/Data'
+import QuickView from './client/components/quickview/QuickView'
 import AlertDanger from './client/components/alerts/AlertDanger'
 import AlertSuccess from './client/components/alerts/AlertSuccess'
 import Preloader from './client/components/preloader/Preloader'
@@ -34,6 +35,7 @@ function App() {
   let token = Cookies.get('weshopappuser')
   let state = Cookies.get('weshopappstate')
   const [cart, setCart] = useState([])
+  const [isQuickView, setIsQuickView] = useState(false)
   const [categories, setCategories] = useState([])
   const [wishlist, setWishlist] = useState([])
   const [message, setMessage] = useState(false)
@@ -88,6 +90,11 @@ function App() {
   }, [])
 
 
+
+  // Add item to wishlist
+  // const addItemToWishList = () => {
+  //   console.log('yess')
+  // }
 
 
   // scroll window even
@@ -304,6 +311,17 @@ function App() {
   }
 
 
+  // show quick view
+  const showQuickView = (product) => {
+    setIsQuickView(product)
+  }
+
+  // close Quick view
+  const closeQuickView = () => {
+    setIsQuickView(null)
+  }
+
+
 
   // open and close float cart
   const floatCartStateToggle = (state) => {
@@ -415,13 +433,13 @@ const notify_error = (string) => {
         />
       </div>
       <Routes>
-          <Route path="/" element={<Home user={user} scrollToTop={scrollToTop} addToWishlist={addToWishlist} appState={appState} addToCart={addToCart}/>}/>
+          <Route path="/" element={<Home user={user} showQuickView={showQuickView} closeQuickView={closeQuickView} scrollToTop={scrollToTop} addToWishlist={addToWishlist} appState={appState} addToCart={addToCart}/>}/>
           <Route path="/detail" element={<Detail scrollToTop={scrollToTop} addToWishlist={addToWishlist} user={user} addToCart={addToCart} alertError={alertError} alertMessage={alertMessage}/>}/>
           <Route path="/cart" element={<Cart user={user} cart={cart} deleteCartItem={deleteCartItem} addToWishlist={addToWishlist} setCart={setCart} addToCart={addToCart} notify_success={notify_success} notify_error={notify_error}/>}/>
           <Route path="/wishlist" element={<Wishlist wishlist={wishlist} deleteWishlistItem={deleteWishlistItem} setWishlist={setWishlist}/>}/>
           <Route path="/login" element={<Login fetchWishlistItems={fetchWishlistItems} alertMessage={alertMessage} fetchCartItems={fetchCartItems} setUser={setUser} isLoading={isLoading} setIsLoading={setIsLoading}/>}/>
           <Route path="/register" element={<Register alertMessage={alertMessage} setUser={setUser} isLoading={isLoading} setIsLoading={setIsLoading}/>}/>
-          <Route path="/products" element={<Product scrollToTop={scrollToTop} categoryToggleBtn={categoryToggleBtn}/>}/>
+          <Route path="/products" element={<Product user={user} showQuickView={showQuickView} addToWishlist={addToWishlist} addToCart={addToCart} scrollToTop={scrollToTop} categoryToggleBtn={categoryToggleBtn}/>}/>
       </Routes>
       <Footer/>
       { isLoading.state && <Preloader text={isLoading.text}/> }
@@ -431,6 +449,11 @@ const notify_error = (string) => {
       <ToastContainer position="bottom-right" autoClose={5000} hideProgressBar={false} 
         newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover
       />
+      <Fragment>
+      {
+          isQuickView ? (<QuickView product={isQuickView} closeQuickView={closeQuickView} />) : null
+      }
+      </Fragment>
     </div>
   );
 }
