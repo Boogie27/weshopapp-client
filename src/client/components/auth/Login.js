@@ -191,6 +191,10 @@ const RightSide = ({
                         Dont have an account? <NavLink to="/register">Register</NavLink>
                     </div>
                 </div>
+                <div className="form-reset">
+                    Click here to reset password
+                    <NavLink to="/reset-password">Reset password</NavLink>
+                </div>
             </div>
         </div>
     )

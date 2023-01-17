@@ -2739,6 +2739,17 @@ span.css-1xdhyk6 span{
     cursor: pointer;
     margin-right: 5px;
 }
+.auth-right .form-reset {
+    margin-top: 20px;
+}
+.auth-right .form-reset a {
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+.auth-right .form-reset a:hover{
+    color: rgb(224, 157, 32);
+}
 @media only screen and (max-width: 992px){
     .auth-container{
         width: 100%;
@@ -3875,6 +3886,13 @@ tr.cart-items-detail td{
 .product-comp-detail ul li{
     color: #555;
     font-size: 15px;
+}
+.product-comp-detail span.product-state{
+    font-size: 10px;
+    color: #fff;
+    padding: 3px 5px;
+    margin-left: 10px;
+    background-color: rgb(212, 7, 7);
 }
 .parent-container.active .product-comp-detail ul li{
     color: #ccc;

@@ -77,6 +77,7 @@ const ProductContainer = ({product, index, addProductToCart, addItemToWishList, 
 
 const ProductImage = ({product, addItemToWishList, addProductToCart, showQuickView, scrollToTop, is_floatImage}) => {
   const image = product.image
+  const is_available = product.quantity > 0 ? true : false
 
   return (
       <div className={`product-image-comp ${is_floatImage && 'active'}`}>
@@ -97,7 +98,9 @@ const ProductImage = ({product, addItemToWishList, addProductToCart, showQuickVi
           <div className="float-product-icon">
               <FontAwesomeIcon onClick={() => showQuickView(product)} className="icon"  icon={faEye} />
               <FontAwesomeIcon onClick={() => addItemToWishList()} className="icon text-danger"  icon={faHeart} />
-              <FontAwesomeIcon onClick={() => addProductToCart()} className="icon"  icon={faCartShopping} />
+              {
+                  is_available ? ( <FontAwesomeIcon onClick={() => addProductToCart()} className="icon"  icon={faCartShopping} />) : null
+              }
           </div>
       </div>
   )
@@ -110,17 +113,22 @@ const ProductImage = ({product, addItemToWishList, addProductToCart, showQuickVi
 const ProductDetail = ({product, scrollToTop}) => {
   const text = product.product_desc
   const description = text.substr(0, 80);
-  // const description = 'hello hwo are you'
+  const is_available = product.quantity > 0 ? true : false
 
   return (
       <div className="product-comp-detail">
           <ul>
-              <li>
+                <li>
                   <NavLink onClick={() => scrollToTop()} to={`/detail?product=${product._id}&category=${product.category}`}>
                       {product.product_name}
                   </NavLink>
-              </li>
-              <li><b>Price: </b>{money(product.price)} </li>
+                </li>
+                <li>
+                    <b>Price: </b>{money(product.price)} 
+                    {
+                        !is_available ? (<span className="product-state">Out of stuck</span>) : null
+                    }
+                </li>
               <li><b>Old Proice: </b><s className="text-danger">{money(product.old_price)}</s></li>
               <li><p>{description}</p></li>
           </ul>
@@ -133,7 +141,9 @@ const ProductDetail = ({product, scrollToTop}) => {
 
 
 const BottomIconLarge = ({product, addProductToCart, showQuickView, addItemToWishList}) => {
-  return (
+    const is_available = product.quantity > 0 ? true : false
+
+    return (
       <div className="bottom-icons-large">
           <div className="stars">
               <FontAwesomeIcon className="star active"  icon={faStar} />
@@ -145,7 +155,9 @@ const BottomIconLarge = ({product, addProductToCart, showQuickView, addItemToWis
           <div className="product-shop-icons">
               <FontAwesomeIcon onClick={() => showQuickView(product)}className="icon quick-v"  icon={faEye} />
               <FontAwesomeIcon onClick={() => addItemToWishList()} className="icon wislist"  icon={faHeart} />
-              <FontAwesomeIcon onClick={() => addProductToCart()} className="icon shopping-cart"  icon={faCartShopping} />
+              {
+                  is_available ? ( <FontAwesomeIcon onClick={() => addProductToCart()} className="icon shopping-cart"  icon={faCartShopping} />) : null
+              }
           </div>
       </div>
   )

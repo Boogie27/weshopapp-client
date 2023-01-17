@@ -466,11 +466,7 @@ const ProductDetail = ({
                     <li className="li-link"><FontAwesomeIcon className="icon-pen"  icon={faPen} />Write a review</li>
                 </ul>
                 <ItemDetail productDetail={productDetail}/>
-                {
-                    productDetail.quantity > 0 ? (
-                        <ProductQuantity addItemToCart={addItemToCart} setQuantity={setQuantity} quantity={quantity}/>
-                    ) : ''
-                }
+                <ProductQuantity productDetail={productDetail} addItemToCart={addItemToCart} setQuantity={setQuantity} quantity={quantity}/>
                 <WishListAdd addItemToWishlist={addItemToWishlist} user={user} likes={likes} disLikes={disLikes} likeToggle={likeToggle}/>
             </div>
         </div>
@@ -501,13 +497,14 @@ const ProductStars = ({reviews, starsCount}) => {
 
 const ItemDetail = ({productDetail}) => {
     const quantity = productDetail.quantity > 0 ? true : false
+
     return (
         <ul className="ul-detail-middle">
             <li><b>Price:</b> {money(productDetail.price)}</li>
             <li><b>Old Price:</b> {money(productDetail.old_price)}</li>
             <li><b>Brand: </b>{productDetail.brand}</li>
             <li><b>Product Code: </b>Product {productDetail.product_code}</li>
-            <li><b>Availability: </b><span className={` ${!quantity && 'active'}`}>{quantity ? 'Available' : 'Out of stock'}</span></li>
+            <li><b>Availability: </b><span className={`${!quantity && 'active'}`}>{quantity ? 'Available' : 'Out of stock'}</span></li>
         </ul>
     )
 }
@@ -516,13 +513,21 @@ const ItemDetail = ({productDetail}) => {
 
 
 
-const ProductQuantity = ({quantity, setQuantity, addItemToCart}) => {
+const ProductQuantity = ({productDetail, quantity, setQuantity, addItemToCart}) => {
+    const is_available = productDetail.quantity > 0 ? true : false;
+
     return (
         <div className="product-qauntity">
            <div className="productQty">
                <label>Qty</label>
                <input type="number" min="1" value={quantity} onChange={(e) => setQuantity(e.target.value)}/>
-               <button onClick={() => addItemToCart()} type="button">ADD TO CART</button>
+               {
+                   is_available ? (
+                    <button onClick={() => addItemToCart()} type="button">ADD TO CART</button>
+                   ) : (
+                    <button type="button" disabled>ADD TO CART</button>
+                   )
+               }
            </div>
         </div>
     )

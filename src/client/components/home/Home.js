@@ -71,7 +71,7 @@ const Home = ({user, scrollToTop, showQuickView, closeQuickView, addToWishlist, 
         <SecondBanner/>
       </div>
       <div className="featured-p-container">
-        <FeaturedProducts user={user} addToWishlist={addToWishlist} addToCart={addToCart} showQuickView={showQuickView} featuredProducts={featuredProducts}/>
+        <FeaturedProducts user={user} addToWishlist={addToWishlist} addToCart={addToCart} scrollToTop={scrollToTop} showQuickView={showQuickView} featuredProducts={featuredProducts}/>
       </div>
       <BottomBanner/>
     </div>

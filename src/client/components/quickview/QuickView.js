@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faStar,
@@ -29,7 +29,7 @@ const QuickView = ({product, addItemToWishList, closeQuickView}) => {
                         <div className="title-header"><h4>{product.product_name}</h4></div>
                         <StarRatings/>
                         <Details product={product}/>
-                        <AddToCart/>
+                        <AddToCart product={product} />
                         <WishListAdd addItemToWishList={addItemToWishList}/>
                     </div>
                 </div>
@@ -50,9 +50,10 @@ export default QuickView
 
 
 const QuickViewImage = ({product}) => {
-
+    
     const product_image = product.image
     const [counter, setCounter] = useState(1)
+    const [addToCart, setAddToCart] = useState()
     const [sliderImage, setSliderImage] = useState(product_image[0])
     
 
@@ -129,12 +130,23 @@ const Details = ({product}) => {
 
 
 
-const AddToCart = () => {
+const AddToCart = ({product, setAddToCart}) => {
+    const is_available = product.quantity > 0 ? true : false
+   
     return (
         <div className="qv-addtocart">
             <label>QTY</label>
-            <input type="number" min={1}/>
-            <button type="button">ADD TO CART</button>
+            <input onChange={(e) => setAddToCart(e.target.value)} type="number" min={1}/>
+            <Fragment>
+                {
+                    !is_available ? (
+                        <button type="button" disabled>ADD TO CART</button>
+                    ):(
+                        <button type="button">ADD TO CART</button>
+                    )
+                }
+            </Fragment>
+            
         </div>
     )
 }
