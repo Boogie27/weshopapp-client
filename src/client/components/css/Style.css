@@ -43,6 +43,7 @@ a{
 .alert-bg-danger{
     font-size: 13px;
     padding: 15px 0px;
+    margin: 20px 0px;
     color: rgb(190, 8, 8);
     background-color: rgb(255, 206, 206);
     border: 1px solid rgb(250, 180, 180);
@@ -51,6 +52,7 @@ a{
     color: green;    
     font-size: 13px;
     padding: 15px 0px;
+    margin: 20px 0px;
     background-color: rgb(215, 250, 215);
     border: 1px solid rgb(164, 253, 164);
 }
@@ -2699,7 +2701,7 @@ span.css-1xdhyk6 span{
     border: none;
     color: #fff;
     font-weight: bold;
-    padding: 10px 40px;
+    padding: 12px 40px;
     border-radius: 50px;
     background-color: rgb(224, 157, 32);
 }
@@ -2752,6 +2754,26 @@ span.css-1xdhyk6 span{
 }
 @media only screen and (max-width: 992px){
     .auth-container{
+        width: 100%;
+        padding: 0px 10px;
+    }
+    .auth-right .title-header{
+        width: 100%;
+    }
+    .form-button{
+        width: 100%;
+        display: block;
+        margin: 30px 0px;
+    }
+    .form-button .login-link{
+        width: 100%;
+        margin: 10px 0px;
+    }
+    .form-button .register-btn{
+        width: 100%;
+        border-radius: 0px;
+    }
+    .auth-form .form-group-input{
         width: 100%;
     }
 }

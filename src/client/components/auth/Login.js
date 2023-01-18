@@ -34,6 +34,9 @@ const Login = ({fetchWishlistItems, alertMessage, fetchCartItems, setUser, isLoa
     
 
     const loginUser = () => {
+        setAlert('')
+        setEmailAlert('')
+        setPasswordAlert('')
         const user = { email: email, password: password }
 
         // validate input fields

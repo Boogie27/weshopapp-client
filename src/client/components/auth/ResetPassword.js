@@ -33,13 +33,51 @@ const ResetPassword = ({fetchWishlistItems, alertMessage, fetchCartItems, setUse
     
 
     const sendEmail = () => {
-        const user = { email: email }
+        setAlert('')
+        setEmailAlert("")
+        // validate input fields
+        // const validate = validate_input(email)
+        // if(validate === 'failed') return
+        
+        Axios.post(url('/api/reset-password'), {email: email}).then((response) => {
+            const data = response.data
+            if(data.validationError){
+                setIsLoading({state: false, text: ''})
+                return setEmailAlert(data.validation.email)
+            }
 
+            if(data.exists == false){
+                return setAlert(`*${email} does not exist!`)
+            }
+        })
+        
     }
 
     const toggleInput = (string) => {
         setInput(string)
     }
+
+    
+
+     const validate_input = (email) => {
+        let failed = false
+
+        const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        if(email.length == 0){
+            failed = true
+            setEmailAlert("*Email field is required")
+        } else if(!email.match(validRegex)){
+            failed = true
+            setEmailAlert("*Invalid email address")
+        }
+
+        if(failed == true){
+            return 'failed'
+        }else{
+            return 'success'
+        }
+    }
+
 
 
 
