@@ -52,7 +52,7 @@ const ResetPassword = ({fetchWishlistItems, alertMessage, fetchCartItems, setUse
             }
 
             if(data.exists){
-                
+               return console.log(data)
             }
         })
         
