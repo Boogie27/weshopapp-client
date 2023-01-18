@@ -120,7 +120,7 @@ const Register = ({alertMessage, setUser, isLoading, setIsLoading}) => {
 
         if(input.password === ""){
             failed = true
-            setPasswordAlert("*Passowrd field is required")
+            setPasswordAlert("*Password field is required")
         }else if(input.password.length < 6){
             failed = true
             setPasswordAlert("*Must be minimum of 6 characters")
@@ -131,7 +131,7 @@ const Register = ({alertMessage, setUser, isLoading, setIsLoading}) => {
 
         if(input.confirmPassword === ""){
             failed = true
-            setConfirmPasswordAlert("*Confirm passowrd field is required")
+            setConfirmPasswordAlert("*Confirm Password field is required")
         }else if(input.confirmPassword !== input.password){
             failed = true
             setConfirmPasswordAlert("*Confirm password Must equals password")

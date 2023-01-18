@@ -22,6 +22,7 @@ import AlertDanger from '../alerts/AlertDanger'
 
 
 
+
 const ResetPassword = ({fetchWishlistItems, alertMessage, fetchCartItems, setUser, isLoading, setIsLoading}) => {
     const navigate = useNavigate();
     const [alert, setAlert] = useState('')
@@ -39,7 +40,7 @@ const ResetPassword = ({fetchWishlistItems, alertMessage, fetchCartItems, setUse
         // const validate = validate_input(email)
         // if(validate === 'failed') return
         
-        Axios.post(url('/api/reset-password'), {email: email}).then((response) => {
+        Axios.post(url('/api/reset-password-email'), {email: email}).then((response) => {
             const data = response.data
             if(data.validationError){
                 setIsLoading({state: false, text: ''})
@@ -48,6 +49,10 @@ const ResetPassword = ({fetchWishlistItems, alertMessage, fetchCartItems, setUse
 
             if(data.exists == false){
                 return setAlert(`*${email} does not exist!`)
+            }
+
+            if(data.exists){
+                
             }
         })
         
@@ -85,7 +90,8 @@ const ResetPassword = ({fetchWishlistItems, alertMessage, fetchCartItems, setUse
     return (
         <div className="auth-container">
             <LeftSide/>
-            <RightSide alert={alert} email={email} input={input} toggleInput={toggleInput} emailAlert={emailAlert} toggleInput={toggleInput} input={input} setEmail={setEmail} sendEmail={sendEmail}
+            <RightSide alert={alert} email={email} input={input} toggleInput={toggleInput} emailAlert={emailAlert} 
+                toggleInput={toggleInput} input={input} setEmail={setEmail} sendEmail={sendEmail}
             />
         </div>
     )
@@ -123,7 +129,7 @@ const RightSide = ({ email, alert, emailAlert, toggleInput, input, setEmail, sen
             </div>
             <div className="auth-form">
                 <div className="form-group">
-                    { emailAlert && (<FormAlert alert={emailAlert}/>) }
+                    <div className="form-alert">{ emailAlert && (<FormAlert alert={emailAlert}/>) }</div>
                     <div className="form-group-input">
                         <div className="form-icon"><FontAwesomeIcon className={`icon ${input === 'email' ? 'active' : ''}`}  icon={faEnvelope} /></div>
                         <input type="email" onChange={(e) => setEmail(e.target.value)} value={email} onBlur={() => toggleInput(null)} onFocus={() => toggleInput('email')}  placeholder="Enter email" />

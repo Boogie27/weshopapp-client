@@ -53,7 +53,7 @@ a{
     font-size: 13px;
     padding: 15px 0px;
     margin: 20px 0px;
-    background-color: rgb(215, 250, 215);
+    background-color: rgb(171, 233, 171);
     border: 1px solid rgb(164, 253, 164);
 }
 .form-group{
@@ -62,7 +62,7 @@ a{
 .form-alert{
     font-size: 12px;
 }
-.form.form-alert{
+.form-alert{
     height: 20px;
 }
 .parent-container{
@@ -4244,3 +4244,105 @@ tr.cart-items-detail td{
         width: 95%;
     }
 }
+/* *************** PASSWORD RESET SECTION ************* */
+.password-reset-parent.active{
+    display: none;
+}
+.password-reset-container{
+    top: 0px;
+    left: 0px;
+    z-index: 25;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(51, 51, 51, 0.698);
+}
+.pwd-reset-form{
+    width: 400px;
+    height: 500px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+}
+.pwd-reset-form .title-header{
+    text-align: center;
+    margin: 20px 0px;
+}
+.pwd-reset-form .title-header h3{
+    font-size: 30px;
+}
+.pwd-reset-form .title-header p{
+    color: rgb(117, 117, 117);
+}
+.pwd-reset-form input{
+    width: 100%;
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid #ccc;
+}
+.pwd-reset-form input:focus{
+    outline: none;
+    border: 1px solid rgb(224, 157, 32);
+}
+.pwd-reset-form button{
+    width: 100%;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    font-size: 17px;
+    font-weight: bold;
+    margin: 20px 0px;
+    transition: all 0.3s ease;
+    background-color: rgb(224, 157, 32);
+}
+.pwd-reset-form button:hover{
+    background-color: rgb(185, 130, 27);
+}
+.pwd-reset-form button .icon{
+    margin: 0px 5px;
+}
+.pwd-reset-form .cancel-btn{
+    height: 0px;
+    margin-bottom: 50px;
+    text-align: right
+}
+.pwd-reset-form .cancel-btn .icon{
+    font-size: 22px;
+    cursor: pointer;
+}
+.pwd-reset-form .cancel-btn .icon:hover{
+    color: rgb(224, 157, 32);
+}
+@media only screen and (max-width: 567px){
+    .pwd-reset-form{
+        width: 100%;
+        height: 60vh;
+    }
+    .password-reset-container{
+        padding: 10px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

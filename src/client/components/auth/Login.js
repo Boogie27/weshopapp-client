@@ -19,6 +19,9 @@ import {
 } from '../../Data'
 import FormAlert from '../alerts/FormAlert'
 import AlertDanger from '../alerts/AlertDanger'
+import PasswordRestForm from './PasswordRestForm'
+
+
 
 
 
@@ -97,7 +100,7 @@ const Login = ({fetchWishlistItems, alertMessage, fetchCartItems, setUser, isLoa
 
         if(input.password.length == 0){
             failed = true
-            setPasswordAlert("*Passowrd field is required")
+            setPasswordAlert("*Password field is required")
         }else if(input.password.length < 6){
             failed = true
             setPasswordAlert("*Must be minimum of 6 characters")
@@ -136,6 +139,7 @@ const Login = ({fetchWishlistItems, alertMessage, fetchCartItems, setUser, isLoa
                 setPassword={setPassword} email={email} setEmail={setEmail} alert={alert}
                 emailAlert={emailAlert}  loginUser={loginUser} passwordAlert={passwordAlert}
             />
+            <PasswordRestForm />
         </div>
     )
 }
