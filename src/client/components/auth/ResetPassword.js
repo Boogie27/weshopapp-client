@@ -19,47 +19,82 @@ import {
 } from '../../Data'
 import FormAlert from '../alerts/FormAlert'
 import AlertDanger from '../alerts/AlertDanger'
-
+import AlertSuccess from '../alerts/AlertSuccess'
+import PasswordRestForm from './PasswordRestForm'
 
 
 
 const ResetPassword = ({fetchWishlistItems, alertMessage, fetchCartItems, setUser, isLoading, setIsLoading}) => {
     const navigate = useNavigate();
     const [alert, setAlert] = useState('')
+    const [alertSuccess, setAlertSuccess] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [emailAlert, setEmailAlert] = useState('')
     const [input, setInput] = useState(null)
+    const [isSendingMail, setIsSendingMail] = useState(false)
+    const [isFormOpen, setIsFormOpen] = useState(false)
 
+
+    const formToggle = (state) => {
+        setIsFormOpen(state)
+    }
     
 
     const sendEmail = () => {
         setAlert('')
         setEmailAlert("")
+
         // validate input fields
-        // const validate = validate_input(email)
-        // if(validate === 'failed') return
+        const validate = validate_input(email)
+        if(validate === 'failed') return
+
+        mailTimeToggle(10000) // toggle btw submit button text
         
         Axios.post(url('/api/reset-password-email'), {email: email}).then((response) => {
             const data = response.data
             if(data.validationError){
+                mailTimeToggle(500)
                 setIsLoading({state: false, text: ''})
                 return setEmailAlert(data.validation.email)
             }
 
             if(data.exists == false){
+                mailTimeToggle(500)
                 return setAlert(`*${email} does not exist!`)
             }
 
-            if(data.exists){
-               return console.log(data)
+            if(data.data){
+                setAlertSuccess('Reset mail has been sent to your email successfully!')
+                mailTimeToggle(1000)
+                displayResetPwdForm(4000)
+                return console.log(data)
             }
         })
-        
+        // display successful notification
+        // display reset password form by settimeout 
     }
 
     const toggleInput = (string) => {
         setInput(string)
+    }
+
+
+    // set time on mail sending
+    const mailTimeToggle = (time) => {
+        setIsSendingMail(true)
+        setTimeout(function(){
+            setIsSendingMail(false)
+        }, time)
+    }
+
+
+    // display reset password form
+    const displayResetPwdForm = (time) => {
+        setTimeout(function(){
+            setAlertSuccess('')
+            setIsFormOpen(true)
+        }, time)
     }
 
     
@@ -92,7 +127,9 @@ const ResetPassword = ({fetchWishlistItems, alertMessage, fetchCartItems, setUse
             <LeftSide/>
             <RightSide alert={alert} email={email} input={input} toggleInput={toggleInput} emailAlert={emailAlert} 
                 toggleInput={toggleInput} input={input} setEmail={setEmail} sendEmail={sendEmail}
+                isSendingMail={isSendingMail} alertSuccess={alertSuccess}
             />
+            {isFormOpen && <PasswordRestForm formToggle={formToggle}/>}
         </div>
     )
 }
@@ -119,13 +156,17 @@ const LeftSide = () => {
 
 
 
-const RightSide = ({ email, alert, emailAlert, toggleInput, input, setEmail, sendEmail, isLoading }) => {
+const RightSide = ({
+        email, alert, emailAlert, toggleInput, input, setEmail, sendEmail, isLoading,
+        isSendingMail, alertSuccess,
+    }) => {
     return (
         <div className="auth-right">
             <div className="title-header">
                 <h3>Oops, lets help you!</h3>
                 <p>Provide your email to get reset details</p>
                 { alert && <AlertDanger alert={alert}/>}
+                { alertSuccess && <AlertSuccess alert={alertSuccess}/>}
             </div>
             <div className="auth-form">
                 <div className="form-group">
@@ -136,7 +177,14 @@ const RightSide = ({ email, alert, emailAlert, toggleInput, input, setEmail, sen
                     </div> 
                 </div>
                 <div className="form-button">
-                    <button onClick={() => sendEmail()} className="register-btn">Reset Password</button>
+                {
+                    isSendingMail ? (
+                        <button className="register-btn">Please wait....</button>
+                    ) : (
+                        <button onClick={() => sendEmail()} className="register-btn">Reset Password</button>
+                    )
+                }
+                    
                     <div className="login-link">
                         Do you have an account? <NavLink to="/login">Login</NavLink>
                     </div>

@@ -19,7 +19,6 @@ import {
 } from '../../Data'
 import FormAlert from '../alerts/FormAlert'
 import AlertDanger from '../alerts/AlertDanger'
-import PasswordRestForm from './PasswordRestForm'
 
 
 
@@ -139,7 +138,6 @@ const Login = ({fetchWishlistItems, alertMessage, fetchCartItems, setUser, isLoa
                 setPassword={setPassword} email={email} setEmail={setEmail} alert={alert}
                 emailAlert={emailAlert}  loginUser={loginUser} passwordAlert={passwordAlert}
             />
-            <PasswordRestForm />
         </div>
     )
 }

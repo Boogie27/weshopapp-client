@@ -4245,9 +4245,6 @@ tr.cart-items-detail td{
     }
 }
 /* *************** PASSWORD RESET SECTION ************* */
-.password-reset-parent.active{
-    display: none;
-}
 .password-reset-container{
     top: 0px;
     left: 0px;

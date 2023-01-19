@@ -9,8 +9,7 @@ import Cookies from 'js-cookie'
 
 
 
-const PasswordRestForm = () => {
-    const [isOpen, setIsOpen] = useState(true)
+const PasswordRestForm = ({formToggle}) => {
     const [dangerAlert, setDangerAlert] = useState('')
     const [successAlert, setSuccessAlert] = useState('')
     const [emailAlert, setEmailAlert] = useState('')
@@ -20,10 +19,6 @@ const PasswordRestForm = () => {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
-
-    const formToggle = (state) => {
-        setIsOpen(state)
-    }
 
 
     const submitForm = () => {
@@ -87,7 +82,7 @@ const PasswordRestForm = () => {
 
 
     return (
-        <div className={`password-reset-parent ${!isOpen && 'active'}`}>
+        <div className={`password-reset-parent`}>
             <div className="password-reset-container">
                 <div className="pwd-reset-form">
                     <div className="cancel-btn">
