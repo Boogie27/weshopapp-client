@@ -4259,7 +4259,7 @@ tr.cart-items-detail td{
 }
 .pwd-reset-form{
     width: 400px;
-    height: 500px;
+    height: 60vh;
     padding: 10px;
     border-radius: 5px;
     background-color: #fff;

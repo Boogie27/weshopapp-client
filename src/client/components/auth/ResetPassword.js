@@ -26,6 +26,9 @@ import PasswordRestForm from './PasswordRestForm'
 
 const ResetPassword = ({fetchWishlistItems, alertMessage, fetchCartItems, setUser, isLoading, setIsLoading}) => {
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const token = searchParams.get('token')
+
     const [alert, setAlert] = useState('')
     const [alertSuccess, setAlertSuccess] = useState('')
     const [email, setEmail] = useState('')
@@ -33,12 +36,27 @@ const ResetPassword = ({fetchWishlistItems, alertMessage, fetchCartItems, setUse
     const [emailAlert, setEmailAlert] = useState('')
     const [input, setInput] = useState(null)
     const [isSendingMail, setIsSendingMail] = useState(false)
-    const [isFormOpen, setIsFormOpen] = useState(false)
+    const [isFormOpen, setIsFormOpen] = useState(true)
 
 
     const formToggle = (state) => {
         setIsFormOpen(state)
     }
+
+    // check if token exists in data base then display reset pwd form
+    const CheckForToken = () => {
+        if(token){
+            Axios.post(url('/api/check-for-token'), {token: token}).then((response) => {
+                const data = response.data
+                if(data.tokenExists == true){
+                    formToggle(true)
+                }else{
+                    formToggle(false)
+                }
+            })
+        }
+    }
+    CheckForToken()
     
 
     const sendEmail = () => {
@@ -67,7 +85,7 @@ const ResetPassword = ({fetchWishlistItems, alertMessage, fetchCartItems, setUse
             if(data.data){
                 setAlertSuccess('Reset mail has been sent to your email successfully!')
                 mailTimeToggle(1000)
-                displayResetPwdForm(4000)
+                displayResetPwdForm(true, 4000)
                 return console.log(data)
             }
         })
@@ -90,10 +108,10 @@ const ResetPassword = ({fetchWishlistItems, alertMessage, fetchCartItems, setUse
 
 
     // display reset password form
-    const displayResetPwdForm = (time) => {
+    const displayResetPwdForm = (state, time) => {
         setTimeout(function(){
             setAlertSuccess('')
-            setIsFormOpen(true)
+            setIsFormOpen(state)
         }, time)
     }
 
@@ -129,7 +147,7 @@ const ResetPassword = ({fetchWishlistItems, alertMessage, fetchCartItems, setUse
                 toggleInput={toggleInput} input={input} setEmail={setEmail} sendEmail={sendEmail}
                 isSendingMail={isSendingMail} alertSuccess={alertSuccess}
             />
-            {isFormOpen && <PasswordRestForm formToggle={formToggle}/>}
+            {isFormOpen && <PasswordRestForm displayResetPwdForm={displayResetPwdForm} formToggle={formToggle}/>}
         </div>
     )
 }

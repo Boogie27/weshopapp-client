@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useSearchParams, useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark, faKey } from '@fortawesome/free-solid-svg-icons'
 import Axios from 'axios'
@@ -6,10 +7,14 @@ import FormAlert from '../alerts/FormAlert'
 import AlertDanger from '../alerts/AlertDanger'
 import AlertSuccess from '../alerts/AlertSuccess'
 import Cookies from 'js-cookie'
+import { url } from '../../Data'
 
 
+const PasswordRestForm = ({formToggle, displayResetPwdForm}) => {
+    const navigate = useNavigate()
+    const [searchParams] = useSearchParams();
+    const token = searchParams.get('token')
 
-const PasswordRestForm = ({formToggle}) => {
     const [dangerAlert, setDangerAlert] = useState('')
     const [successAlert, setSuccessAlert] = useState('')
     const [emailAlert, setEmailAlert] = useState('')
@@ -22,16 +27,59 @@ const PasswordRestForm = ({formToggle}) => {
 
 
     const submitForm = () => {
+        setDangerAlert('')
         setEmailAlert('')
         setPasswordAlert('')
         setConfirmPasswordAlert('')
-        const user_input = {email: email, password: password, confirmPassword: confirmPassword}
+        const user_input = { token: token, email: email, password: password, confirmPassword: confirmPassword}
 
         // validate inputs fields
-        const validation = validate_input(user_input)
-        if(validation === 'failed') return
+        // const validation = validate_input(user_input)
+        // if(validation === 'failed') return
 
+            Axios.post(url('/api/reset-password'), {user_input}).then((response) => {
+            const data = response.data
+            const error = serverValidation(data)
+            if(error) return
+           
+            if(data.tokenExists == false){
+                displayResetPwdForm(false, 4000)
+                setDangerAlert('*Email does not exists')
+            }
+           
+            if(data.exists == false){
+                displayResetPwdForm(false, 4000)
+                setDangerAlert('*User does not exists')
+            }
+            if(data.passwordUpdate){
+                displayResetPwdForm(false, 4000)
+                return setSuccessAlert('Password updated successfully! Proceed to login')
+            }else{
+                displayResetPwdForm(false, 4000)
+                return setDangerAlert('*Something went wrong, try again!')
+            }
+            
+        })
        
+    }
+
+
+    const serverValidation = (data) => {
+        let error = ''
+        if(data.validationError){
+            error = data.validation
+            if(error.email){
+                setEmailAlert(error.email)
+            }
+            if(error.password){
+                setPasswordAlert(error.password)
+            }
+            if(error.confirmPassword){
+                setConfirmPasswordAlert(error.confirmPassword)
+            }
+            return true;
+        }
+        return false
     }
 
 
@@ -67,7 +115,6 @@ const PasswordRestForm = ({formToggle}) => {
             setConfirmPasswordAlert("*Password must equal to Confirm password")
         }
 
-        
         if(failed == true){
             return 'failed'
         }else{
