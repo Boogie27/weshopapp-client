@@ -36,11 +36,21 @@ const ResetPassword = ({fetchWishlistItems, alertMessage, fetchCartItems, setUse
     const [emailAlert, setEmailAlert] = useState('')
     const [input, setInput] = useState(null)
     const [isSendingMail, setIsSendingMail] = useState(false)
-    const [isFormOpen, setIsFormOpen] = useState(true)
+    const [isFormOpen, setIsFormOpen] = useState(false)
 
 
+    // open and close reset password form
     const formToggle = (state) => {
         setIsFormOpen(state)
+        if(state == false){
+            // delete reset password details from database
+            Axios.post(url('/api/delete-reset-password'), {token: token}).then((response) => {
+                const data = response.data
+                if(data.isDeleted){
+                    setIsFormOpen(false)
+                }
+            })
+        }
     }
 
     // check if token exists in data base then display reset pwd form
@@ -58,10 +68,11 @@ const ResetPassword = ({fetchWishlistItems, alertMessage, fetchCartItems, setUse
     }
     CheckForToken()
     
-
+    // send email to user
     const sendEmail = () => {
         setAlert('')
         setEmailAlert("")
+        setAlertSuccess('')
 
         // validate input fields
         const validate = validate_input(email)
@@ -85,7 +96,6 @@ const ResetPassword = ({fetchWishlistItems, alertMessage, fetchCartItems, setUse
             if(data.data){
                 setAlertSuccess('Reset mail has been sent to your email successfully!')
                 mailTimeToggle(1000)
-                displayResetPwdForm(true, 4000)
                 return console.log(data)
             }
         })
@@ -102,6 +112,7 @@ const ResetPassword = ({fetchWishlistItems, alertMessage, fetchCartItems, setUse
     const mailTimeToggle = (time) => {
         setIsSendingMail(true)
         setTimeout(function(){
+            setEmail('')
             setIsSendingMail(false)
         }, time)
     }
