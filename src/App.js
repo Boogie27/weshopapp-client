@@ -248,25 +248,34 @@ function App() {
     }
   }
  
+  
 
   const addToCart = (item) => {
-    if(!user){
-      if(item.old_url){
-        Cookies.set('current_url', item.old_url, { expires: 1 })
-      }
-      return notify_error('Login or Register to proceed!')
-    }
-
-    item.user_id = user._id
-
-    Axios.post(url('/api/add-to-cart'), item).then((response) => {
-      if(!response.data.data){
-        return notify_error('Something went wront,try again!')
+    Axios.post(url('/api/check-for-user-token'), {token: token}).then((response) => {
+      const data = response.data
+      if(data.tokenExists === false){
+          closeQuickView(false)
+          if(item.old_url){
+            Cookies.set('current_url', item.old_url, { expires: 1 })
+          }
+         return alertError('Login or Regsiter to add this item to Cart!', 4000)
       }
 
-      fetchCartItems()
-      notify_success('Item added to cart successfully!')
-      // setCart(response.data.cart)
+      if(data.tokenExists === true){
+        item.user_id = user._id
+
+        Axios.post(url('/api/add-to-cart'), item).then((response) => {
+          if(!response.data.data){
+            closeQuickView(false)
+            return notify_error('Something went wront,try again!')
+          }
+
+          fetchCartItems()
+          closeQuickView(false)
+          notify_success('Item added to cart successfully!')
+          // setCart(response.data.cart)
+        })
+      }
     })
   }
 
@@ -290,24 +299,33 @@ function App() {
 
   // add to wish list
   const addToWishlist = (item) => {
-    if(!user){
-      if(item.old_url){
-        Cookies.set('current_url', item.old_url, { expires: 1 })
+    Axios.post(url('/api/check-for-user-token'), {token: token}).then((response) => {
+      const data = response.data
+      if(data.tokenExists === false){
+          closeQuickView(false)
+          if(item.old_url){
+            Cookies.set('current_url', item.old_url, { expires: 1 })
+          }
+         return alertError('Login or Regsiter to add this item to Wishlist!', 4000)
       }
-      return notify_error('Login or Register to proceed!')
-    }
 
-    Axios.post(url(`/api/add-to-wishlist`), item).then((response) => {
-      if(response.data.state == 'exists'){
-        return alertError('Product already exists in wishlist', 3000)
-      }
-      if(response.data.state == 'created'){
-        fetchWishlistItems()
-        alertMessage('Product added to wishlist successfully!', 3000)
-        return true
-      }
-      if(response.data.state == 'error'){
-        return alertError('Something went wrong, Try again!', 3000)
+      if(data.tokenExists === true){
+        Axios.post(url(`/api/add-to-wishlist`), item).then((response) => {
+          if(response.data.state == 'exists'){
+            closeQuickView(false)
+            return alertError('Product already exists in wishlist', 3000)
+          }
+          if(response.data.state == 'created'){
+            fetchWishlistItems()
+            closeQuickView(false)
+            alertMessage('Product added to wishlist successfully!', 3000)
+            return true
+          }
+          if(response.data.state == 'error'){
+            closeQuickView(false)
+            return alertError('Something went wrong, Try again!', 3000)
+          }
+        })
       }
     })
   }
@@ -454,7 +472,7 @@ const notify_error = (string) => {
       />
       <Fragment>
       {
-          isQuickView ? (<QuickView product={isQuickView} closeQuickView={closeQuickView} />) : null
+          isQuickView ? (<QuickView  user={user} addToCart={addToCart} addToWishlist={addToWishlist} alertError={alertError} product={isQuickView} closeQuickView={closeQuickView} />) : null
       }
       </Fragment>
     </div>

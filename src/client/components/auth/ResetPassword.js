@@ -1,20 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { NavLink, useSearchParams, useNavigate   } from 'react-router-dom'
+import React, { useState } from 'react'
+import { NavLink, useSearchParams } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
-    faKey,
-    faPen,
-    faUser,
-    faLock,
     faEnvelope
 } from '@fortawesome/free-solid-svg-icons'
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 import Axios from 'axios'
-import Cookies from 'js-cookie'
 import { 
     url, 
-    today, 
     auth_img
 } from '../../Data'
 import FormAlert from '../alerts/FormAlert'
@@ -25,14 +17,12 @@ import PasswordRestForm from './PasswordRestForm'
 
 
 const ResetPassword = ({fetchWishlistItems, alertMessage, fetchCartItems, setUser, isLoading, setIsLoading}) => {
-    const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const token = searchParams.get('token')
 
     const [alert, setAlert] = useState('')
     const [alertSuccess, setAlertSuccess] = useState('')
     const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
     const [emailAlert, setEmailAlert] = useState('')
     const [input, setInput] = useState(null)
     const [isSendingMail, setIsSendingMail] = useState(false)
@@ -42,7 +32,7 @@ const ResetPassword = ({fetchWishlistItems, alertMessage, fetchCartItems, setUse
     // open and close reset password form
     const formToggle = (state) => {
         setIsFormOpen(state)
-        if(state == false){
+        if(state === false){
             // delete reset password details from database
             Axios.post(url('/api/delete-reset-password'), {token: token}).then((response) => {
                 const data = response.data
@@ -58,7 +48,7 @@ const ResetPassword = ({fetchWishlistItems, alertMessage, fetchCartItems, setUse
         if(token){
             Axios.post(url('/api/check-for-token'), {token: token}).then((response) => {
                 const data = response.data
-                if(data.tokenExists == true){
+                if(data.tokenExists === true){
                     formToggle(true)
                 }else{
                     formToggle(false)
@@ -88,12 +78,12 @@ const ResetPassword = ({fetchWishlistItems, alertMessage, fetchCartItems, setUse
                 return setEmailAlert(data.validation.email)
             }
 
-            if(data.exists == false){
+            if(data.exists === false){
                 mailTimeToggle(500)
                 return setAlert(`*${email} does not exist!`)
             }
 
-            if(data.data){
+            if(data.data === true){
                 setAlertSuccess('Reset mail has been sent to your email successfully!')
                 mailTimeToggle(1000)
                 return console.log(data)
@@ -132,7 +122,7 @@ const ResetPassword = ({fetchWishlistItems, alertMessage, fetchCartItems, setUse
         let failed = false
 
         const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-        if(email.length == 0){
+        if(email.length === 0){
             failed = true
             setEmailAlert("*Email field is required")
         } else if(!email.match(validRegex)){
@@ -140,7 +130,7 @@ const ResetPassword = ({fetchWishlistItems, alertMessage, fetchCartItems, setUse
             setEmailAlert("*Invalid email address")
         }
 
-        if(failed == true){
+        if(failed === true){
             return 'failed'
         }else{
             return 'success'
@@ -154,8 +144,8 @@ const ResetPassword = ({fetchWishlistItems, alertMessage, fetchCartItems, setUse
     return (
         <div className="auth-container">
             <LeftSide/>
-            <RightSide alert={alert} email={email} input={input} toggleInput={toggleInput} emailAlert={emailAlert} 
-                toggleInput={toggleInput} input={input} setEmail={setEmail} sendEmail={sendEmail}
+            <RightSide alert={alert} email={email} input={input} emailAlert={emailAlert} 
+                toggleInput={toggleInput} setEmail={setEmail} sendEmail={sendEmail}
                 isSendingMail={isSendingMail} alertSuccess={alertSuccess}
             />
             {isFormOpen && <PasswordRestForm displayResetPwdForm={displayResetPwdForm} formToggle={formToggle}/>}

@@ -43,7 +43,6 @@ a{
 .alert-bg-danger{
     font-size: 13px;
     padding: 15px 0px;
-    margin: 20px 0px;
     color: rgb(190, 8, 8);
     background-color: rgb(255, 206, 206);
     border: 1px solid rgb(250, 180, 180);
@@ -52,7 +51,6 @@ a{
     color: green;    
     font-size: 13px;
     padding: 15px 0px;
-    margin: 20px 0px;
     background-color: rgb(171, 233, 171);
     border: 1px solid rgb(164, 253, 164);
 }

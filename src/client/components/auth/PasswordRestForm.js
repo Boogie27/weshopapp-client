@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import { useSearchParams, useNavigate } from 'react-router-dom'
+import React, { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark, faKey } from '@fortawesome/free-solid-svg-icons'
 import Axios from 'axios'
 import FormAlert from '../alerts/FormAlert'
 import AlertDanger from '../alerts/AlertDanger'
 import AlertSuccess from '../alerts/AlertSuccess'
-import Cookies from 'js-cookie'
 import { url } from '../../Data'
 
 
 const PasswordRestForm = ({formToggle, displayResetPwdForm}) => {
-    const navigate = useNavigate()
     const [searchParams] = useSearchParams();
     const token = searchParams.get('token')
 
@@ -34,20 +32,20 @@ const PasswordRestForm = ({formToggle, displayResetPwdForm}) => {
         const user_input = { token: token, email: email, password: password, confirmPassword: confirmPassword}
 
         // validate inputs fields
-        // const validation = validate_input(user_input)
-        // if(validation === 'failed') return
+        const validation = validate_input(user_input)
+        if(validation === 'failed') return
 
             Axios.post(url('/api/reset-password'), {user_input}).then((response) => {
             const data = response.data
             const error = serverValidation(data)
             if(error) return
            
-            if(data.tokenExists == false){
+            if(data.tokenExists === false){
                 displayResetPwdForm(false, 4000)
                 setDangerAlert('*Email does not exists')
             }
            
-            if(data.exists == false){
+            if(data.exists === false){
                 displayResetPwdForm(false, 4000)
                 setDangerAlert('*User does not exists')
             }
@@ -87,7 +85,7 @@ const PasswordRestForm = ({formToggle, displayResetPwdForm}) => {
         let failed = false
 
         const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-        if(input.email.length == 0){
+        if(input.email.length === 0){
             failed = true
             setEmailAlert("*Email field is required")
         } else if(!input.email.match(validRegex)){
@@ -95,7 +93,7 @@ const PasswordRestForm = ({formToggle, displayResetPwdForm}) => {
             setEmailAlert("*Invalid email address")
         }
 
-        if(input.password.length == 0){
+        if(input.password.length === 0){
             failed = true
             setPasswordAlert("*Password field is required")
         }else if(input.password.length < 6){
@@ -106,16 +104,16 @@ const PasswordRestForm = ({formToggle, displayResetPwdForm}) => {
             setPasswordAlert("*Must be maximum of 12 characters")
         }
         
-        if(input.confirmPassword.length == 0){
+        if(input.confirmPassword.length === 0){
             failed = true
             setConfirmPasswordAlert("*Confirm password field is required")
         }
-        if(input.confirmPassword != input.password){
+        if(input.confirmPassword !== input.password){
             failed = true
             setConfirmPasswordAlert("*Password must equal to Confirm password")
         }
 
-        if(failed == true){
+        if(failed === true){
             return 'failed'
         }else{
             return 'success'
