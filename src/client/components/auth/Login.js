@@ -1,20 +1,14 @@
-import React, { useState, useEffect } from 'react'
-import { NavLink, useSearchParams, useNavigate   } from 'react-router-dom'
+import React, { useState } from 'react'
+import { NavLink, useNavigate   } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
     faKey,
-    faPen,
-    faUser,
-    faLock,
     faEnvelope
 } from '@fortawesome/free-solid-svg-icons'
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 import Axios from 'axios'
 import Cookies from 'js-cookie'
 import { 
-    url, 
-    today, 
+    url,  
     auth_img
 } from '../../Data'
 import FormAlert from '../alerts/FormAlert'
@@ -51,20 +45,21 @@ const Login = ({fetchWishlistItems, alertMessage, fetchCartItems, setUser, isLoa
             setEmailAlert('')
             setPasswordAlert('')
             const data = response.data
-
-            if(data.validationError){
+    
+            if(data.validationError == false){
                 setIsLoading({state: false, text: ''})
                 validateFromBackend(data.validation)
             }else{
-                if(data === false){
+                if(data == false){
                     setIsLoading({state: false, text: ''})
                     return setAlert('*Wrong Email or password!')
                 }
-                if(data.data === 'success'){
+                if(data.data == 'success'){
                     setUser(data.user)
-                    alertMessage('Login successfully!', 5000,)
+                    alertMessage('Login successfully!', 5000)
                     setIsLoading({state: false, text: ''})
                     Cookies.set('weshopappuser', data.user.token, { expires: 1 })
+
                     const old_page = Cookies.get('current_url')
                     fetchCartItems(data.user.token)
                     fetchWishlistItems(data.user.token)

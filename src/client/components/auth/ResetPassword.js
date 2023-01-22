@@ -58,6 +58,7 @@ const ResetPassword = ({fetchWishlistItems, alertMessage, fetchCartItems, setUse
     }
     CheckForToken()
     
+    
     // send email to user
     const sendEmail = () => {
         setAlert('')

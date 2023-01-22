@@ -54,11 +54,23 @@ const Home = ({user, scrollToTop, showQuickView, closeQuickView, addToWishlist, 
     })
 
     // fetch featured products
-    Axios.get(url(`/featured-product`)).then((response) => {
-      setFeaturedProducts(response.data)
+    Axios.get(url(`/api/featured-product`)).then((response) => {
+      const data = response.data
+      setFeaturedProducts(data)
     })
 
+     // fetch products stars
+//    const fetchProductStars = (id) => {
+//         Axios.get(url(`/api/fetch-product-stars/${id}`)).then((response) => {
+//             const data = response.data
+
+//         })
+//     }
+//     fetchProductStars(product._id)
+
   }, [])
+
+
 
   return (
     <div className="home-container">

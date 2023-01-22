@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faEye,
@@ -6,6 +6,7 @@ import {
   faHeart,
   faCartShopping
 } from '@fortawesome/free-solid-svg-icons'
+import Axios from 'axios'
 import { NavLink } from 'react-router-dom'
 import { money, url, page_url, product_img } from '../../Data'
 
@@ -15,25 +16,33 @@ import { money, url, page_url, product_img } from '../../Data'
 
 
 const ProductItem = ({user, index, addToCart, product, addToWishlist, showQuickView, scrollToTop}) => {
-
-  const addItemToWishList = () => {
-    const item = {
-      user_id: user._id,
-      product_id: product._id,
-      old_url: page_url()
+    
+    // add product to wishlist
+    const addItemToWishList = () => {
+        const item = {
+        user_id: user._id,
+        product_id: product._id,
+        old_url: page_url()
+        }
+        return addToWishlist(item)
     }
-    return addToWishlist(item)
-  }
 
-  const addProductToCart = () => {
-    const item = {
-      product_id: product._id,
-      quantity: 1,
-      price: product.price
+        //   add product to cart
+    const addProductToCart = () => {
+        const item = {
+        product_id: product._id,
+        quantity: 1,
+        price: product.price
+        }
+        return addToCart(item)
     }
-    return addToCart(item)
-  }
 
+
+  
+
+    
+
+    
   return (
     <ProductContainer index={index} addProductToCart={addProductToCart} addItemToWishList={addItemToWishList} showQuickView={showQuickView} product={product} scrollToTop={scrollToTop}/>
   )
@@ -52,14 +61,14 @@ export default ProductItem
 
 
 
-const ProductContainer = ({product, index, addProductToCart, addItemToWishList, showQuickView, scrollToTop}) => {
+const ProductContainer = ({product, index, fetchProductStars, addProductToCart, addItemToWishList, showQuickView, scrollToTop}) => {
   const [is_floatImage, setIs_floatImage] = useState(false)
 
   const floatImageScreen = (string) => {
       setIs_floatImage(string)
   }
 
-  const borderless = index % 2 == 0 ? false : true
+  const borderless = index % 2 === 0 ? false : true
   
   return (
       <div className={`product-component ${!borderless ? 'borderless' : ''}`}

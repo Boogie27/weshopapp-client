@@ -172,14 +172,13 @@ function App() {
   //logout user
   const logoutUser = (e) => {
     e.preventDefault()
-    if(user && token){
-      setIsLoading({state: false, text: 'Processing Logout...'})
-      Axios.get(url(`/api/logout?id=${user._id}`)).then((response) => {
-        if(response.data){
+    if(token){
+
+      // setIsLoading({state: false, text: 'Processing Logout...'})
+      Axios.get(url(`/api/logout/token=${token}`)).then((response) => {
+        const data = response.data
+        if(data == true){
           alertMessage("Logout successfully!", 5000) //set logout success alertMessage
-          Cookies.set('weshopappuser', '', { expires: new Date(0) })
-        }else{
-          Cookies.set('weshopappuser', '', { expires: new Date(0) })
         }
         setUser(false)
         fetchCartItems()
@@ -187,6 +186,7 @@ function App() {
         preloaderToggle(true, 'Logging out user, Please wait...', 2000)
       })
     }
+    Cookies.set('weshopappuser', '', { expires: new Date(0) })
   }
 
 
@@ -248,8 +248,10 @@ function App() {
     }
   }
  
-  
 
+ 
+  
+  // add item to cart
   const addToCart = (item) => {
     Axios.post(url('/api/check-for-user-token'), {token: token}).then((response) => {
       const data = response.data
