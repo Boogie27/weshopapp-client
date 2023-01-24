@@ -4396,12 +4396,116 @@ tr.cart-items-detail td{
 .rightside-body .total h3{
     font-size: 20px;
 }
+.bagsummary-container{
+    margin-top: 50px;
+}
+.bagsummary-container .bagsummary-parent{
+    height: 500px;
+    overflow: auto;
+}
+.bagsummary-container .bagsummary-parent::-webkit-scrollbar{
+    width: 0px;
+}
+.bagsummary-container .title-header h3{
+    font-size: 18px;
+    margin: 20px 0px;
+    padding: 10px;
+    background-color: rgb(241, 241, 241);
+}
+.bagsummary-body{
+    display: flex;
+    margin: 10px 0px;
+}
+.bagsummary-body .bagsummary-img{
+    width: 140px;
+    height: 140px;
+    text-align: center;
+}
+.bagsummary-body .bagsummary-img img{
+    width: 120px;
+}
+.bagsummary-body .bagsummary-detail{
+    width: 70%;
+    height: 140px;
+    padding: 0px 5px;
+    position: relative;
+}
+.bagsummary-body .bagsummary-detail ul li.name{
+    font-weight: 600;
+}
+.bagsummary-body .bagsummary-detail ul li.name a:hover{
+    color:  rgb(224, 157, 32);
+}
+.bagsummary-body .bagsummary-detail ul li{
+    font-size: 14px;
+}
+.bagsummary-btn{
+    width: 100%;
+    bottom: 0px;
+    display: flex;
+    position: absolute;
+    justify-content: space-between;
+}
+.bagsummary-btn button{
+    border: none;
+    background-color: #fff;
+}
+.bagsummary-btn button .icon{
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 5px 10px;
+}
+.bagsummary-btn button .icon:hover{
+    color: #fff;
+    border: 1px solid rgb(179, 179, 179);
+    background-color: rgb(179, 179, 179);
+}
+.bagsummary-btn button.btn-trash{
+    right: 0px;
+    position: absolute;
+}
+.bagsummary-delete-all{
+    width: 100%;
+    padding: 10px 0px;
+}
+.bagsummary-delete-all button{
+    border: none;
+    width: 100%;
+    color: #fff;
+    font-weight: 600;
+    padding: 10px;
+    background-color: rgb(224, 157, 32);
+}
+.bagsummary-btn button.btn-trash:hover{
+    color: rgb(204, 4, 4);
+}
+.bagsummary-btn button.btn-trash .icon-trash{
+    padding: 5px 10px;
+    border-radius: 3px;
+    box-shadow: 0px 0px 5px 0px rgba(134, 134, 134, 0.575); 
+}
+@media only screen and (max-width: 1125px){
+    .bagsummary-body .bagsummary-img{
+        width: 100px;
+        height: 140px;
+    }
+    .bagsummary-body .bagsummary-img img{
+        width: 100%;
+        height: inherit;
+    }
+}
 @media only screen and (max-width: 992px){
     .checkout-container{
         padding: 50px 10px;
     }
 }
 
+@media only screen and (max-width: 767px){
+    .bagsummary-container .bagsummary-parent{
+        height: 100%;
+        overflow: none;
+    }
+}
 
 
 

@@ -7,6 +7,8 @@ import Row from 'react-bootstrap/Row';
 
 
 const Checkout = () => {
+    // fetch cart items
+    // implement checkout 
     return (
         <div className="checkout-container">
             <Row className="show-grid">
