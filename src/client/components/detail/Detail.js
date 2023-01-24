@@ -38,7 +38,7 @@ import Preloader from '../preloader/Preloader'
 
 
 
-const Detail = ({user, scrollToTop, addToCart, alertError, alertMessage, addToWishlist}) => {
+const Detail = ({user, scrollToTop, addToCart, alertError, showQuickView, alertMessage, addToWishlist}) => {
     const navigate = useNavigate()
     const [searchParams] = useSearchParams();
     const product_id = searchParams.get('product')
@@ -248,11 +248,6 @@ const Detail = ({user, scrollToTop, addToCart, alertError, alertMessage, addToWi
     }
 
 
-    // show quickview
-    const showQuickView = (product) => {
-        setProduct(product)
-    }
-    
     // close quickview
     const closeQuickView = () => {
         setProduct(null)
@@ -355,9 +350,9 @@ const Detail = ({user, scrollToTop, addToCart, alertError, alertMessage, addToWi
                  <ToastContainer position="bottom-right" autoClose={5000} hideProgressBar={false} 
                      newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover
                  />
-                 {
+                 {/* {
                  product ? (<QuickView product={product} closeQuickView={closeQuickView} />) : null
-                 }
+                 } */}
              </div>
             )}
         </>

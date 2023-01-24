@@ -58,10 +58,8 @@ a{
     margin-bottom: 10px;
 }
 .form-alert{
-    font-size: 12px;
-}
-.form-alert{
     height: 20px;
+    font-size: 12px;
 }
 .parent-container{
     background-color: #fff;
@@ -4344,6 +4342,82 @@ tr.cart-items-detail td{
         padding: 10px;
     }
 }
+/* *********** CHECKOUT SECTION *************** */
+.checkout-container{
+    padding: 50px 50px;
+}
+
+.checkout-left .title-header.top{
+    padding: 10px;
+    background-color: rgb(241, 241, 241);
+}
+.checkout-left .title-header.top h3{
+    font-size: 18px;
+    color: #555;
+}
+.leftside-body {
+    margin-top: 30px;
+}
+.leftside-body .title-header h3{
+    font-weight: 600;
+    font-size: 16px;
+}
+.leftside-form{
+    margin-bottom: 50px;
+}
+.leftside-form input{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+.leftside-form input:focus{
+    outline: none;
+    border: 1px solid rgb(224, 157, 32);
+}
+.checkout-right .title-header.top h3{
+    font-size: 20px;
+}
+.rightside-body .subtotal{
+    margin-top: 30px;
+    border-bottom: 1px solid #ccc;
+}
+.rightside-body .subtotal ul li{
+    font-weight: 600;
+    font-size: 16px;
+    margin: 10px 0px;
+    display: flex;
+    justify-content: space-between;
+}
+.rightside-body .total{
+    display: flex;
+    margin: 20px 0px;
+    justify-content: space-between;
+}
+.rightside-body .total h3{
+    font-size: 20px;
+}
+@media only screen and (max-width: 992px){
+    .checkout-container{
+        padding: 50px 10px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

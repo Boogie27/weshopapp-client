@@ -15,8 +15,8 @@ import { money, url, page_url, product_img } from '../../Data'
 
 
 
-const ProductItem = ({user, index, addToCart, product, addToWishlist, showQuickView, scrollToTop}) => {
-    
+const ProductItem = ({user, index, addToCart, product, showQuickView, addToWishlist, scrollToTop}) => {
+   
     // add product to wishlist
     const addItemToWishList = () => {
         const item = {
@@ -38,7 +38,7 @@ const ProductItem = ({user, index, addToCart, product, addToWishlist, showQuickV
     }
 
 
-  
+    // query data base and get the star reviews
 
     
 

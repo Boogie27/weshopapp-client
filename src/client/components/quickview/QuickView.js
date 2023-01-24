@@ -54,11 +54,12 @@ const QuickView = ({ user, product, addToCart, addToWishlist, alertError, closeQ
             product_id: product._id,
             quantity: quantity,
             price: product.price,
-            user_id: user._id,
+            // user_id: user._id,
             old_url: current_url,
           }
         return addToCart(item)
     }
+
 
 
     // add product to wishslist
@@ -87,7 +88,7 @@ const QuickView = ({ user, product, addToCart, addToWishlist, alertError, closeQ
                         <div className="title-header"><h4>{product.product_name}</h4></div>
                         <StarRatings/>
                         <Details product={product}/>
-                        <AddToCart product={product} addItemToCart={addItemToCart} setQuantity={setQuantity} quantity={quantity} />
+                        <AddProductToCart product={product} addItemToCart={addItemToCart} setQuantity={setQuantity} quantity={quantity} />
                         <WishListAdd addItemToWishList={addItemToWishList}/>
                     </div>
                 </div>
@@ -164,7 +165,7 @@ const Details = ({product}) => {
 
 
 
-const AddToCart = ({product, quantity, setQuantity, addItemToCart}) => {
+const AddProductToCart = ({product, quantity, setQuantity, addItemToCart}) => {
     const is_available = product.quantity > 0 ? true : false
    
     return (

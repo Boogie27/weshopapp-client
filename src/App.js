@@ -7,6 +7,8 @@ import Footer from './client/components/footer/Footer'
 import Detail from './client/components/detail/Detail'
 import Login from './client/components/auth/Login'
 import ResetPassword from './client/components/auth/ResetPassword'
+import Checkout from './client/components/checkout/Checkout'
+
 
 import Cart from './client/components/cart/cart'
 import Wishlist from './client/components/wishlist/Wishlist'
@@ -335,6 +337,7 @@ function App() {
 
   // show quick view
   const showQuickView = (product) => {
+    console.log('yess')
     setIsQuickView(product)
   }
 
@@ -456,13 +459,14 @@ const notify_error = (string) => {
       </div>
       <Routes>
           <Route path="/" element={<Home user={user} showQuickView={showQuickView} closeQuickView={closeQuickView} scrollToTop={scrollToTop} addToWishlist={addToWishlist} appState={appState} addToCart={addToCart}/>}/>
-          <Route path="/detail" element={<Detail scrollToTop={scrollToTop} addToWishlist={addToWishlist} user={user} addToCart={addToCart} alertError={alertError} alertMessage={alertMessage}/>}/>
+          <Route path="/detail" element={<Detail scrollToTop={scrollToTop} showQuickView={showQuickView} addToWishlist={addToWishlist} user={user} addToCart={addToCart} alertError={alertError} alertMessage={alertMessage}/>}/>
           <Route path="/cart" element={<Cart user={user} cart={cart} deleteCartItem={deleteCartItem} addToWishlist={addToWishlist} setCart={setCart} addToCart={addToCart} notify_success={notify_success} notify_error={notify_error}/>}/>
           <Route path="/wishlist" element={<Wishlist wishlist={wishlist} deleteWishlistItem={deleteWishlistItem} setWishlist={setWishlist}/>}/>
           <Route path="/login" element={<Login fetchWishlistItems={fetchWishlistItems} alertMessage={alertMessage} fetchCartItems={fetchCartItems} setUser={setUser} isLoading={isLoading} setIsLoading={setIsLoading}/>}/>
           <Route path="/register" element={<Register alertMessage={alertMessage} setUser={setUser} isLoading={isLoading} setIsLoading={setIsLoading}/>}/>
           <Route path="/products" element={<Product user={user} showQuickView={showQuickView} addToWishlist={addToWishlist} addToCart={addToCart} scrollToTop={scrollToTop} categoryToggleBtn={categoryToggleBtn}/>}/>
           <Route path="/reset-password" element={<ResetPassword fetchWishlistItems={fetchWishlistItems} alertMessage={alertMessage} fetchCartItems={fetchCartItems} setUser={setUser} isLoading={isLoading} setIsLoading={setIsLoading}/>}/>
+          <Route path="/checkout" element={<Checkout />} />
       </Routes>
       <Footer/>
       { isLoading.state && <Preloader text={isLoading.text}/> }

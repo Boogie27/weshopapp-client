@@ -1,6 +1,6 @@
 const FormAlert = ({alert}) => {
     return (
-        <div className="form form-alert text-danger">{alert}</div>
+        <div className="form text-danger">{alert}</div>
     )
 }
 
