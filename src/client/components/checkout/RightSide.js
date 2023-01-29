@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react'
+import React, { useState, Fragment, useEffect } from 'react'
 import {  product_img } from '../../Data'
 import { NavLink } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -12,7 +12,13 @@ import {
 
 
 
-const RightSide = () => {
+const RightSide = ({cart}) => {
+    // useEffect(() => {
+    //     console.log(cart)
+    // }, [cart])
+
+
+
     return (
         <div className="checkout-right">
             <Summary/>

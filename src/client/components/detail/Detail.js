@@ -315,7 +315,11 @@ const Detail = ({user, scrollToTop, addToCart, alertError, showQuickView, alertM
 
     return (
         <>
-            {isLoading.state ? (<Preloader text={isLoading.text}/>) : (
+            {isLoading.state ? (
+                <div className="expand-page">
+                    <Preloader text={isLoading.text}/>
+                </div>
+            ) : (
                 <div className="product-detail-container">
                 {
                      productDetail ? (

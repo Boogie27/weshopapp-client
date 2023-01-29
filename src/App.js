@@ -8,6 +8,7 @@ import Detail from './client/components/detail/Detail'
 import Login from './client/components/auth/Login'
 import ResetPassword from './client/components/auth/ResetPassword'
 import Checkout from './client/components/checkout/Checkout'
+import Verification from './client/components/auth/Verification'
 
 
 import Cart from './client/components/cart/cart'
@@ -466,7 +467,8 @@ const notify_error = (string) => {
           <Route path="/register" element={<Register alertMessage={alertMessage} setUser={setUser} isLoading={isLoading} setIsLoading={setIsLoading}/>}/>
           <Route path="/products" element={<Product user={user} showQuickView={showQuickView} addToWishlist={addToWishlist} addToCart={addToCart} scrollToTop={scrollToTop} categoryToggleBtn={categoryToggleBtn}/>}/>
           <Route path="/reset-password" element={<ResetPassword fetchWishlistItems={fetchWishlistItems} alertMessage={alertMessage} fetchCartItems={fetchCartItems} setUser={setUser} isLoading={isLoading} setIsLoading={setIsLoading}/>}/>
-          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/checkout" element={<Checkout cart={cart}/>} />
+          <Route path="/verification" element={<Verification/>} />
       </Routes>
       <Footer/>
       { isLoading.state && <Preloader text={isLoading.text}/> }

@@ -19,6 +19,7 @@ import {
 } from '../../Data'
 import FormAlert from '../alerts/FormAlert'
 import AlertDanger from '../alerts/AlertDanger'
+import AlertSuccess from '../alerts/AlertSuccess'
 
 
 
@@ -27,6 +28,8 @@ import AlertDanger from '../alerts/AlertDanger'
 const Register = ({alertMessage, setUser, isLoading, setIsLoading}) => {
     const navigate = useNavigate();
     const [alert, setAlert] = useState('')
+    const [alertSuccess, setAlertSuccess] = useState('')
+
     const [input, setInput] = useState(null)
     const [gender, setGender] = useState('male')
     const [email, setEmail] = useState('')
@@ -49,6 +52,14 @@ const Register = ({alertMessage, setUser, isLoading, setIsLoading}) => {
     }
 
 
+    const clearInput = () => {
+        setEmail('')
+        setUsername('')
+        setPassword('')
+        setConfirmPassword('')
+    }
+
+
     // Register a User
     const registerUser = () => {
         const user = {
@@ -58,6 +69,7 @@ const Register = ({alertMessage, setUser, isLoading, setIsLoading}) => {
             confirmPassword: confirmPassword,
             gender: gender
         }
+        
 
         // validate input fields
         const validate = validate_input(user)
@@ -81,11 +93,17 @@ const Register = ({alertMessage, setUser, isLoading, setIsLoading}) => {
                     return setAlert('User already exists!')
                 }
                 if(data.data === 'success'){
-                    setUser(data.user)
-                    setIsLoading({state: false, text: ''})
-                    alertMessage("Account created successfully!", 5000)
-                    Cookies.set('weshopappuser', data.user.token, { expires: 1 })
-                    return navigate("/")
+                    // setUser(data.user)
+                    const string = {
+                        time: 3000,
+                        messageTime: 5000,
+                        message: 'Verification mail has been sent to your email successfully!'
+                    }
+                    return toggleAlert(string)
+                  
+                    // alertMessage("Account created successfully!", 5000)
+                    // Cookies.set('weshopappuser', data.user.token, { expires: 1 })
+                    // return navigate("/")
                 }
             }
             setIsLoading({state: false, text: ''})
@@ -161,10 +179,31 @@ const Register = ({alertMessage, setUser, isLoading, setIsLoading}) => {
         }
     }
 
+
+
+
+    // set time on mail sending
+    const alertTimeToggle = (message, time) => {
+        setAlertSuccess(message)
+        setTimeout(function(){
+            setAlertSuccess('')
+        }, time)
+    }
+
+    const toggleAlert = (string) => {
+         setTimeout(function(){
+            clearInput()
+            setIsLoading({state: false, text: ''})
+            alertTimeToggle(string.message, string.messageTime)
+        }, string.time)
+    }
+
+
+
     return (
         <div className="auth-container">
             <LeftSide/>
-            <RightSide toggleInput={toggleInput} input={input} gender={gender} password={password}
+            <RightSide alertSuccess={alertSuccess} toggleInput={toggleInput} input={input} gender={gender} password={password}
                 genderToggle={genderToggle} username={username} setUsername={setUsername}
                 setPassword={setPassword} registerUser={registerUser} confirmPassword={confirmPassword}
                 setConfirmPassword={setConfirmPassword} email={email} setEmail={setEmail} passwordAlert={passwordAlert}
@@ -194,7 +233,7 @@ const LeftSide = () => {
 const RightSide = ({
     toggleInput, input, gender, genderToggle, registerUser, setConfirmPassword,
     setUsername, username, password, setPassword, email, setEmail, confirmPassword,
-    emailAlert, usernameAlert, confirmPasswordAlert, passwordAlert, alert
+    emailAlert, usernameAlert, confirmPasswordAlert, passwordAlert, alert, alertSuccess
     }) => {
     return (
         <div className="auth-right">
@@ -202,6 +241,7 @@ const RightSide = ({
                 <h3>Hello There!</h3>
                 <p>Register to shop for products</p>
                 { alert && <AlertDanger alert={alert}/>}
+                { alertSuccess && <AlertSuccess alert={alertSuccess}/>}
             </div>
             <div className="auth-form">
                 <div className="form-group">
