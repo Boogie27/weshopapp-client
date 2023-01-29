@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 
 let production = 'https://weshopapp-server.herokuapp.com'
 
-const development = 'http://localhost:3000'
+const clientURI = 'http://localhost:3000'
 
 const databaseURI = 'http://localhost:3001'
 
@@ -134,7 +134,7 @@ const reload = () => {
 
 const page_url = () => {
     let link = ''
-    const currentUrl = window.location.href.split(development)
+    const currentUrl = window.location.href.split(clientURI)
     if(currentUrl.length > 1){
       link = currentUrl[1]
     }

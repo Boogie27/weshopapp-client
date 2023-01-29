@@ -30,7 +30,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ModalDropDown } from '../dropdown/ModalDropDown'
 import RelatedProducts from './RelatedProducts'
-import QuickView from '../quickview/QuickView'
 import Preloader from '../preloader/Preloader'
 
 
@@ -48,7 +47,6 @@ const Detail = ({user, scrollToTop, addToCart, alertError, showQuickView, alertM
     const [likes, setLikes] = useState([])
     const [disLikes, setDisLikes] = useState([])
     const [productDetail, setProductDetail] = useState(null)
-    const [description, setDescription] = useState('')
     const [userReviews, setUserReviews] = useState('')
     const [reviews, setReviews] = useState([])
 
@@ -66,29 +64,13 @@ const Detail = ({user, scrollToTop, addToCart, alertError, showQuickView, alertM
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [deleteReviewID, setDeleteReviewID] = useState(null)
     const [relatedProducts, setRelatedProducts] = useState([])
-    const [product, setProduct] = useState(null)
     const [quantity, setQuantity] = useState(1)
     const current_url = `/detail?product=${product_id}&category=${category}`
 
 
-    useEffect(() => {
-        // fetch product detail
-        fetchProductDetail(product_id)
+    
 
-        // fetch product reviews
-        fetchProductReviews(product_id)
-
-        // fetch total stars
-        total_stars(reviews)
-
-        // fetch related products
-        fetchRelatedProducts(category)
-
-        // get product likes
-        fetchProductLikes(product_id)
-        
-        preloaderToggle(true, 'Fetching Product Details, Please Wait...', 1000)
-    }, [product_id])
+   
     
     const fetchProductDetail = (product_id) => {
         Axios.get(url(`/detail?product=${product_id}`)).then((response) => {
@@ -241,18 +223,14 @@ const Detail = ({user, scrollToTop, addToCart, alertError, showQuickView, alertM
         let total = 0
         if(string.length == 0){ return setStarsCount(0) }
 
-        string.map((review) => { total = total + review.stars })
+        string.map((review) => { return total = total + review.stars })
 
         let rate = Math.round( total / string.length)
         return setStarsCount(rate)
     }
 
 
-    // close quickview
-    const closeQuickView = () => {
-        setProduct(null)
-    }
-
+   
     
     const likeToggle = (action) => {
         let type = action ? 'like' : 'dislike'
@@ -312,6 +290,27 @@ const Detail = ({user, scrollToTop, addToCart, alertError, showQuickView, alertM
     }, time)
   }
 
+  useEffect(() => {
+    // fetch product detail
+fetchProductDetail(product_id)
+
+// fetch product reviews
+fetchProductReviews(product_id)
+
+// fetch total stars
+total_stars(reviews)
+
+// fetch related products
+fetchRelatedProducts(category)
+
+// get product likes
+fetchProductLikes(product_id)
+
+preloaderToggle(true, 'Fetching Product Details, Please Wait...', 1000)
+}, [])
+
+
+
 
     return (
         <>
@@ -332,7 +331,7 @@ const Detail = ({user, scrollToTop, addToCart, alertError, showQuickView, alertM
                              <DetailMiddle user={user}
                                  productDetail={productDetail} modalToggle={modalToggle}
                                  reviews={reviews} stars={stars} productReviews={productReviews}
-                                 reviews={reviews} setProductReviews={setProductReviews} isSubmit={isSubmit}
+                                 setProductReviews={setProductReviews} isSubmit={isSubmit}
                                  title={title} setTitle={setTitle} setStars={setStars} submitReview={submitReview}
                                  starsAlert={starsAlert} titleAlert={titleAlert} reviewsAlert={reviewsAlert}
                                  activeStars={activeStars} setActiveStars={setActiveStars} deleteReview={deleteReview}
@@ -354,9 +353,6 @@ const Detail = ({user, scrollToTop, addToCart, alertError, showQuickView, alertM
                  <ToastContainer position="bottom-right" autoClose={5000} hideProgressBar={false} 
                      newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover
                  />
-                 {/* {
-                 product ? (<QuickView product={product} closeQuickView={closeQuickView} />) : null
-                 } */}
              </div>
             )}
         </>
