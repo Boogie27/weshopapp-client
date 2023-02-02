@@ -20,8 +20,7 @@ import Cookies from 'js-cookie'
 import { 
     url, 
     today,
-    money, 
-    category_img,
+    money,
     product_img,
     profile_img,
 } from '../../Data'
@@ -66,41 +65,6 @@ const Detail = ({user, scrollToTop, addToCart, alertError, showQuickView, alertM
     const [relatedProducts, setRelatedProducts] = useState([])
     const [quantity, setQuantity] = useState(1)
     const current_url = `/detail?product=${product_id}&category=${category}`
-
-
-    
-
-   
-    
-    const fetchProductDetail = (product_id) => {
-        Axios.get(url(`/detail?product=${product_id}`)).then((response) => {
-            setProductDetail(response.data)
-            preloaderToggle(true, 'Fetching Product Details, Please Wait...', 1000)
-        })
-    }
-
-    const fetchProductReviews = (product_id) => {
-        Axios.get(url(`/reviews?product_id=${product_id}`)).then((response) => {
-            setReviews(response.data.reviews)
-            total_stars(response.data.reviews)
-        })
-    }
-
-    // fetch related products
-    const fetchRelatedProducts = (category) => {
-        Axios.get(url(`/related-products?category=${category}`)).then((response) => {
-            setRelatedProducts(response.data.relatedProducts)
-        })
-    }
-
-    // fetch product likes
-    const fetchProductLikes = (product_id) => {
-        Axios.get(url(`/api/product-likes/${product_id}`)).then((response) => {
-            setLikes(response.data.likes)
-            setDisLikes(response.data.dislike)
-        })
-        
-    }
     
 
 
@@ -150,7 +114,7 @@ const Detail = ({user, scrollToTop, addToCart, alertError, showQuickView, alertM
                     setTitle('')
                     setActiveStars(0)
                     setProductReviews('')
-                    fetchProductReviews(product_id)
+                    // fetchProductReviews(product_id)
                     notify_success('Review submitted successfully!')
                 }
                 if(response.data == 'reviewed'){
@@ -211,7 +175,7 @@ const Detail = ({user, scrollToTop, addToCart, alertError, showQuickView, alertM
             setIsDeleting(false)
             setIsModalOpen(false) 
             setDeleteReviewID(null)
-            fetchProductReviews(product_id)
+            // fetchProductReviews(product_id)
             notify_success('Review deleted successfully!')
         })
     }
@@ -248,7 +212,7 @@ const Detail = ({user, scrollToTop, addToCart, alertError, showQuickView, alertM
             if(response.data == 'error'){
                 return notify_error('Something went wrong, try again!')
             }
-            fetchProductLikes(product_id)
+            // fetchProductLikes(product_id)
         })
     }
 
@@ -291,23 +255,53 @@ const Detail = ({user, scrollToTop, addToCart, alertError, showQuickView, alertM
   }
 
   useEffect(() => {
+      
+    const fetchProductDetail = (product_id) => {
+        Axios.get(url(`/detail?product=${product_id}`)).then((response) => {
+            setProductDetail(response.data)
+            preloaderToggle(true, 'Fetching Product Details, Please Wait...', 1000)
+        })
+    }
+
+    const fetchProductReviews = (product_id) => {
+        Axios.get(url(`/reviews?product_id=${product_id}`)).then((response) => {
+            setReviews(response.data.reviews)
+            total_stars(response.data.reviews)
+        })
+    }
+
+    // fetch related products
+    const fetchRelatedProducts = (category) => {
+        Axios.get(url(`/related-products?category=${category}`)).then((response) => {
+            setRelatedProducts(response.data.relatedProducts)
+        })
+    }
+
+    // fetch product likes
+    const fetchProductLikes = (product_id) => {
+        Axios.get(url(`/api/product-likes/${product_id}`)).then((response) => {
+            setLikes(response.data.likes)
+            setDisLikes(response.data.dislike)
+        })
+    }
+
     // fetch product detail
-fetchProductDetail(product_id)
+    fetchProductDetail(product_id)
 
-// fetch product reviews
-fetchProductReviews(product_id)
+    // fetch product reviews
+    fetchProductReviews(product_id)
 
-// fetch total stars
-total_stars(reviews)
+    // fetch total stars
+    // total_stars()
 
-// fetch related products
-fetchRelatedProducts(category)
+    // fetch related products
+    fetchRelatedProducts(category)
 
-// get product likes
-fetchProductLikes(product_id)
+    // get product likes
+    fetchProductLikes(product_id)
 
-preloaderToggle(true, 'Fetching Product Details, Please Wait...', 1000)
-}, [])
+    preloaderToggle(true, 'Fetching Product Details, Please Wait...', 1000)
+}, [product_id, category])
 
 
 

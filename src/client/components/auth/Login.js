@@ -18,7 +18,7 @@ import AlertDanger from '../alerts/AlertDanger'
 
 
 
-const Login = ({fetchWishlistItems, alertMessage, fetchCartItems, setUser, isLoading, setIsLoading}) => {
+const Login = ({fetchWishlistItems, preloaderToggle, alertMessage, fetchCartItems, setUser, isLoading, setIsLoading}) => {
     const navigate = useNavigate();
     const [alert, setAlert] = useState('')
     const [email, setEmail] = useState('')
@@ -41,23 +41,25 @@ const Login = ({fetchWishlistItems, alertMessage, fetchCartItems, setUser, isLoa
 
         setIsLoading({state: true, text: 'Logging in, Please wait...'})
         Axios.post(url('/api/login-user'), user).then((response) => {
-            setAlert('')
-            setEmailAlert('')
-            setPasswordAlert('')
             const data = response.data
     
-            if(data.validationError == false){
+            if(data.validationError === false){
                 setIsLoading({state: false, text: ''})
                 validateFromBackend(data.validation)
             }else{
-                if(data == false){
-                    setIsLoading({state: false, text: ''})
-                    return setAlert('*Wrong Email or password!')
+                if(data.exists === false){
+                    setAlert('*Wrong Email or password!')
+                    return preloaderToggle(true, 'Please wait, Checking email...', 2000)
                 }
-                if(data.data == 'success'){
+                if(data.verify === 'not-verified'){
+                    setAlert('*Account not verified, verification email has been sent to you!')
+                    return preloaderToggle(true, 'Verifying account email...', 2000)
+                }
+                
+                if(data.data === 'success'){
                     setUser(data.user)
                     alertMessage('Login successfully!', 5000)
-                    setIsLoading({state: false, text: ''})
+                    preloaderToggle(true, `Please wait ${data.user.user_name} while we log you in!`, 3000)
                     Cookies.set('weshopappuser', data.user.token, { expires: 1 })
 
                     const old_page = Cookies.get('current_url')
@@ -84,7 +86,7 @@ const Login = ({fetchWishlistItems, alertMessage, fetchCartItems, setUser, isLoa
         let failed = false
 
         const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-        if(input.email.length == 0){
+        if(input.email.length === 0){
             failed = true
             setEmailAlert("*Email field is required")
         } else if(!input.email.match(validRegex)){
@@ -92,7 +94,7 @@ const Login = ({fetchWishlistItems, alertMessage, fetchCartItems, setUser, isLoa
             setEmailAlert("*Invalid email address")
         }
 
-        if(input.password.length == 0){
+        if(input.password.length === 0){
             failed = true
             setPasswordAlert("*Password field is required")
         }else if(input.password.length < 6){
@@ -105,7 +107,7 @@ const Login = ({fetchWishlistItems, alertMessage, fetchCartItems, setUser, isLoa
 
         
 
-        if(failed == true){
+        if(failed === true){
             return 'failed'
         }else{
             return 'success'

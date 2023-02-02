@@ -74,7 +74,7 @@ const ResetPassword = ({fetchWishlistItems, alertMessage, fetchCartItems, setUse
         Axios.post(url('/api/reset-password-email'), {email: email}).then((response) => {
             const data = response.data
             if(data.validationError){
-                mailTimeToggle(500)
+                mailTimeToggle(500) 
                 setIsLoading({state: false, text: ''})
                 return setEmailAlert(data.validation.email)
             }

@@ -8,6 +8,7 @@ import Detail from './client/components/detail/Detail'
 import Login from './client/components/auth/Login'
 import ResetPassword from './client/components/auth/ResetPassword'
 import Checkout from './client/components/checkout/Checkout'
+import PaySuccess from './client/components/checkout/PaySuccess'
 import Verification from './client/components/auth/Verification'
 
 
@@ -22,7 +23,7 @@ import Navigation from './client/components/navigation/Navigation'
 import MiniNavigation from './client/components/navigation/MiniNavigation'
 import Axios from 'axios'
 import Cookies from 'js-cookie'
-import {  url, name } from './client/Data'
+import {  url } from './client/Data'
 import QuickView from './client/components/quickview/QuickView'
 import AlertDanger from './client/components/alerts/AlertDanger'
 import AlertSuccess from './client/components/alerts/AlertSuccess'
@@ -40,6 +41,9 @@ function App() {
   let token = Cookies.get('weshopappuser')
   let state = Cookies.get('weshopappstate')
   const [cart, setCart] = useState([])
+  const [totalPrice, setTotalPrice] = useState(0)
+  const [shipping, setShipping] = useState(0)
+
   const [isQuickView, setIsQuickView] = useState(false)
   const [categories, setCategories] = useState([])
   const [wishlist, setWishlist] = useState([])
@@ -82,17 +86,6 @@ function App() {
       setSideNavi(!sideNavi)
   }
 
-
-   
-  useEffect(() => {
-    getLoggedinUser() //get auth user
-    userAppState(user)
-    fetchCartItems()
-    fetchWishlistItems()
-    fetchCategories()
-    windowsScrollEvent()
-
-  }, [])
 
 
 
@@ -184,8 +177,10 @@ function App() {
           alertMessage("Logout successfully!", 5000) //set logout success alertMessage
         }
         setUser(false)
-        fetchCartItems()
-        fetchWishlistItems()
+        setCart([])
+        setWishlist([])
+        // fetchCartItems()
+        // fetchWishlistItems()
         preloaderToggle(true, 'Logging out user, Please wait...', 2000)
       })
     }
@@ -206,7 +201,7 @@ function App() {
    const preloaderToggle = (state, text, time) => {
       setIsLoading({state: state, text: text})
       setTimeout(() => {
-          setIsLoading({state: false, text: ''})
+        setIsLoading({state: false, text: ''})
       }, time)
     }
 
@@ -240,17 +235,58 @@ function App() {
     if(string && token == undefined){
       token = string
     }
-    
     if(token){
       Axios.get(url(`/api/get-cart-items/${token}`)).then((response) => { 
           if(response.data){
+            shippingFee()
+            fetchTotal(response.data)
             return setCart(response.data)
           }
           setCart([])
       })
     }
+    shippingFee(false)
   }
+
+
+  // toggle cart quantity
+  const quantityToggle = (index, counter,) => {
+    const item = cart[index]
+    let new_quantity = counter + item.quantity
+    Axios.post(url('/api/toggle-cart-quantity'), {id: item._id, new_quantity: new_quantity, product_id: item.product._id}).then((response) => {
+        if(response.data == 'greater'){
+            return notify_error('Quantity exceed available quantity!')
+        }
+        if(response.data){
+            return fetchCartItems()
+        }
+        return notify_error("Something went wront, try again!")
+    })
+}
  
+
+
+  // fetch shopping cart total
+  const fetchTotal = (data) => {
+    let total = 0
+    if(data.length){
+      data.map((item, index) => {
+      return total = total + ( item.price * item.quantity)
+    })
+    return setTotalPrice(total)
+    }
+    return setTotalPrice(0)
+  }
+
+
+
+  // fetch shipping fee
+  const shippingFee = (value) => {
+    if(cart.length > 0){
+      return setShipping(5)
+    }
+    return setShipping(0)
+}
 
  
   
@@ -338,7 +374,6 @@ function App() {
 
   // show quick view
   const showQuickView = (product) => {
-    console.log('yess')
     setIsQuickView(product)
   }
 
@@ -436,7 +471,15 @@ const notify_error = (string) => {
 //   }
 // }
 
+useEffect(() => {
+  getLoggedinUser() //get auth user
+  userAppState(user)
+  fetchCartItems()
+  fetchWishlistItems()
+  fetchCategories()
+  windowsScrollEvent()
 
+}, [])
 
 
 
@@ -458,20 +501,24 @@ const notify_error = (string) => {
           categoryToggleBtn={categoryToggleBtn} message={message} errorAlert={errorAlert} floatNav={floatNav}
         />
       </div>
-      <Routes>
+      { isLoading.state ? (<Preloader text={isLoading.text}/>) : (
+        <Routes>
           <Route path="/" element={<Home user={user} showQuickView={showQuickView} closeQuickView={closeQuickView} scrollToTop={scrollToTop} addToWishlist={addToWishlist} appState={appState} addToCart={addToCart}/>}/>
           <Route path="/detail" element={<Detail scrollToTop={scrollToTop} showQuickView={showQuickView} addToWishlist={addToWishlist} user={user} addToCart={addToCart} alertError={alertError} alertMessage={alertMessage}/>}/>
-          <Route path="/cart" element={<Cart user={user} cart={cart} deleteCartItem={deleteCartItem} addToWishlist={addToWishlist} setCart={setCart} addToCart={addToCart} notify_success={notify_success} notify_error={notify_error}/>}/>
+          <Route path="/cart" element={<Cart user={user} cart={cart} totalPrice={totalPrice} quantityToggle={quantityToggle} preloaderToggle={preloaderToggle} fetchCartItems={fetchCartItems} deleteCartItem={deleteCartItem} addToWishlist={addToWishlist} setCart={setCart} addToCart={addToCart} notify_success={notify_success} notify_error={notify_error}/>}/>
           <Route path="/wishlist" element={<Wishlist wishlist={wishlist} deleteWishlistItem={deleteWishlistItem} setWishlist={setWishlist}/>}/>
-          <Route path="/login" element={<Login fetchWishlistItems={fetchWishlistItems} alertMessage={alertMessage} fetchCartItems={fetchCartItems} setUser={setUser} isLoading={isLoading} setIsLoading={setIsLoading}/>}/>
+          <Route path="/login" element={<Login preloaderToggle={preloaderToggle} fetchWishlistItems={fetchWishlistItems} alertMessage={alertMessage} fetchCartItems={fetchCartItems} setUser={setUser} isLoading={isLoading} setIsLoading={setIsLoading}/>}/>
           <Route path="/register" element={<Register alertMessage={alertMessage} setUser={setUser} isLoading={isLoading} setIsLoading={setIsLoading}/>}/>
           <Route path="/products" element={<Product user={user} showQuickView={showQuickView} addToWishlist={addToWishlist} addToCart={addToCart} scrollToTop={scrollToTop} categoryToggleBtn={categoryToggleBtn}/>}/>
           <Route path="/reset-password" element={<ResetPassword fetchWishlistItems={fetchWishlistItems} alertMessage={alertMessage} fetchCartItems={fetchCartItems} setUser={setUser} isLoading={isLoading} setIsLoading={setIsLoading}/>}/>
-          <Route path="/checkout" element={<Checkout cart={cart}/>} />
+          <Route path="/checkout" element={<Checkout cart={cart} shippingFee={shippingFee} shipping={shipping} totalPrice={totalPrice} quantityToggle={quantityToggle} notify_success={notify_success} notify_error={notify_error} fetchCartItems={fetchCartItems}/>} />
           <Route path="/verification" element={<Verification/>} />
-      </Routes>
+          <Route path="/payment-success" element={<PaySuccess/>} />
+        </Routes>
+      )
+      }
+      
       <Footer/>
-      { isLoading.state && <Preloader text={isLoading.text}/> }
       {logoutModal && <LogoutDropDown modalToggle={modalToggle} logoutUserModal={logoutUserModal} username={user.user_name}/>}
       { categoryToggle && <Categories categories={categories} scrollToTop={scrollToTop} categoryToggleBtn={categoryToggleBtn}/> }
       <FloatShoppingCart cart={cart} floatCartState={floatCartState} floatCartStateToggle={floatCartStateToggle}/>

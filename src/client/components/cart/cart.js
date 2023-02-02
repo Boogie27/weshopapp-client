@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from 'react'
+import React, { useState, useEffect, Fragment  } from 'react'
 import { NavLink, useSearchParams, useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
@@ -34,8 +34,7 @@ import  MobileShoppingCart  from './mobileCart'
 
 
 
-const Cart = ({user, cart, setCart, deleteCartItem, addToWishlist, addToCart, notify_success, notify_error}) => {
-    const [totalPrice, setTotalPrice] = useState(0)
+const Cart = ({user, cart, setCart, quantityToggle, totalPrice, fetchCartItems, deleteCartItem, addToWishlist, addToCart, notify_success, notify_error}) => {
     const [quantity, setQuantity] = useState(1)
     const [isLoading, setIsLoading ] = useState({loading: true, text: 'Fetching Cart, Please Wait...'})
     const [isDeleting, setIsDeleting] = useState(false)
@@ -43,54 +42,7 @@ const Cart = ({user, cart, setCart, deleteCartItem, addToWishlist, addToCart, no
     const [deleteItemID, setDeleteItemID] = useState(null)
 
 
-   
-    useEffect(() => {
-        fetchShoppingCart()
-        preloaderToggle(true, 'Fetching Cart, Please Wait...', 1000)
-    }, [])
-
-
-    // fetch shopping cart
-    const fetchShoppingCart = () => {
-        if(token()){
-            Axios.get(url(`/api/get-cart-items/${token()}`)).then((response) => { 
-                if(response.data){
-                    let totalPrice = 0
-                    response.data.map((item, index) => {
-                        totalPrice = totalPrice + ( item.price * item.quantity)
-                    })
-                    setTotalPrice(totalPrice)
-                    if(response.data.length == 0){
-                        preloaderToggle(true, 'Fetching Cart, Please Wait...', 1000)
-                    }
-                  return setCart(response.data)
-                }
-                setCart([])
-                setTotalPrice(0)
-                preloaderToggle(true, 'Fetching Cart, Please Wait...', 1000)
-            })
-        }
-    }
-
-
-    const quantityToggle = (index, counter,) => {
-        const item = cart[index]
-        let new_quantity = counter + item.quantity
-        // if(new_quantity <= 0){
-        //     new_quantity = 0
-        //     preloaderToggle(true, 'Deleting Product, Please Wait...', 3000)
-        // }
-         
-        Axios.post(url('/api/toggle-cart-quantity'), {id: item._id, new_quantity: new_quantity, product_id: item.product._id}).then((response) => {
-            if(response.data == 'greater'){
-                return notify_error('Quantity exceed available quantity!')
-            }
-            if(response.data){
-                return fetchShoppingCart()
-            }
-            return notify_error("Something went wront, try again!")
-        })
-    }
+  
 
 
 
@@ -116,7 +68,7 @@ const Cart = ({user, cart, setCart, deleteCartItem, addToWishlist, addToCart, no
         }
         Axios.post(url('/api/delete-cart-item'), {_id: deleteItemID}).then((response) => {
             if(response.data){
-                fetchShoppingCart()
+                fetchCartItems()
                 CartModalToggle(false, null)
                 setDeleteItemID(null)
                 return notify_success("Cart item deleted successfuly!")
@@ -137,22 +89,24 @@ const Cart = ({user, cart, setCart, deleteCartItem, addToWishlist, addToCart, no
 
 
 
-
-    
+// 
+    useEffect(() => {
+        preloaderToggle(true, 'Fetching Cart, Please Wait...', 3000)
+    }, [])
 
 
     return (
-        <>
+        <Fragment>
          {isLoading.loading ? (
-            <>
+            <Fragment>
                 <EmptyCart/>
                 <Preloader text={isLoading.text}/>
-            </>
+            </Fragment>
             ) : (
             <div className="cart-container">
             {
                 cart.length == 0 ? (<EmptyCart/>) : (
-                    <>
+                    <Fragment>
                      <div className="desktop-cart cart-items">
                          <div className="title-header"><h3>Shopping Cart</h3></div>
                          <table className="table table-bordered">
@@ -193,12 +147,12 @@ const Cart = ({user, cart, setCart, deleteCartItem, addToWishlist, addToCart, no
                             CartModalToggle={CartModalToggle}  deleteCartItem={deleteCartItem}
                         />
                     </div>
-                    </>
+                    </Fragment>
                  )
              }
          </div>
          )}
-        </>
+        </Fragment>
     )
 }
 

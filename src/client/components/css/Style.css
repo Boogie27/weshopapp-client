@@ -4468,17 +4468,21 @@ tr.cart-items-detail td{
     right: 0px;
     position: absolute;
 }
-.bagsummary-delete-all{
+.bagsummary-make-payment{
     width: 100%;
     padding: 10px 0px;
 }
-.bagsummary-delete-all button{
+.bagsummary-make-payment button{
     border: none;
     width: 100%;
     color: #fff;
     font-weight: 600;
     padding: 10px;
+    transition: 0.3s ease;
     background-color: rgb(224, 157, 32);
+}
+.bagsummary-make-payment button:hover{
+    background-color: rgb(179, 123, 21);
 }
 .bagsummary-btn button.btn-trash:hover{
     color: rgb(204, 4, 4);
@@ -4487,6 +4491,19 @@ tr.cart-items-detail td{
     padding: 5px 10px;
     border-radius: 3px;
     box-shadow: 0px 0px 5px 0px rgba(134, 134, 134, 0.575); 
+}
+.empty-shopping-cart.checkout{
+    display: block;
+    margin-top: 50px;
+}
+.empty-shopping-cart.checkout .title-header h3{
+    background-color: transparent;
+}
+.empty-shopping-cart.checkout img{
+    width: 150px;
+}
+.empty-shopping-cart.checkout .cart-items-body{
+    text-align: center;
 }
 @media only screen and (max-width: 1125px){
     .bagsummary-body .bagsummary-img{

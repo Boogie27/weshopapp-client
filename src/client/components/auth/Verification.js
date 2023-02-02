@@ -27,7 +27,7 @@ const Verification = () => {
 
 
 
-    const checkUserVerification = () => {
+    const checkUserVerification = (verify_token) => {
         if(searchParams.has('verify')){
             Axios.get(url(`/api/verify-user?verify=${verify_token}`)).then((response) => {
                 const data = response.data
@@ -52,8 +52,8 @@ const Verification = () => {
 
 
     useEffect(() => {
-        checkUserVerification()
-    }, [])
+        checkUserVerification(verify_token)
+    }, [verify_token])
 
 
 
@@ -125,7 +125,9 @@ const ErrorVerifyContainer = () => {
                     <div className="title-header"><h3>Verification Failed</h3></div>
                     <div className="verification-text">
                         <p>
-                            Something went wrong, Please try again later or contact the admin...
+                            Something went wrong, Please try
+                            <NavLink to="/login" className="text-warning"> <b>Loging in</b> </NavLink>
+                            again or contact the admin...
                         </p>
                     </div>
                     <div className="verification-btn">

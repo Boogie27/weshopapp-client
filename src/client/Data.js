@@ -96,7 +96,11 @@ const loader_img = (string) => {
 
 
 const cart_img = (string) => {
-    return 'asset/cart/' + string
+    return 'asset/client/cart/' + string
+}
+
+const paymentSuccessImg = (string) => {
+    return 'asset/client/payment-success/' + string
 }
 
 
@@ -169,6 +173,7 @@ export {
     profile_img,
     productImageURL,
     categoryImageURL,
+    paymentSuccessImg,
 }
 
 
