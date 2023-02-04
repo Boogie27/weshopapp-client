@@ -1,21 +1,40 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect, Fragment, useRef } from 'react'
 import { NavLink, useSearchParams  } from 'react-router-dom'
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Preloader from '../preloader/Preloader'
-import {  paymentSuccessImg } from '../../Data'
+import {  url, paymentSuccessImg } from '../../Data'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
     faThumbsUp    
 } from '@fortawesome/free-solid-svg-icons'
+import Axios from 'axios'
+
+
 
 
 
 
 
 const PaySuccess = () => {
+    const temporary = useRef()
     const [isLoading, setIsLoading ] = useState({state: true, text: 'Fetching Order, Please Wait...'}) 
      
+
+    const makeOrder = () => {
+        const items = {
+            user: '63d6ae97172ee6114acaedd3',
+            email: 'anonyecharles@gmail.com',
+            reference: 'D26ifh49jahg',
+            method: "card",
+            card_vendor: "strype"
+        }
+        Axios.post(url(`/api/make-order`), items).then((response) => {
+            const data = response.data
+            console.log(data)
+        })
+    }
+
     
     
     // set and remove preloader
@@ -27,8 +46,10 @@ const PaySuccess = () => {
     }
 
 
+    temporary.current = makeOrder
 
   useEffect(() => {
+    temporary.current()
     preloaderToggle(true, 'Checking Transaction, Please Wait...', 2000)
 }, [])
 
@@ -43,8 +64,8 @@ const PaySuccess = () => {
                 ) : (
                 <div className="paymentsuccess-container">
                     <Row className="show-grid">
-                        <Col xs={12} sm={12} md={4} lg={4} xl={4}><LeftSide /></Col>
-                        <Col xs={12} sm={12} md={8} lg={8} xl={8}><RightSide/></Col>
+                        <Col xs={12} sm={12} md={5} lg={4} xl={4}><LeftSide /></Col>
+                        <Col xs={12} sm={12} md={7} lg={8} xl={8}><RightSide/></Col>
                     </Row>
                 </div>
                 )
@@ -81,7 +102,7 @@ const RightSide = () => {
                     <div className="title-header"><h3>Payment Successfull!</h3></div>
                     <div className="payment-success-text">
                         <p>
-                            Thank you Charles, we have received your order. your order will shipped very soon!
+                            Thank you Charles, we have received your order. your order will be shipped very soon!
                         </p>
                     </div>
                     <div className="paysuccess-btn">

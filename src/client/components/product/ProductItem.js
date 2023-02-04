@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faEye,
@@ -6,9 +6,8 @@ import {
   faHeart,
   faCartShopping
 } from '@fortawesome/free-solid-svg-icons'
-import Axios from 'axios'
 import { NavLink } from 'react-router-dom'
-import { money, url, page_url, product_img } from '../../Data'
+import { money, page_url, product_img } from '../../Data'
 
 
 
