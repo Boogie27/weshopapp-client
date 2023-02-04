@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment  } from 'react'
-import { NavLink, useSearchParams, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
     faPlus,
@@ -7,22 +7,12 @@ import {
     faTrashCan,
     faArrowRightLong,
 } from '@fortawesome/free-solid-svg-icons'
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 import Axios from 'axios'
-import Cookies from 'js-cookie'
 import { 
     url, 
-    today,
     money,
-    token,
     cart_img,
-    moneySign, 
-    userImageURL, 
-    category_img,
     product_img,
-    profile_img,
-    productImageURL 
 } from '../../Data'
 import Preloader from '../preloader/Preloader'
 import { CartModalDropDown } from '../dropdown/CartModalDropDown'
@@ -59,7 +49,7 @@ const Cart = ({user, cart, setCart, quantityToggle, totalPrice, fetchCartItems, 
 
     // delete cart item
     const deleteItem = () => {
-        if(cart.length == 1){
+        if(cart.length === 1){
             preloaderToggle(true, 'Deleting Product, Please Wait...', 1000)
         }
 
@@ -105,7 +95,7 @@ const Cart = ({user, cart, setCart, quantityToggle, totalPrice, fetchCartItems, 
             ) : (
             <div className="cart-container">
             {
-                cart.length == 0 ? (<EmptyCart/>) : (
+                cart.length === 0 ? (<EmptyCart/>) : (
                     <Fragment>
                      <div className="desktop-cart cart-items">
                          <div className="title-header"><h3>Shopping Cart</h3></div>
@@ -126,8 +116,8 @@ const Cart = ({user, cart, setCart, quantityToggle, totalPrice, fetchCartItems, 
                                         <CartItems item_id={item._id} item={item}
                                             index={index} image={item.product.image} key={index} 
                                             name={item.product.product_name} price={item.price} 
-                                            quantity={item.quantity} CartModalToggle={CartModalToggle} 
-                                            quantityToggle={quantityToggle} setQuantity={setQuantity}/>
+                                            qty={item.quantity} CartModalToggle={CartModalToggle} 
+                                            quantityToggle={quantityToggle} quantity={quantity} setQuantity={setQuantity}/>
                                     ))
                                 }
                              </tbody>
@@ -163,9 +153,9 @@ export default Cart
 
 
 
-const CartItems = ({item_id, item, index, image, name, price, quantity, CartModalToggle, quantityToggle, setQuantity}) => {
+const CartItems = ({item_id, item, index, image, name, price, qty, quantity, CartModalToggle, quantityToggle, setQuantity}) => {
     let product_image = '1.jpg'
-    if(image != undefined){
+    if(image !== undefined){
         product_image = image[0]
     }
     return (

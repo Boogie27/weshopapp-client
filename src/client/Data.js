@@ -1,4 +1,3 @@
-import Axios from 'axios'
 import Cookies from 'js-cookie'
 
 let production = 'https://weshopapp-server.herokuapp.com'
@@ -40,7 +39,7 @@ const current_user = {
 const url = (string = null) => { 
     const url = window.location.href.split('/')[2]
     const url_name = url.split(':')[0]
-    if(url_name == 'localhost'){
+    if(url_name === 'localhost'){
         return databaseURI + string
     }
     return production + string
@@ -63,10 +62,10 @@ const today = () => {
 
 const profile_img = (string = null, gender = null) => {
     let image = ''
-    if(!string && gender == 'female'){
+    if(!string && gender === 'female'){
         image = 'avatar/2.png'
     }
-    if(!string && gender == 'male'){
+    if(!string && gender === 'male'){
         image = 'avatar/1.png'
     }
     if(string){

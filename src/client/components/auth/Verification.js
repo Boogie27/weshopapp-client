@@ -1,5 +1,5 @@
-import React, { useState, useEffect, Fragment } from 'react'
-import { NavLink, useSearchParams, useNavigate  } from 'react-router-dom'
+import React, { useState, useEffect, Fragment, useRef } from 'react'
+import { NavLink, useSearchParams  } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
     faThumbsUp,
@@ -18,16 +18,18 @@ import {
 
 
 const Verification = () => {
+    const temporary = useRef()
     const [searchParams] = useSearchParams();
     const verify_token = searchParams.get('verify')
     const [userName, setUserName ] = useState('')
     const [isLoading, setIsLoading ] = useState({state: true, text: 'Verifying email, Please Wait...'})
 
    
+    
 
 
 
-    const checkUserVerification = (verify_token) => {
+    const checkUserVerification = () => {
         if(searchParams.has('verify')){
             Axios.get(url(`/api/verify-user?verify=${verify_token}`)).then((response) => {
                 const data = response.data
@@ -49,11 +51,11 @@ const Verification = () => {
         }, time)
     }
 
-
+    temporary.current = checkUserVerification
 
     useEffect(() => {
-        checkUserVerification(verify_token)
-    }, [verify_token])
+        temporary.current()
+    }, [])
 
 
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react'
+import React, { useState, useEffect, Fragment , useRef} from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './client/components/css/Style.css'
 import { Route, Routes } from 'react-router-dom'
@@ -37,6 +37,7 @@ import FloatShoppingCart from './client/components/cart/FloatShoppingCart'
 
 
 function App() {
+  const temporary = useRef()
   const [user, setUser] = useState(false)
   let token = Cookies.get('weshopappuser')
   let state = Cookies.get('weshopappstate')
@@ -54,7 +55,6 @@ function App() {
   const [sideNavi, setSideNavi] = useState(false)
   const [floatNav, setFloatNav] = useState(false)
   const [categoryToggle, setCategoryToggle] = useState(false)
-  const [isLoggedin, setIsLoggedin ] = useState(false)
   const [mobileSearch, setMobileSearch] = useState(false)
   const [floatCartState, setFloatCartState] = useState(false)
   const [isLoading, setIsLoading ] = useState({state: false, text: ''})
@@ -128,17 +128,17 @@ function App() {
   // change user app theme on page load
   const userAppState = (user) => {
     if(state){
-      if(state == 'light'){
+      if(state === 'light'){
         return setAppState(false)
-      }else if(state == 'dark'){
+      }else if(state === 'dark'){
         return setAppState(true)
       }
     }
     if(token && user){
-      if(user && user.theme == 'light'){
+      if(user && user.theme === 'light'){
         return setAppState(false)
-      }else  if(user && user.theme == 'dark')
-      if(user && user.theme == 'dark'){
+      }else  if(user && user.theme === 'dark')
+      if(user && user.theme === 'dark'){
         return setAppState(true)
       }
     }
@@ -173,14 +173,14 @@ function App() {
       // setIsLoading({state: false, text: 'Processing Logout...'})
       Axios.get(url(`/api/logout/token=${token}`)).then((response) => {
         const data = response.data
-        if(data == true){
-          alertMessage("Logout successfully!", 5000) //set logout success alertMessage
+        if(data === true){
+          setTimeout(() => {
+            alertMessage("You have been loggedout successfully!", 5000) //set logout success alertMessage
+          }, 2000)
         }
         setUser(false)
         setCart([])
         setWishlist([])
-        // fetchCartItems()
-        // fetchWishlistItems()
         preloaderToggle(true, 'Logging out user, Please wait...', 2000)
       })
     }
@@ -190,7 +190,7 @@ function App() {
 
   const alertMessage = (string, time) => {
       setMessage(string)
-      const timer = setTimeout(() => {
+      setTimeout(() => {
         setMessage('')
       }, time)
   }
@@ -208,7 +208,7 @@ function App() {
 
   const alertError = (string, time) => {
     setErrorAlert(string)
-    const timer = setTimeout(() => {
+    setTimeout(() => {
       setErrorAlert('')
     }, time)
   }
@@ -232,7 +232,7 @@ function App() {
 
   // fetch cart items
   const fetchCartItems  = (string = null) => {
-    if(string && token == undefined){
+    if(string && token === undefined){
       token = string
     }
     if(token){
@@ -254,7 +254,7 @@ function App() {
     const item = cart[index]
     let new_quantity = counter + item.quantity
     Axios.post(url('/api/toggle-cart-quantity'), {id: item._id, new_quantity: new_quantity, product_id: item.product._id}).then((response) => {
-        if(response.data == 'greater'){
+        if(response.data === 'greater'){
             return notify_error('Quantity exceed available quantity!')
         }
         if(response.data){
@@ -324,10 +324,10 @@ function App() {
 
 
   const fetchWishlistItems = (string = null) => {
-    if(string && token == undefined){
+    if(string && token === undefined){
       token = string
     }
-    if(token != undefined){
+    if(token !== undefined){
       Axios.get(url(`/api/fetch-wishlist-items/${token}`)).then((response) => {
         if(response.data){
           return setWishlist(response.data)
@@ -352,17 +352,17 @@ function App() {
 
       if(data.tokenExists === true){
         Axios.post(url(`/api/add-to-wishlist`), item).then((response) => {
-          if(response.data.state == 'exists'){
+          if(response.data.state === 'exists'){
             closeQuickView(false)
             return alertError('Product already exists in wishlist', 3000)
           }
-          if(response.data.state == 'created'){
+          if(response.data.state === 'created'){
             fetchWishlistItems()
             closeQuickView(false)
             alertMessage('Product added to wishlist successfully!', 3000)
             return true
           }
-          if(response.data.state == 'error'){
+          if(response.data.state === 'error'){
             closeQuickView(false)
             return alertError('Something went wrong, Try again!', 3000)
           }
@@ -420,7 +420,7 @@ function App() {
 
   // delete item from wishlist
   const deleteWishlistItem = (id) => {
-    if(id == 'delete-all'){
+    if(id === 'delete-all'){
       setWishlist([])
     }
     if(id !== 'delete-all'){
@@ -471,14 +471,16 @@ const notify_error = (string) => {
 //   }
 // }
 
-useEffect(() => {
-  getLoggedinUser() //get auth user
-  userAppState(user)
-  fetchCartItems()
-  fetchWishlistItems()
-  fetchCategories()
-  windowsScrollEvent()
+temporary.current = getLoggedinUser
+temporary.current = userAppState
+temporary.current = fetchCartItems
+temporary.current = fetchWishlistItems
+temporary.current = fetchCategories
+temporary.current = windowsScrollEvent
 
+
+useEffect(() => {
+  temporary.current()
 }, [])
 
 
@@ -501,7 +503,11 @@ useEffect(() => {
           categoryToggleBtn={categoryToggleBtn} message={message} errorAlert={errorAlert} floatNav={floatNav}
         />
       </div>
-      { isLoading.state ? (<Preloader text={isLoading.text}/>) : (
+      { isLoading.state ? (
+        <div className="expand-page">
+            <Preloader text={isLoading.text}/>
+        </div>
+      ) : (
         <Routes>
           <Route path="/" element={<Home user={user} showQuickView={showQuickView} closeQuickView={closeQuickView} scrollToTop={scrollToTop} addToWishlist={addToWishlist} appState={appState} addToCart={addToCart}/>}/>
           <Route path="/detail" element={<Detail scrollToTop={scrollToTop} showQuickView={showQuickView} addToWishlist={addToWishlist} user={user} addToCart={addToCart} alertError={alertError} alertMessage={alertMessage}/>}/>

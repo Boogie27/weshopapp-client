@@ -31,7 +31,7 @@ const Checkout = ({cart, totalPrice, shipping, shippingFee, quantityToggle, fetc
 
     // delete cart item
     const deleteItem = () => {
-        if(cart.length == 1){
+        if(cart.length === 1){
             preloaderToggle(true, 'Deleting Product, Please Wait...', 1000)
         }
 
@@ -60,9 +60,8 @@ const Checkout = ({cart, totalPrice, shipping, shippingFee, quantityToggle, fetc
     
 
     useEffect(() => {
-        shippingFee(shipping)
         preloaderToggle(true, 'Fetching Order, Please Wait...', 2000)
-    }, [shipping])
+    }, [])
 
     return (
         <Fragment>

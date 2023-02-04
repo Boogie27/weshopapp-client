@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 import { NavLink, useNavigate   } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
@@ -13,23 +13,27 @@ import {
 } from '../../Data'
 import FormAlert from '../alerts/FormAlert'
 import AlertDanger from '../alerts/AlertDanger'
+import Preloader from '../preloader/Preloader'
 
 
 
 
-
-const Login = ({fetchWishlistItems, preloaderToggle, alertMessage, fetchCartItems, setUser, isLoading, setIsLoading}) => {
+const Login = ({fetchWishlistItems, alertMessage, fetchCartItems, setUser}) => {
     const navigate = useNavigate();
+    const old_page = Cookies.get('current_url')
     const [alert, setAlert] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [input, setInput] = useState(null)
 
+    const [isLoginLoader, setIsLoginLoader] = useState(false)
     const [emailAlert, setEmailAlert] = useState('')
     const [passwordAlert, setPasswordAlert] = useState('')
+    const [isLoading, setIsLoading ] = useState({state: false, text: ''})
     
 
     const loginUser = () => {
+        let message
         setAlert('')
         setEmailAlert('')
         setPasswordAlert('')
@@ -39,37 +43,31 @@ const Login = ({fetchWishlistItems, preloaderToggle, alertMessage, fetchCartItem
         const validate = validate_input(user)
         if(validate === 'failed') return
 
-        setIsLoading({state: true, text: 'Logging in, Please wait...'})
+        setIsLoading({state: true, text: 'Please wait...'})
         Axios.post(url('/api/login-user'), user).then((response) => {
             const data = response.data
-    
+            
             if(data.validationError === false){
                 setIsLoading({state: false, text: ''})
                 validateFromBackend(data.validation)
             }else{
                 if(data.exists === false){
-                    setAlert('*Wrong Email or password!')
-                    return preloaderToggle(true, 'Please wait, Checking email...', 2000)
+                     message = {state: true, text: 'Please wait...', message: '*Wrong email or password!', time: 1000}
+                    return preloaderToggle(message)
                 }
                 if(data.verify === 'not-verified'){
-                    setAlert('*Account not verified, verification email has been sent to you!')
-                    return preloaderToggle(true, 'Verifying account email...', 2000)
+                    let txt = '*Account not verified, verification email has been sent to you!'
+                    message = {state: true, text: 'Please wait...', message: txt, time: 2000}
+                    return preloaderToggle(message)
                 }
                 
                 if(data.data === 'success'){
                     setUser(data.user)
-                    alertMessage('Login successfully!', 5000)
-                    preloaderToggle(true, `Please wait ${data.user.user_name} while we log you in!`, 3000)
+                    loginPreloaderToggle({state: true, text: `Please wait ${data.user.user_name} while we log you in!`, time: 3000})
                     Cookies.set('weshopappuser', data.user.token, { expires: 1 })
 
-                    const old_page = Cookies.get('current_url')
                     fetchCartItems(data.user.token)
                     fetchWishlistItems(data.user.token)
-                    if(old_page){
-                        Cookies.set('current_url', '', { expires: new Date(0) })
-                        return navigate(old_page)
-                    }
-                    return navigate("/")
                 }
             }
             setIsLoading({state: false, text: ''})
@@ -128,13 +126,56 @@ const Login = ({fetchWishlistItems, preloaderToggle, alertMessage, fetchCartItem
         }
     }
 
+
+
+     // set and remove preloader
+    const preloaderToggle = (message) => {
+        setIsLoading({state: message.state, text: message.text})
+        setTimeout(() => {
+            if(message.message){
+                setAlert(message.message)
+            }
+            setIsLoading({state: false, text: ''})
+        }, message.time)
+    }
+
+ // set and remove login preloader
+    const loginPreloaderToggle = (message) => {
+        setIsLoginLoader({state: message.state, text: message.text})
+        setTimeout(() => {
+            alertMessage('Login successfully!', 5000)
+            setIsLoginLoader({state: false, text: ''})
+            if(old_page){
+                Cookies.set('current_url', '', { expires: new Date(0) })
+                return navigate(old_page)
+            }
+            return navigate("/")
+        }, message.time)
+    }
+
+     
+
+
+    
+
     return (
         <div className="auth-container">
-            <LeftSide/>
-            <RightSide toggleInput={toggleInput} input={input} password={password}
-                setPassword={setPassword} email={email} setEmail={setEmail} alert={alert}
-                emailAlert={emailAlert}  loginUser={loginUser} passwordAlert={passwordAlert}
-            />
+            {
+                isLoginLoader.state ? (
+                    <div className="expand-page">
+                        <Preloader text={isLoginLoader.text}/>
+                    </div>
+                ) : (
+                    <Fragment>
+                        <LeftSide/>
+                        <RightSide toggleInput={toggleInput} input={input} password={password}
+                            setPassword={setPassword} isLoading={isLoading} email={email} setEmail={setEmail} alert={alert}
+                            emailAlert={emailAlert}  loginUser={loginUser} passwordAlert={passwordAlert}
+                        />
+                    </Fragment>
+                )
+            }
+            
         </div>
     )
 }
@@ -188,10 +229,7 @@ const RightSide = ({
                     </div>
                 </div>
                 <div className="form-button">
-                    <button onClick={() => loginUser()} className="register-btn">LOGIN</button>
-                    <div className="login-link">
-                        Dont have an account? <NavLink to="/register">Register</NavLink>
-                    </div>
+                    <LoginButton isLoading={isLoading} loginUser={loginUser}/>
                 </div>
                 <div className="form-reset">
                     Click here to reset password
@@ -199,5 +237,24 @@ const RightSide = ({
                 </div>
             </div>
         </div>
+    )
+}
+
+
+
+
+
+const LoginButton = ({isLoading, loginUser}) => {
+    return (
+        <Fragment>
+            {isLoading.state ? (
+                <button className="register-btn">{isLoading.text}</button>
+            ) : (
+                <button onClick={() => loginUser()} className="register-btn">LOGIN</button>
+            )}
+            <div className="login-link">
+                Dont have an account? <NavLink to="/register">Register</NavLink>
+            </div>
+        </Fragment>
     )
 }

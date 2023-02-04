@@ -1,11 +1,10 @@
 import React, { useState, useEffect  } from 'react'
-import { NavLink, useSearchParams, useNavigate } from 'react-router-dom'
+import { useSearchParams, useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
     faPen,
     faStar,
     faHeart,
-    faXmark,
     faTrashCan,
     faThumbsUp,
     faThumbsDown,
@@ -46,7 +45,6 @@ const Detail = ({user, scrollToTop, addToCart, alertError, showQuickView, alertM
     const [likes, setLikes] = useState([])
     const [disLikes, setDisLikes] = useState([])
     const [productDetail, setProductDetail] = useState(null)
-    const [userReviews, setUserReviews] = useState('')
     const [reviews, setReviews] = useState([])
 
     const [isSubmit, setIsSubmit] = useState(false)
@@ -74,15 +72,15 @@ const Detail = ({user, scrollToTop, addToCart, alertError, showQuickView, alertM
         setStarsAlert('')
         setTitleAlert('')
         setReviewsAlert('')
-        if(title == ''){
+        if(title === ''){
             setIsSubmit(false)
             setTitleAlert('Title field is required!')
         }
-        if(productReviews == ''){
+        if(productReviews === ''){
             setIsSubmit(false)
             setReviewsAlert('Review field is required!')
         }
-        if(stars == 0){
+        if(stars === 0){
             setIsSubmit(false)
             setStarsAlert('Select stars rating')
         }
@@ -102,14 +100,14 @@ const Detail = ({user, scrollToTop, addToCart, alertError, showQuickView, alertM
                 created_at: today(),
             }).then((response) => {
                 setIsSubmit(false)
-                if(response.data == 'no user'){
+                if(response.data === 'no user'){
                     setStars(0)
                     setTitle('')
                     setActiveStars(0)
                     setProductReviews('')
                     return notify_error("Register or Login to review this product!")
                 }
-                if(response.data == 'success'){
+                if(response.data === 'success'){
                     setStars(0)
                     setTitle('')
                     setActiveStars(0)
@@ -117,7 +115,7 @@ const Detail = ({user, scrollToTop, addToCart, alertError, showQuickView, alertM
                     // fetchProductReviews(product_id)
                     notify_success('Review submitted successfully!')
                 }
-                if(response.data == 'reviewed'){
+                if(response.data === 'reviewed'){
                     setStars(0)
                     setTitle('')
                     setActiveStars(0)
@@ -185,7 +183,7 @@ const Detail = ({user, scrollToTop, addToCart, alertError, showQuickView, alertM
      // product star rating
      const total_stars = (string) => {
         let total = 0
-        if(string.length == 0){ return setStarsCount(0) }
+        if(string.length === 0){ return setStarsCount(0) }
 
         string.map((review) => { return total = total + review.stars })
 
@@ -206,10 +204,10 @@ const Detail = ({user, scrollToTop, addToCart, alertError, showQuickView, alertM
         }
 
         Axios.post(url('/api/product-like-toggle'), { type: type, user_id: user._id, product_id: product_id }).then((response) => {
-            if(response.data == 'failed'){
+            if(response.data === 'failed'){
                 return notify_error(message)
             }
-            if(response.data == 'error'){
+            if(response.data === 'error'){
                 return notify_error('Something went wrong, try again!')
             }
             // fetchProductLikes(product_id)
@@ -413,11 +411,11 @@ const ProductImage = ({ images }) => {
 
 
 const ImagePreview = ({image, index, imageIndex, showImage}) => {
-    const state = imageIndex == index ? 'active' : ''
+    const state = imageIndex === index ? 'active' : ''
 
     return (
         <div onClick={() => showImage(index)} className={`img-preview ${state}`}>
-            <img  src={product_img(image)} alt={`product-image-${index}`}/>
+            <img  src={product_img(image)} alt={`productimg-${index}`}/>
         </div>
       );
 }

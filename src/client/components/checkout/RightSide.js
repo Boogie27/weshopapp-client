@@ -70,7 +70,7 @@ const BagSummary = ({cart, quantityToggle, CartModalToggle}) => {
         <div className="bagsummary-container">
             <div className="title-header"><h3>BAG SUMMARY</h3></div>
             {
-                cart.length == 0 ? (
+                cart.length === 0 ? (
                     <EmptyCart/>
                 ) : (
                     <Fragment>
@@ -78,7 +78,8 @@ const BagSummary = ({cart, quantityToggle, CartModalToggle}) => {
                             {cart.map((item, index) => (<SummaryItem key={index} index={index} item={item} CartModalToggle={CartModalToggle} quantityToggle={quantityToggle}/>)) }
                         </div>
                         <div className="bagsummary-make-payment">
-                            <button type="button">Make Payment</button>
+                            {/* <button type="button">Make Payment</button> */}
+                            <NavLink to="/payment-success">Make Payment</NavLink>
                         </div>
                     </Fragment>
                 )
