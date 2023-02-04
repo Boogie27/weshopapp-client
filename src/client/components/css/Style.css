@@ -4600,7 +4600,6 @@ tr.cart-items-detail td{
     height: 80vh;
     display: flex;
     align-items: center;
-    border: 1px solid #ccc;
 }
 .leftside-pys-container img{
     width: 100%;
